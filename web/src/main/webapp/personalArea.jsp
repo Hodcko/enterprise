@@ -1,0 +1,69 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
+
+<html>
+<head>
+    <style>
+        table, th, td{
+            border: 1px solid black;
+        }
+    </style>
+    <title>Personal area</title>
+</head>
+
+
+<c:if test="${manager == null}">
+
+<h1 style="text-align: center"><c:out value="Вы вошли в личный кабинет"/></h1>
+
+<c:if test="${student.spec == null}">
+<h2 style="text-align: center"><c:out value="Какой язык программирования будем изучать ?"/></h2>
+
+<form style="text-align: center" action="${pageContext.request.contextPath}/spec" method="post">
+    <h3><label style="text-align: center" for="lang">Java  PHP  Assembler</label></h3>
+    <br><input id="lang" type="text" name="lang"><br/>
+    <br><input style="text-align: center" type="submit" value="Выбрать">
+</form>
+</c:if>
+
+<c:if test="${student.spec == 'java'}">
+    <h2 style="text-align: center">Вы изучаете Java</h2>
+    <h2 style="text-align: center">Отличный выбор</h2>
+</c:if>
+<c:if test="${student.spec == 'php'}">
+    <h2 style="text-align: center">Вы изучаете PHP</h2>
+    <h2 style="text-align: center">Зачем вам это ?</h2>
+</c:if>
+<c:if test="${student.spec == 'assembler'}">
+    <h2 style="text-align: center">Вы изучаете Assembler</h2>
+    <h2 style="text-align: center">Что это ?</h2>
+</c:if>
+</c:if>
+
+
+
+<c:if test="${manager != null}">
+    <h2 style="text-align: center"><c:out value="Список всех студентов"/></h2>
+<%--    <h4><c:out value="Имя    Фамилия     ID"/></h4>--%>
+
+
+    <c:forEach items="${students}" var="students">
+        <table style="width: 100%">
+<%--            <tr>--%>
+<%--                <td><c:out value="Имя"/></td>--%>
+<%--                <td><c:out value="Фамилия"/></td>--%>
+<%--                <td><c:out value="ID"/></td>--%>
+<%--            </tr>--%>
+            <tr>
+                <td>${students.name}</td>
+                <td>${students.secondName}</td>
+                <td>${students.id}</td>
+            </tr>
+        </table>
+    </c:forEach>
+</c:if>
+
+</html>
+
