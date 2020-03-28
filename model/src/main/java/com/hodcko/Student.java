@@ -4,16 +4,10 @@ import java.util.*;
 
 public class Student{
     private int id;
-    private double averageGrade;
     private String name;
     private String secondName;
     private String spec;
-    private List<Integer> gradeList = new LinkedList<>();
-    private static Map<Integer, List<Integer>> journal = new HashMap<>();
 
-
-    private static Map<Integer, Map<Enum<Lessons>, List<Integer>>> journal2 = new HashMap<>();
-    private Map<Enum<Lessons>, List<Integer>> gradeList2 = new HashMap<>();
 
     Random random = new Random();
 
@@ -21,43 +15,8 @@ public class Student{
         this.name = name;
         this.secondName = secondName;
         this.id = random.nextInt(200);
-//        journal.put(this.id, new ArrayList<>());
-//        University.addStudentToList(this);
     }
 
-    public void addGrade(Integer ... grade){
-        gradeList.addAll(Arrays.asList(grade));
-        journal.put(this.id, gradeList);
-    }
-
-    public void addGrade2(Enum<Lessons> enums, Integer ... grade){
-        if(gradeList2.containsKey(enums)){
-            gradeList2.get(enums).addAll(Arrays.asList(grade));
-        }
-        else {
-            gradeList2.put(enums, new ArrayList<>());
-            gradeList2.get(enums).addAll(Arrays.asList(grade));
-        }
-        journal2.put(this.id, gradeList2);
-    }
-
-
-    public int getMaxGrade(){
-        return gradeList.stream().max(Integer::compareTo).get();
-    }
-
-    public double getAverageGrade(){
-        averageGrade = this.gradeList.stream().mapToInt(e -> e).average().getAsDouble();
-        return averageGrade;
-    }
-
-    public List<Integer> getGradeList() {
-        return gradeList;
-    }
-
-    public static Map<Integer, List<Integer>> getJournal() {
-        return journal;
-    }
 
     public int getId() {
         return id;
