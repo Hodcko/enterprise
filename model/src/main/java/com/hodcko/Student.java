@@ -20,9 +20,7 @@ public class Student{
     //1st branch merged pull request
     
 
-    public int getId() {
-        return id;
-    }
+
 
     public String getName() {
         return name;
