@@ -8,7 +8,7 @@ public class Student{
     private String secondName;
     private String spec;
 
-
+    
     Random random = new Random();
 
     public Student(String name, String secondName) {
@@ -16,7 +16,7 @@ public class Student{
         this.secondName = secondName;
         this.id = random.nextInt(200);
     }
-
+    
 
     public int getId() {
         return id;
