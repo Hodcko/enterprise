@@ -19,31 +19,6 @@ public class Student{
 
     //1st branch merged pull request
     //its will be canceled
-    
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getSpec() {
-        return spec;
-    }
-
-    public void setSpec(String spec) {
-        this.spec = spec;
-    }
 
     @Override
     public boolean equals(Object o) {
