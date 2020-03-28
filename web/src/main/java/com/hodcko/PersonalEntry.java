@@ -21,9 +21,8 @@ public class PersonalEntry extends HttpServlet {
         req.getParameter("password").equalsIgnoreCase("admin")){
             Dao dao = StudentManager.getInstance();
             List<Student> students = service.getStudentsList();
-            HttpSession session = req.getSession();
-            session.setAttribute("students", students);
-            session.setAttribute("manager", dao);
+            req.setAttribute("students", students);
+            req.setAttribute("manager", dao);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
             dispatcher.forward(req, resp);
         }else {
@@ -32,7 +31,6 @@ public class PersonalEntry extends HttpServlet {
                         (String.valueOf(o.getId())).equals(req.getParameter("password"))) {
                     HttpSession session = req.getSession();
                     session.setAttribute("islogin", o);
-                   // req.setAttribute("student", o);
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
                     dispatcher.forward(req, resp);
                 }

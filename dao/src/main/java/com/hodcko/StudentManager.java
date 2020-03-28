@@ -33,4 +33,9 @@ public class StudentManager implements Dao{
     public List<Student> getStudentsList() {
         return studentsList;
     }
+
+    @Override
+    public void setSpec(String spec, Student student) {
+        student.setSpec(spec);
+    }
 }

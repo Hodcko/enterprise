@@ -8,7 +8,6 @@ public class Student{
     private String secondName;
     private String spec;
 
-    
     Random random = new Random();
 
     public Student(String name, String secondName) {
@@ -17,8 +16,6 @@ public class Student{
         this.id = random.nextInt(200);
     }
 
-    //1st branch merged pull request
-    
 
     public int getId() {
         return id;
@@ -30,10 +27,6 @@ public class Student{
 
     public String getSecondName() {
         return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
     }
 
     public String getSpec() {
@@ -66,25 +59,4 @@ public class Student{
                 ", spec='" + spec + '\'' +
                 '}';
     }
-
-
-    //    public static void main(String[] args) {
-//        Student student = new Student("Alex");
-//        Student student1 = new Student("Mike");
-//        student.addGrade2(Lessons.BIOLOGY, 10, 10);
-//        student.addGrade2(Lessons.MATH, 5);
-//        student.addGrade2(Lessons.ENGLISH, 10);
-//        student.addGrade2(Lessons.BIOLOGY, 3, 10);
-//
-//        student1.addGrade2(Lessons.BIOLOGY, 5);
-//        student1.addGrade2(Lessons.MATH, 6);
-//        student1.addGrade2(Lessons.MATH, 2);
-//        student1.addGrade2(Lessons.ENGLISH, 3);
-//
-//        System.out.println(student.gradeList2);
-//        System.out.println(student1.gradeList2);
-//
-//        System.out.println(Student.journal2);
-//    }
-
 }

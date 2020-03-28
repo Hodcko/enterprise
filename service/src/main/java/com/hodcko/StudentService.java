@@ -31,4 +31,9 @@ public class StudentService implements Service {
     public List<Student> getStudentsList() {
         return dao.getStudentsList();
     }
+
+    @Override
+    public void setSpec(String spec, Student student) {
+        dao.setSpec(spec, student);
+    }
 }

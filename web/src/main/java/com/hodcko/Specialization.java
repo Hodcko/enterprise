@@ -13,10 +13,12 @@ import java.io.IOException;
 public class Specialization extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Service service = StudentService.getInstance();
         HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("islogin");
         String spec = req.getParameter("lang");
-        student.setSpec(spec);
+        service.setSpec(spec, student);
+      //  student.setSpec(spec);
         req.setAttribute("student", student);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
         dispatcher.forward(req, resp);
