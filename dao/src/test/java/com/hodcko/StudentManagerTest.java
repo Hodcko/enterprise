@@ -27,6 +27,7 @@ public class StudentManagerTest {
         dao.saveStudent(studentVasya);
         dao.saveStudent(studentJack);
         dao.saveStudent(studentHello);
+        dao.setSpec("java", studentVasya);
     }
 
     @AfterEach
@@ -38,6 +39,12 @@ public class StudentManagerTest {
     @DisplayName("getStudentList")
     public void getStudentListTest(){
         assertEquals(studentList, dao.getStudentsList());
+    }
+
+    @Test
+    @DisplayName("getSpec")
+    public void getSpecTest(){
+        assertEquals("java", dao.getSpec(studentVasya));
     }
 
 

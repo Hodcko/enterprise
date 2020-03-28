@@ -27,6 +27,7 @@ public class StudentServiceTest {
         service.saveStudent(studentVasya);
         service.saveStudent(studentJack);
         service.saveStudent(studentHello);
+        service.setSpec("java", studentVasya);
     }
 
     @AfterEach
@@ -38,6 +39,12 @@ public class StudentServiceTest {
     @DisplayName("getStudentList")
     public void getStudentListTest(){
         assertEquals(studentList, service.getStudentsList());
+    }
+
+    @Test
+    @DisplayName("getSpec")
+    public void getSpecTest(){
+        assertEquals("java", service.getSpec(studentVasya));
     }
 
 }

@@ -21,6 +21,7 @@ public class Study extends HttpServlet {
         List<Student> students = service.getStudentsList();
         HttpSession session = req.getSession();
         if(students.contains((Student) session.getAttribute("islogin"))){
+            req.setAttribute("lang", service.getSpec((Student) session.getAttribute("islogin")));
             RequestDispatcher dispatcher = req.getRequestDispatcher("/study.jsp");
             dispatcher.forward(req, resp);
         }else{
@@ -29,3 +30,4 @@ public class Study extends HttpServlet {
             }
     }
 }
+//TODO сделать метод getSpec и выводить план разный план занятий для каждого типа языка

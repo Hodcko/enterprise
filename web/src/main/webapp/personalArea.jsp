@@ -17,7 +17,7 @@
 <c:if test="${manager == null}">
 
 <h1 style="text-align: center"><c:out value="Вы вошли в личный кабинет"/></h1>
-
+<hr>
 <c:if test="${student.spec == null}">
 <h2 style="text-align: center"><c:out value="Какой язык программирования будем изучать ?"/></h2>
 
@@ -27,21 +27,26 @@
     <br><input style="text-align: center" type="submit" value="Выбрать">
 </form>
 </c:if>
-
+    <c:if test="${student.spec != null}">
 <c:if test="${student.spec == 'java'}">
     <h2 style="text-align: center">Вы изучаете Java</h2>
-    <h2 style="text-align: center">Отличный выбор</h2>
+    <h3 style="text-align: center">Отличный выбор</h3>
+    <hr>
 </c:if>
 <c:if test="${student.spec == 'php'}">
     <h2 style="text-align: center">Вы изучаете PHP</h2>
-    <h2 style="text-align: center">Зачем вам это ?</h2>
+    <hr>
 </c:if>
 <c:if test="${student.spec == 'assembler'}">
     <h2 style="text-align: center">Вы изучаете Assembler</h2>
-    <h2 style="text-align: center">Что это ?</h2>
+    <hr>
 </c:if>
+        <form style="text-align: center" action="${pageContext.request.contextPath}/study">
+            <h3><c:out value="Просмотреть план занятий"/></h3>
+            <input type="submit" value="Просмотреть">
+        </form>
+    </c:if>
 </c:if>
-
 
 
 <c:if test="${manager != null}">
