@@ -8,7 +8,7 @@ public class Student{
     private String secondName;
     private String spec;
 
-
+    
     Random random = new Random();
 
     public Student(String name, String secondName) {
@@ -17,6 +17,8 @@ public class Student{
         this.id = random.nextInt(200);
     }
 
+    //1st branch merged pull request
+    
 
     public int getId() {
         return id;
