@@ -5,17 +5,17 @@
 <head>
     <title>Study registration</title>
 </head>
-<body>
-<h2><c:out value="Для доступа к данному ресурсу вас неомходимо войти под своей учетной записью"/></h2>
+<body style="background-color: powderblue">
+<h2 style="text-align: center"><c:out value="Для доступа к данному ресурсу вас неомходимо войти под своей учетной записью"/></h2>
 
 
 </body>
 </html>
-<form action="${pageContext.request.contextPath}/personal.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/personal.jsp">
     <h3><c:out value="Войти"/></h3>
-    <input type="submit">
+    <input type="submit" value="Войти">
 </form>
-<form action="${pageContext.request.contextPath}/registration.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/registration.jsp">
     <h3><c:out value="Зарегистрироваться"/></h3>
-    <input type="submit">
+    <input type="submit" value="Зарегистрироваться">
 </form>

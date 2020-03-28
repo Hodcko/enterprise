@@ -18,7 +18,6 @@ public class Specialization extends HttpServlet {
         Student student = (Student) session.getAttribute("islogin");
         String spec = req.getParameter("lang");
         service.setSpec(spec, student);
-      //  student.setSpec(spec);
         req.setAttribute("student", student);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
         dispatcher.forward(req, resp);

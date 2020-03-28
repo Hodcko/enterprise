@@ -12,7 +12,7 @@
     </style>
     <title>Personal area</title>
 </head>
-
+<body style="background-color: powderblue">
 
 <c:if test="${manager == null}">
 
@@ -22,7 +22,7 @@
 <h2 style="text-align: center"><c:out value="Какой язык программирования будем изучать ?"/></h2>
 
 <form style="text-align: center" action="${pageContext.request.contextPath}/spec" method="post">
-    <h3><label style="text-align: center" for="lang">Java  PHP  Assembler</label></h3>
+    <h3><label style="text-align: center" for="lang">Java  PHP  <del>Assembler</del></label></h3>
     <br><input id="lang" type="text" name="lang"><br/>
     <br><input style="text-align: center" type="submit" value="Выбрать">
 </form>
@@ -46,24 +46,24 @@
 
 <c:if test="${manager != null}">
     <h2 style="text-align: center"><c:out value="Список всех студентов"/></h2>
-<%--    <h4><c:out value="Имя    Фамилия     ID"/></h4>--%>
-
-
+    <table style="width: 100%">
+                <tr>
+                    <td><c:out value="Имя"/></td>
+                    <td><c:out value="Фамилия"/></td>
+                    <td><c:out value="Специальность"/></td>
+                    <td><c:out value="ID"/></td>
+                </tr>
     <c:forEach items="${students}" var="students">
-        <table style="width: 100%">
-<%--            <tr>--%>
-<%--                <td><c:out value="Имя"/></td>--%>
-<%--                <td><c:out value="Фамилия"/></td>--%>
-<%--                <td><c:out value="ID"/></td>--%>
-<%--            </tr>--%>
             <tr>
                 <td>${students.name}</td>
                 <td>${students.secondName}</td>
+                <td>${students.spec}</td>
                 <td>${students.id}</td>
             </tr>
-        </table>
     </c:forEach>
+    </table>
 </c:if>
-
+</body>
 </html>
+
 

@@ -3,32 +3,35 @@
 
 <head>
     <style>
-        table, th, td{
-            border: 1px solid black;
-            border-collapse: collapse;
+        table {
+            width: 300px; /* Ширина таблицы */
+            border: 1px solid green; /* Рамка вокруг таблицы */
+            margin: auto; /* Выравниваем таблицу по центру окна  */
         }
-        th, td{
-            padding: 5px;
-            text-align: left;
+        td {
+            text-align: center; /* Выравниваем текст по центру ячейки */
         }
     </style>
     <title>Personal area</title>
 </head>
-
+<body style="background-color: powderblue">
 <h2 style="text-align: center"><c:out value="Регистрация прошла успешно"/></h2>
+<p style="align-content: center">
 <c:if test="${student != null}">
 
-    <h3> <c:out value="Логин"/></h3>
-    <h3> <c:out value="${student.name}"/></h3>
-
-    <h3> <c:out value="Пароль"/></h3>
-    <h3> <c:out value="${student.id}"/></h3>
-
+    <fieldset>
+        <legend><c:out value="Ваши данные для входа в личный кабинет"/></legend>
+        <h3><c:out value="Ваш логин"/></h3>
+        <h2><c:out value="${student.name}"/></h2>
+        <br><h3><c:out value="Ваш пароль"/></h3>
+        <h2><c:out value="${student.id}"/></h2>
+    </fieldset>
 
 </c:if>
-<form action="${pageContext.request.contextPath}/personal.jsp">
+
+<form  action="${pageContext.request.contextPath}/personal.jsp">
     <h3><c:out value="Войти в личный кабинет"/></h3>
         <input type="submit" value="Войти">
     </form>
-
+</body>
 

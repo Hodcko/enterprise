@@ -7,7 +7,7 @@
     <title>First Jsp</title>
 
 </head>
-<body>
+<body style="background-color: powderblue">
 
     <h1 style="text-align: center"><c:out value="Главная страница"/></h1>
 
@@ -22,7 +22,7 @@
 <hr>
 <form action="${pageContext.request.contextPath}/registration.jsp">
         <h3><c:out value="Зарегистрироваться"/></h3>
-        <input type="submit" value="Зарегистрироваться">
+        <input  type="submit" value="Зарегистрироваться" >
     </form>
 <hr>
 <form action="${pageContext.request.contextPath}/study">

@@ -7,7 +7,7 @@
     <title>First Jsp</title>
 
 </head>
-<body>
+<body style="background-color: powderblue">
 
 
 <h1 style="text-align: center"><c:out value="Не удалось войти в личный кабинет"/></h1>
@@ -17,13 +17,13 @@
 </body>
 </html>
 
-<form action="${pageContext.request.contextPath}/personal.jsp">
-    <br><h3><c:out value="Войти"/></h3>
+<form style="text-align: center" action="${pageContext.request.contextPath}/personal.jsp">
+    <h3><c:out value="Войти"/></h3>
     <input type="submit">
 </form>
 
-<form action="${pageContext.request.contextPath}/registration.jsp">
-    <br><h3><c:out value="Зарегистрироваться"/></h3>
+<form style="text-align: center" action="${pageContext.request.contextPath}/registration.jsp">
+    <h3><c:out value="Зарегистрироваться"/></h3>
     <input type="submit">
 </form>
 

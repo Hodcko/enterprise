@@ -11,7 +11,7 @@
     </style>
     <title>Payslip</title>
 </head>
-<body>
+<body style="background-color: powderblue">
 
 <h1 style="text-align: center"><c:out value="Рассчетная ведомость"/></h1>
 
@@ -42,6 +42,6 @@
 </html>
 
 <form action="${pageContext.request.contextPath}/start">
-    <h3><c:out value="Итого на руки"/></h3>
+    <h3><c:out value="Вернуться на главную страницу"/></h3>
     <input type="submit" value="Перейти">
 </form>
