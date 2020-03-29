@@ -30,4 +30,3 @@ public class Study extends HttpServlet {
             }
     }
 }
-//TODO сделать метод getSpec и выводить план разный план занятий для каждого типа языка

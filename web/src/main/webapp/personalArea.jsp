@@ -21,11 +21,19 @@
 <c:if test="${student.spec == null}">
 <h2 style="text-align: center"><c:out value="Какой язык программирования будем изучать ?"/></h2>
 
-<form style="text-align: center" action="${pageContext.request.contextPath}/spec" method="post">
-    <h3><label style="text-align: center" for="lang">Java  PHP  <del>Assembler</del></label></h3>
-    <br><input id="lang" type="text" name="lang"><br/>
-    <br><input style="text-align: center" type="submit" value="Выбрать">
-</form>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/spec" method="post">
+        <label>
+            <input type="radio" name="lang" value="java">
+        </label> Java
+        <label>
+            <input type="radio" name="lang" value="php">
+        </label> PHP
+        <label>
+            <input type="radio" name="lang" value="assembler">
+        </label> Assembler
+        <input  type="submit" value="Выбрать">
+    </form>
+
 </c:if>
     <c:if test="${student.spec != null}">
 <c:if test="${student.spec == 'java'}">
@@ -49,7 +57,7 @@
 </c:if>
 
 
-<c:if test="${manager != null}">
+<c:if test="${manager == 'admin'}">
     <h2 style="text-align: center"><c:out value="Список всех студентов"/></h2>
     <table style="width: 100%">
                 <tr>

@@ -13,7 +13,7 @@ public class Student{
     public Student(String name, String secondName) {
         this.name = name;
         this.secondName = secondName;
-        this.id = random.nextInt(200);
+        this.id = random.nextInt(1000) + 100;
     }
 
 

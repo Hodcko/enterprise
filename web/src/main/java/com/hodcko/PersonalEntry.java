@@ -19,10 +19,9 @@ public class PersonalEntry extends HttpServlet {
 
         if(req.getParameter("login").equalsIgnoreCase("admin")&&
         req.getParameter("password").equalsIgnoreCase("admin")){
-            Dao dao = StudentManager.getInstance();
             List<Student> students = service.getStudentsList();
             req.setAttribute("students", students);
-            req.setAttribute("manager", dao);
+            req.setAttribute("manager", "admin");
             RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
             dispatcher.forward(req, resp);
         }else {
