@@ -27,7 +27,7 @@ public class StudyServlet extends HttpServlet {
         IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
         iServiceGradebook.addStudentToGradebook(student.getId());
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/study.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/StudyPage.jsp");
         dispatcher.forward(req, resp);
 
     }

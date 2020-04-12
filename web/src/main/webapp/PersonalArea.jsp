@@ -131,7 +131,7 @@
     </form>
 </c:if>
 <hr>
-<form action="${pageContext.request.contextPath}/start.jsp">
+<form action="${pageContext.request.contextPath}/StartPage.jsp">
     <h3><c:out value="Перейти на главную страницу"/></h3>
     <input type="submit" value="Перейти">
 </form>

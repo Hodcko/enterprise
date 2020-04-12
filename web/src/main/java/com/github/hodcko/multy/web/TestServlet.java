@@ -30,9 +30,7 @@ public class TestServlet extends HttpServlet {
         int resultOfTest = iServiceGradebook.checkTest(student.getId(), firstQ, secondQ, thirdQ, fourthQ, fifthQ);
 
         req.setAttribute("result", resultOfTest);
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/result.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/ResultOfTest.jsp");
         dispatcher.forward(req, resp);
-
-
     }
 }

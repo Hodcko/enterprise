@@ -16,7 +16,7 @@
 </body>
 </html>
 
-<form action="${pageContext.request.contextPath}/PersonalStart.jsp">
+<form action="${pageContext.request.contextPath}/LoginFromStartPage.jsp">
     <h3><c:out value="Войти"/></h3>
         <input type="submit" value="Войти">
     </form>
@@ -31,7 +31,7 @@
     <input  type="submit" value="Зарегистрироваться" >
 </form>
 <hr>
-<form action="${pageContext.request.contextPath}/study">
+<form action="${pageContext.request.contextPath}/StudyPage.jsp">
     <h3><c:out value="Просмотреть план занятий"/></h3>
     <input type="submit" value="Просмотреть">
 </form>

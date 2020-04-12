@@ -1,18 +1,12 @@
 package com.github.hodcko.multy.service.impl;
 
-
-
-import com.github.hodcko.multy.dao.IDaoAuth;
 import com.github.hodcko.multy.service.IServiceStudent;
 import com.github.hodcko.multy.dao.impl.DaoStudentManager;
-import com.github.hodcko.multy.dao.impl.DaoUserAuth;
 import com.github.hodcko.multy.model.Student;
 
-
-
 public class ServiceStudentManager implements IServiceStudent {
+
     private com.github.hodcko.multy.dao.IDaoStudent IDaoStudent = DaoStudentManager.getInstance();
-    private IDaoAuth auth = DaoUserAuth.getInstance();
 
     private static volatile IServiceStudent instance;
 

@@ -2,10 +2,7 @@ package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.service.ISecurityService;
-import com.github.hodcko.multy.service.IServiceAuthUser;
-import com.github.hodcko.multy.service.impl.ServiceAuthUser;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserLogin;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,14 +25,11 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPasswords = req.getParameter("newPasswords");
         String rightPassword = iSecurityService.findPassword(newPassword, newPasswords);
         if(iSecurityService.changePassword(authUser.getLogin(), authUser.getPassword(), rightPassword )){
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalStart.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/LoginFromStartPage.jsp");
             dispatcher.forward(req, resp);
         }else {
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/invalid.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/InvalidData.jsp");
             dispatcher.forward(req, resp);
         }
     }
-
-
-
 }

@@ -2,11 +2,9 @@ package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.IDaoTeacher;
 import com.github.hodcko.multy.dao.MysqlDataBase;
-import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.*;
 
 public class DaoTeacherManager implements IDaoTeacher {
@@ -90,7 +88,4 @@ public class DaoTeacherManager implements IDaoTeacher {
         }
         return true;
     }
-
-
-
 }

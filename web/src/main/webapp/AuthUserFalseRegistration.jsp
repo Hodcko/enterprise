@@ -18,7 +18,7 @@
 </form>
 
 
-<form style="text-align: center" action="${pageContext.request.contextPath}/PersonalStart.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/LoginFromStartPage.jsp">
     <h3><c:out value="Войти в личный кабинет"/></h3>
     <input type="submit" value="Войти">
 </form>

@@ -31,10 +31,6 @@ public class ValidationServlet extends HttpServlet {
         String secondName = req.getParameter("secondName");
         String email = req.getParameter("email");
         String userType = req.getParameter("userType");
-        resp.getWriter().write(name);
-        resp.getWriter().write(secondName);
-
-
 
         if (!iServiceIsExist.isExist(email, userType)) {
             if (userType.equalsIgnoreCase("student")) {
@@ -53,6 +49,7 @@ public class ValidationServlet extends HttpServlet {
             authUser = iServiceAuthUser.getAuthUser(name, iServiceAuthUser.passwordGenerate(email, userType));
             session.setAttribute("login", authUser.getLogin());
             session.setAttribute("password", authUser.getPassword());
+
             RequestDispatcher dispatcher = req.getRequestDispatcher("/AuthUserFalseRegistration.jsp");
             dispatcher.forward(req, resp);
         }

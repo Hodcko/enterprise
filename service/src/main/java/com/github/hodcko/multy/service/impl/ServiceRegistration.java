@@ -8,6 +8,7 @@ import com.github.hodcko.multy.service.IServiceTeacher;
 
 
 public class ServiceRegistration implements IServiceRegistration {
+
     private static volatile IServiceRegistration instance;
 
     IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();

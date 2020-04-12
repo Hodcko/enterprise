@@ -6,6 +6,7 @@ import com.github.hodcko.multy.dao.impl.DaoTeacherManager;
 import com.github.hodcko.multy.model.Teacher;
 
 public class ServiceTeacherManager implements IServiceTeacher {
+
     private IDaoTeacher iDaoTeacher = DaoTeacherManager.getInstance();
     private static volatile IServiceTeacher instance;
 

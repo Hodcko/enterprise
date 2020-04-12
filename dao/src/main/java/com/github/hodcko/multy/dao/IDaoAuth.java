@@ -3,6 +3,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.model.AuthUser;
 
 public interface IDaoAuth {
+
     String getByLogin(String login);
 
     AuthUser saveAuthUser(int user_id, String login, String password, String role);

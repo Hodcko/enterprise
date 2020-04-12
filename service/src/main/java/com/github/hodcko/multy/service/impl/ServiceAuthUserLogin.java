@@ -5,8 +5,8 @@ import com.github.hodcko.multy.service.ISecurityService;
 import com.github.hodcko.multy.dao.impl.DaoUserAuth;
 
 public class ServiceAuthUserLogin implements ISecurityService {
-    private IDaoAuth iDaoAuth = DaoUserAuth.getInstance();
 
+    private IDaoAuth iDaoAuth = DaoUserAuth.getInstance();
     private static volatile ISecurityService instance;
 
     public static ISecurityService getInstance() {

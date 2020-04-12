@@ -6,6 +6,7 @@ import com.github.hodcko.multy.service.IServiceIsExist;
 import com.github.hodcko.multy.dao.impl.DaoIsExist;
 
 public class ServiceIsExist implements IServiceIsExist{
+
     private static volatile IServiceIsExist instance;
     private IDaoIsExist iDaoIsExist = DaoIsExist.getInstance();
 

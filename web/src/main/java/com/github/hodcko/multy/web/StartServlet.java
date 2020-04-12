@@ -13,7 +13,7 @@ public class StartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/start.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/StartPage.jsp");
         dispatcher.forward(req, resp);
     }
 }

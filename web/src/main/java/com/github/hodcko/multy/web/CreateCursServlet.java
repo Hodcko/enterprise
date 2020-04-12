@@ -2,8 +2,6 @@ package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.service.IServiceCurs;
 import com.github.hodcko.multy.service.impl.ServiceCurs;
-import com.github.hodcko.multy.model.Curs;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

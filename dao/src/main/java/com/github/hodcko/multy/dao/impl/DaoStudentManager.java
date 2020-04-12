@@ -3,15 +3,14 @@ package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.IDaoStudent;
 import com.github.hodcko.multy.dao.MysqlDataBase;
-import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.*;
 
 
 public class DaoStudentManager implements IDaoStudent {
+
     private static volatile IDaoStudent instance;
     private static final Logger log = LoggerFactory.getLogger(DaoStudentManager.class);
     MysqlDataBase dataBase = new MysqlDataBase();
@@ -99,8 +98,4 @@ public class DaoStudentManager implements IDaoStudent {
         }
         return true;
     }
-
-
-
-
 }

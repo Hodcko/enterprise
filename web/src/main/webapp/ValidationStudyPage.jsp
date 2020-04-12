@@ -11,11 +11,11 @@
 
 </body>
 </html>
-<form style="text-align: center" action="${pageContext.request.contextPath}/personal.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/LoginFromStartPage.jsp">
     <h3><c:out value="Войти"/></h3>
     <input type="submit" value="Войти">
 </form>
-<form style="text-align: center" action="${pageContext.request.contextPath}/registration.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/StartPage.jsp">
     <h3><c:out value="Зарегистрироваться"/></h3>
     <input type="submit" value="Зарегистрироваться">
 </form>

@@ -1,14 +1,11 @@
 package com.github.hodcko.multy.web;
 
-import com.github.hodcko.multy.service.IServiceAuthUser;
+
 import com.github.hodcko.multy.service.IServiceCurs;
 import com.github.hodcko.multy.service.IServiceStudent;
-import com.github.hodcko.multy.service.impl.ServiceAuthUser;
 import com.github.hodcko.multy.service.impl.ServiceCurs;
 import com.github.hodcko.multy.service.impl.ServiceStudentManager;
 import com.github.hodcko.multy.model.Student;
-
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,10 +32,12 @@ public class StudentsRegistrationServlet extends HttpServlet {
 
         Student student =  iServiceStudent.saveStudent(name, secondName, email, age, iServiceCurs.getCurs_id(langType));
         HttpSession session = rq.getSession();
+
         session.setAttribute("student", student);
         session.setAttribute("email", student.getEmail());
         session.setAttribute("userType", userType);
-        RequestDispatcher dispatcher = rq.getRequestDispatcher("/succes.jsp");
+
+        RequestDispatcher dispatcher = rq.getRequestDispatcher("/SuccessRegistrationNewUser.jsp");
         dispatcher.forward(rq, rs);
 
     }

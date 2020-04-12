@@ -41,7 +41,7 @@
  <a href="https://flatassembler.net/">Писать код</a>
  <h3><c:out value="4. While(true) goto п.1"/></h3>
 </c:if>
-<form style="text-align: center" action="${pageContext.request.contextPath}/Test.jsp" method="post">
+<form style="text-align: center" action="${pageContext.request.contextPath}/TestPage.jsp" method="post">
  <fieldset>
   <legend><c:out value="Пройти тест"/></legend>
   <br><input type="submit" name="test" value="Test">

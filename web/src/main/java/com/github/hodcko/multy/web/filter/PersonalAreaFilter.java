@@ -29,7 +29,7 @@ public class PersonalAreaFilter implements Filter {
                     (password.equalsIgnoreCase(student.getSecondName()+student.getId()))){
                 filterChain.doFilter(servletRequest, servletResponse);
             }else{
-                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/invalid.jsp");
+                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/InvalidData.jsp");
                 dispatcher.forward(servletRequest, servletResponse);
             }
         }else if(userType.equalsIgnoreCase("teacher")) {
@@ -38,17 +38,14 @@ public class PersonalAreaFilter implements Filter {
                     (password.equalsIgnoreCase(teacher.getSecondName() + teacher.getId()))) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {
-                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/invalid.jsp");
+                RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/InvalidData.jsp");
                 dispatcher.forward(servletRequest, servletResponse);
             }
         }
         else{
-            RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/invalid.jsp");
+            RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/InvalidData.jsp");
             dispatcher.forward(servletRequest, servletResponse);
         }
-
-
-
     }
 
     @Override

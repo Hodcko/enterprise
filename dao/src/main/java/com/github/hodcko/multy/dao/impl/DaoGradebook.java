@@ -2,16 +2,15 @@ package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.IDaoGradebook;
 import com.github.hodcko.multy.dao.MysqlDataBase;
-import com.github.hodcko.multy.model.DTOGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DaoGradebook implements IDaoGradebook {
+
     private static volatile IDaoGradebook instance;
     MysqlDataBase dataBase = new MysqlDataBase();
     private static final Logger log = LoggerFactory.getLogger(DaoGradebook.class);
@@ -93,7 +92,4 @@ public class DaoGradebook implements IDaoGradebook {
         }
         return true;
     }
-
-
-
 }

@@ -3,7 +3,6 @@ package com.github.hodcko.multy.web;
 import com.github.hodcko.multy.model.*;
 import com.github.hodcko.multy.service.*;
 import com.github.hodcko.multy.service.impl.*;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +44,7 @@ public class EntryFromStartServlet extends HttpServlet {
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
                 session.setAttribute("student", student);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
                 dispatcher.forward(req, resp);
             } else if (role.equalsIgnoreCase("teacher")) {
                 teacher = iServiceTeacher.getTeacher(authUser.getUserId());
@@ -55,18 +54,13 @@ public class EntryFromStartServlet extends HttpServlet {
                 session.setAttribute("teacher", teacher);
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/personalArea.jsp");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
                 dispatcher.forward(req, resp);
             }
         }else{
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/invalid.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/InvalidData.jsp");
             dispatcher.forward(req, resp);
         }
-
-
-
-
-
     }
 }
 

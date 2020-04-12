@@ -4,6 +4,7 @@ import com.github.hodcko.multy.service.IServiceValidation;
 
 
 public class ServiceValidation implements IServiceValidation {
+
     private static volatile IServiceValidation instance;
 
     public static IServiceValidation getInstance(){

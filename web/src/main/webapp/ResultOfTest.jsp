@@ -15,7 +15,7 @@
     <h2 style="text-align: center"><c:out value="Вы получаете справку государственного образца"/></h2>
 </c:if>
 <hr>
-<form action="${pageContext.request.contextPath}/start.jsp">
+<form action="${pageContext.request.contextPath}/StartPage.jsp">
     <h3><c:out value="Перейти на главную страницу"/></h3>
     <input type="submit" value="Перейти">
 </form>

@@ -6,8 +6,8 @@ import com.github.hodcko.multy.dao.IDaoAuth;
 import com.github.hodcko.multy.service.IServiceAuthUser;
 
 public class ServiceAuthUser implements IServiceAuthUser {
-    private IDaoAuth iDaoAuth = DaoUserAuth.getInstance();
 
+    private IDaoAuth iDaoAuth = DaoUserAuth.getInstance();
     private static volatile IServiceAuthUser instance;
 
     public static IServiceAuthUser getInstance(){

@@ -21,6 +21,7 @@ public class ServiceGradebook implements IServiceGradebook {
         }
         return localInstance;
     }
+
     @Override
     public int addStudentToGradebook(int studetn_id){
         return iDaoGradebook.addStudentToGradebook(studetn_id);
@@ -55,6 +56,4 @@ public class ServiceGradebook implements IServiceGradebook {
         }
         return getGrade(student_id);
     }
-
-
 }

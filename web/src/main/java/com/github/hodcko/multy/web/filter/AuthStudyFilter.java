@@ -1,9 +1,6 @@
 package com.github.hodcko.multy.web.filter;
 
-
-
 import com.github.hodcko.multy.model.AuthUser;
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +23,7 @@ public class AuthStudyFilter implements Filter {
                 ( ((AuthUser)session.getAttribute("authUser")).getRole().equalsIgnoreCase("student"))){
             filterChain.doFilter(servletRequest, servletResponse);
         }else {
-            RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/invalid.jsp");
+            RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/InvalidData.jsp");
             dispatcher.forward(servletRequest, servletResponse);
         }
     }

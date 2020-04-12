@@ -4,7 +4,6 @@ import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.service.IServiceAuthUser;
 import com.github.hodcko.multy.service.impl.ServiceAuthUser;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

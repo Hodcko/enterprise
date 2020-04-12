@@ -11,5 +11,4 @@ public interface IDaoGradebook {
     int getGrade(int studetn_id);
 
     boolean deleteStudentFromGradebook(int student_id);
-
 }

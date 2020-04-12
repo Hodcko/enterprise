@@ -10,8 +10,4 @@ public interface IDaoStudent {
     Student getStudent(int id);
 
     boolean deleteStudent(String email);
-
-
-
-
 }
