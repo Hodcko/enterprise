@@ -1,9 +1,10 @@
- <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <body style="background-color: powderblue">
 
-<c:if test="${lang == 'java'}">
+<c:if test="${student.curs_id == '1'}">
  <h2><c:out value="План занятий"/></h2>
  <h3><c:out value="1. Почитай что-нибудь"/></h3>
  <a href="https://www.google.com/search?q=%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%D0%BF%D0%BE+Java&rlz=1C5CHFA_enBY852BY852&oq=
@@ -15,7 +16,7 @@
  <h3><c:out value="4. While(true) goto п.1"/></h3>
 </c:if>
 
- <c:if test="${lang == 'php'}">
+ <c:if test="${student.curs_id == '2'}">
   <h2><c:out value="План занятий"/></h2>
   <h3><c:out value="1. Почитай что-нибудь"/></h3>
   <a href="https://www.google.com/search?rlz=1C5CHFA_enBY852BY852&ei=kbKAXseFLO-hrgSpvYF4&q=%D0%BA%D0%BD%D0%B8%D0%B3%D0%B
@@ -29,7 +30,7 @@
   <h3><c:out value="4. While(true) goto п.1"/></h3>
  </c:if>
 
-<c:if test="${lang == 'assembler'}">
+<c:if test="${student.curs_id == '3'}">
     <h2><c:out value="План занятий"/></h2>
  <h3><c:out value="1. Почитай что-нибудь"/></h3>
  <a href="https://www.google.com/search?q=%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8+%D0%BF%D0%BE+assembler&rlz=1C5CHFA_enBY852BY852&
@@ -40,6 +41,13 @@
  <a href="https://flatassembler.net/">Писать код</a>
  <h3><c:out value="4. While(true) goto п.1"/></h3>
 </c:if>
+<form style="text-align: center" action="${pageContext.request.contextPath}/Test.jsp" method="post">
+ <fieldset>
+  <legend><c:out value="Пройти тест"/></legend>
+  <br><input type="submit" name="test" value="Test">
+ </fieldset>
+</form>
+
   </body>
 </html>
 

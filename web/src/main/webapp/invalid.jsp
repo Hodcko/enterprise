@@ -17,12 +17,12 @@
 </body>
 </html>
 
-<form style="text-align: center" action="${pageContext.request.contextPath}/personal.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/PersonalStart.jsp">
     <h3><c:out value="Войти"/></h3>
     <input type="submit">
 </form>
 
-<form style="text-align: center" action="${pageContext.request.contextPath}/registration.jsp">
+<form style="text-align: center" action="${pageContext.request.contextPath}/start.jsp">
     <h3><c:out value="Зарегистрироваться"/></h3>
     <input type="submit">
 </form>

@@ -12,7 +12,7 @@
 
     <servlet>
         <servlet-name>InitServlet</servlet-name>
-        <servlet-class>com.hodcko.depservlet.InitServlet</servlet-class>
+        <servlet-class>com.github.hodcko.multy.web.depservlet.InitServlet</servlet-class>
         <init-param>
             <param-name>name</param-name>
             <param-value>Hodcko</param-value>

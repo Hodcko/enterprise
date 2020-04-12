@@ -13,70 +13,131 @@
     <title>Personal area</title>
 </head>
 <body style="background-color: powderblue">
-
-<c:if test="${manager == null}">
-
 <h1 style="text-align: center"><c:out value="Вы вошли в личный кабинет"/></h1>
-<hr>
-<c:if test="${student.spec == null}">
-<h2 style="text-align: center"><c:out value="Какой язык программирования будем изучать ?"/></h2>
+<c:if test="${teacher != null}">
+    <c:if test="${curs == 'null'}">
+    <h3 style="text-align: center"><c:out value="Объявить набор на курс"/></h3>
 
-    <form style="text-align: center" action="${pageContext.request.contextPath}/spec" method="post">
-        <label>
-            <input type="radio" name="lang" value="java">
-        </label> Java
-        <label>
-            <input type="radio" name="lang" value="php">
-        </label> PHP
-        <label>
-            <input type="radio" name="lang" value="assembler">
-        </label> Assembler
-        <input  type="submit" value="Выбрать">
+    <form style="text-align: center" action="${pageContext.request.contextPath}/curs" method="post">
+        <fieldset>
+            <legend><c:out value="Регистрационные данные"/></legend>
+            <br><label for="name">Название курса</label>
+            <br><input id="name" type="text" name="name"><br/>
+            <br><label for="startDate">Дата начала курса</label>
+            <br><input id="startDate" type="date" name="startDate"><br/>
+            <br><label for="endDate">Дата окончания курса</label>
+            <br><input id="endDate" type="date" name="endDate"><br/>
+            <br><input type="submit" value="Объявить">
+        </fieldset>
     </form>
+    </c:if>
+    <c:if test="${curs != 'null'}">
+            <h2 style="text-align: center"><c:out value="Мой курс"/></h2>
+        <table style="width: 100%">
+            <tr>
+                <td><c:out value="Название курса"/></td>
+                <td><c:out value="${curs.name}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Дата начала курса"/></td>
+                <td><c:out value="${curs.start}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Дата окончания курса"/></td>
+                <td><c:out value="${curs.end}"/></td>
+            </tr>
+        </table>
+            <h2 style="text-align: center"><c:out value="Список моих студентов"/></h2>
+            <table style="width: 100%">
+                        <tr>
+                            <td><c:out value="Имя"/></td>
+                            <td><c:out value="Фамилия"/></td>
+                            <td><c:out value="Адрес электронной почты"/></td>
+                            <td><c:out value="Итоговый балл"/></td>
+                        </tr>
+            <c:forEach items="${students}" var="students">
+                    <tr>
+                        <td>${students.name}</td>
+                        <td>${students.secondName}</td>
+                        <td>${students.email}</td>
+                        <td>${students.grade}</td>
+                    </tr>
+            </c:forEach>
+            </table>
 
+    </c:if>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">
+        <fieldset>
+            <br><label  for="newPasswords">Изменить пароль</label>
+            <br><input  id="newPasswords" type="text" name="newPasswords"><br/>
+            <br><input  type="submit" value="Изменить">
+        </fieldset>
+    </form>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">
+        <fieldset>
+            <legend><c:out value="Выйти из личного кабинета"/></legend>
+            <br><input type="submit" name="logout" value="logout">
+        </fieldset>
+    </form>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/escape" method="get">
+        <fieldset>
+            <legend><c:out value="Закончить преподавание"/></legend>
+            <br><input type="submit" name="escape" value="escape">
+        </fieldset>
+    </form>
 </c:if>
-    <c:if test="${student.spec != null}">
-<c:if test="${student.spec == 'java'}">
-    <h2 style="text-align: center">Вы изучаете Java</h2>
-    <h3 style="text-align: center">Отличный выбор</h3>
-    <hr>
-</c:if>
-<c:if test="${student.spec == 'php'}">
-    <h2 style="text-align: center">Вы изучаете PHP</h2>
-    <hr>
-</c:if>
-<c:if test="${student.spec == 'assembler'}">
-    <h2 style="text-align: center">Вы изучаете Assembler</h2>
-    <hr>
-</c:if>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/study">
-            <h3><c:out value="Просмотреть план занятий"/></h3>
-            <input type="submit" value="Просмотреть">
+<c:if test="${student != null}">
+    <h3 style="text-align: center"><c:out value="Доступные курсы"/></h3>
+    <c:if test="${curs != null}">
+    <table style="width: 100%">
+    <tr>
+    <td><c:out value="Название курса"/></td>
+    <td><c:out value="${curs.name}"/></td>
+    </tr>
+    <tr>
+    <td><c:out value="Дата начала курса"/></td>
+    <td><c:out value="${curs.start}"/></td>
+    </tr>
+    <tr>
+    <td><c:out value="Дата окончания курса"/></td>
+    <td><c:out value="${curs.end}"/></td>
+    </tr>
+    </table>
+        <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
+            <fieldset>
+                <legend><c:out value="Записаться на курс"/></legend>
+                <br><input type="submit" name="reg" value="Зарегистрироваться">
+            </fieldset>
         </form>
     </c:if>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">
+        <fieldset>
+            <br><label  for="newPassword">Изменить пароль</label>
+            <br><input  id="newPassword" type="text" name="newPassword"><br/>
+            <br><input  type="submit" value="Изменить">
+        </fieldset>
+    </form>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">
+        <fieldset>
+            <legend><c:out value="Выйти из личного кабинета"/></legend>
+            <br><input type="submit" name="logout" value="logout">
+        </fieldset>
+    </form>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/escape" method="get">
+        <fieldset>
+            <legend><c:out value="Закончить обучение"/></legend>
+            <br><input type="submit" name="escape" value="escape">
+        </fieldset>
+    </form>
 </c:if>
+<hr>
+<form action="${pageContext.request.contextPath}/start.jsp">
+    <h3><c:out value="Перейти на главную страницу"/></h3>
+    <input type="submit" value="Перейти">
+</form>
 
+    </body>
+    </html>
 
-<c:if test="${manager == 'admin'}">
-    <h2 style="text-align: center"><c:out value="Список всех студентов"/></h2>
-    <table style="width: 100%">
-                <tr>
-                    <td><c:out value="Имя"/></td>
-                    <td><c:out value="Фамилия"/></td>
-                    <td><c:out value="Специальность"/></td>
-                    <td><c:out value="ID"/></td>
-                </tr>
-    <c:forEach items="${students}" var="students">
-            <tr>
-                <td>${students.name}</td>
-                <td>${students.secondName}</td>
-                <td>${students.spec}</td>
-                <td>${students.id}</td>
-            </tr>
-    </c:forEach>
-    </table>
-</c:if>
-</body>
-</html>
 
 

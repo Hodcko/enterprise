@@ -236,3 +236,4 @@ buildNumber.properties
 .flattened-pom.xml
 
 # End of https://www.gitignore.io/api/macos,maven,intellij,intellij+all,intellij+iml
+/mqsql.txt
