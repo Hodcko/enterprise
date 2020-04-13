@@ -87,6 +87,7 @@ public class DaoGradebook implements IDaoGradebook {
                      ("delete from gradebook where student_id = ? ")) {
             statement.setInt(1, student_id);
             statement.executeUpdate();
+            log.info("Student with id {} deleted from GradeBook", student_id);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

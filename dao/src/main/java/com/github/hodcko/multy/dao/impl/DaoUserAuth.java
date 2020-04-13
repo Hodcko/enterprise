@@ -55,10 +55,10 @@ public class DaoUserAuth implements IDaoAuth {
                 statement.setString(3, password);
                 statement.setString(4, role);
                 statement.executeUpdate();
-                log.info("create authUser: {}{}{}{}", login, password, role, user_id);
+                log.info("create authUser with login  {} password {} role {} id {}", login, password, role, user_id);
             } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
-                log.error("fail to create authUser: {}{}{}{}", login, password, role, user_id, e);
+                log.error("fail to create authUser with login  {} password {} role {} id {}", login, password, role, user_id, e);
 
             }
             return new AuthUser(login, password, role, user_id);
@@ -77,7 +77,7 @@ public class DaoUserAuth implements IDaoAuth {
                             String secondName = rs.getString("second_name");
                             int id = rs.getInt("id");
                             password = (secondName + id);
-                            log.info("student password generated: {}{}{}", email, password, userType);
+                            log.info("student with email {} generate password{}", email, password);
                         }
                     }
                     return password;
@@ -96,7 +96,7 @@ public class DaoUserAuth implements IDaoAuth {
                             password = (secondName + id);
                         }
                     }
-                    log.info("teacher password generated: {}{}{}", email, password, userType);
+                    log.info("teacher with email {} generate password{}", email, password);
                     return password;
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
@@ -113,10 +113,10 @@ public class DaoUserAuth implements IDaoAuth {
             statement.setInt(1, id);
             statement.setString(2, role);
             statement.executeUpdate();
-            log.info("deleted authUser: {}{}", id, role);
+            log.info("deleted authUser with id {} role {}", id, role);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            log.error("cant delete authUser: {}{}", id, role,e );
+            log.error("cant delete authUser with id {} role {}", id, role,e );
 
         }
         return true;
@@ -158,7 +158,7 @@ public class DaoUserAuth implements IDaoAuth {
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            log.error("fail to get authUser: {}{}", login, password, e);
+            log.error("fail to get authUser with login {} password{}", login, password, e);
         }
         return null;
     }

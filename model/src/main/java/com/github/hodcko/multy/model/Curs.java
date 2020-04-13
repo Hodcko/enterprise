@@ -16,6 +16,7 @@ public class Curs {
         this.end = end;
     }
 
+
     public int getId() {
         return id;
     }

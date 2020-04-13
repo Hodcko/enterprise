@@ -15,7 +15,7 @@
 <body style="background-color: powderblue">
 <h1 style="text-align: center"><c:out value="Вы вошли в личный кабинет"/></h1>
 <c:if test="${teacher != null}">
-    <c:if test="${curs == 'null'}">
+    <c:if test="${curs.end == null}">
     <h3 style="text-align: center"><c:out value="Объявить набор на курс"/></h3>
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/curs" method="post">
@@ -31,7 +31,7 @@
         </fieldset>
     </form>
     </c:if>
-    <c:if test="${curs != 'null'}">
+    <c:if test="${curs.end != null}">
             <h2 style="text-align: center"><c:out value="Мой курс"/></h2>
         <table style="width: 100%">
             <tr>
@@ -88,7 +88,7 @@
 </c:if>
 <c:if test="${student != null}">
     <h3 style="text-align: center"><c:out value="Доступные курсы"/></h3>
-    <c:if test="${curs != null}">
+    <c:if test="${curs.end != null}">
     <table style="width: 100%">
     <tr>
     <td><c:out value="Название курса"/></td>

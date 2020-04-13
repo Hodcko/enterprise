@@ -47,11 +47,11 @@ public class DaoStudentManager implements IDaoStudent {
             ResultSet rs = statement.getGeneratedKeys();
             rs.next();
             id = rs.getInt(1);
-            log.info("create student: {}{}{}", name, second_name, email);
+            log.info("create student: name {} second name  {} email {}", name, second_name, email);
             return new Student(id, name, second_name, email, age, curs_id);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            log.error("fail to create student:{} {} {}", name, second_name, email, e);
+            log.error("fail to create student name{}  second name {}  email {}", name, second_name, email, e);
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class DaoStudentManager implements IDaoStudent {
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            log.error("fail to get student:{}{}{}", name, secondName, email, e);
+            log.error("fail to get student with name {} second name {} email {}", name, secondName, email, e);
         }
         return null;
     }
@@ -93,6 +93,7 @@ public class DaoStudentManager implements IDaoStudent {
                      ("delete from student where email = ? ")) {
             statement.setString(1, email);
             statement.executeUpdate();
+            log.info("deleted student with email {}", email);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

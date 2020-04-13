@@ -22,8 +22,6 @@
             <br><h3><c:out value="Ваш пароль"/></h3>
             <h2><c:out value="${teacher.secondName}${teacher.id}"/></h2>
         </c:if>
-
-    <%--        <button type="button" onclick="alert(${password})"><c:out value="Показать пароль"/></button>--%>
     </fieldset>
 </form>
 

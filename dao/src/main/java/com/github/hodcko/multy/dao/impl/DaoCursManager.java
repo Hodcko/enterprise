@@ -46,7 +46,7 @@ public class DaoCursManager implements IDaoCurs {
             log.info("create curs: {}", names);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-            log.error("fail to create curs:{}", names, e);
+            log.error("fail to create curs: {}", names, e);
         }
         return new Curs(id, names, start, end);
     }
@@ -66,6 +66,7 @@ public class DaoCursManager implements IDaoCurs {
                     start = rs.getDate("start_date");
                     end = rs.getDate("end_date");
                 }
+                log.info("curs get: {}", name);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

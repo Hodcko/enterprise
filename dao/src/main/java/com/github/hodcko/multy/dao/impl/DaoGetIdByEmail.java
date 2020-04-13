@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
-public class DaoGetIdByEmail implements IDaoGetIdByEmail {
+public class  DaoGetIdByEmail implements IDaoGetIdByEmail {
 
     MysqlDataBase dataBase = new MysqlDataBase();
     private static volatile IDaoGetIdByEmail instance;
