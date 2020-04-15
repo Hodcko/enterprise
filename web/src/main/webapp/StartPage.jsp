@@ -10,7 +10,7 @@
 </head>
 <body style="background-color: powderblue">
 
-    <h1 style="text-align: center"><c:out value="Главная страница"/></h1>
+    <h1 style="text-align: center"><c:out value="Главная страниц1а"/></h1>
 
 
 </body>
