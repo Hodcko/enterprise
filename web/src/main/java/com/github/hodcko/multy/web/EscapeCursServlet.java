@@ -15,10 +15,11 @@ import java.io.IOException;
 
 @WebServlet("/escape")
 public class EscapeCursServlet extends HttpServlet {
+    IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
         HttpSession session = req.getSession();
 
         if(req.getParameter("escape").equalsIgnoreCase("escape")){

@@ -44,13 +44,12 @@ public class DaoIsExist implements IDaoIsExist {
                         mail = rs.getString("email");
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    log.error("cant find student: {}", email, e);
                 }
                 if (email.equalsIgnoreCase(mail)) {
                     return true;
                 }
             } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
                 log.error("cant find student: {}", email, e);
 
             }
@@ -65,13 +64,12 @@ public class DaoIsExist implements IDaoIsExist {
                         mail = rs.getString("email");
                     }
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(); // logs
                 }
                 if (email.equalsIgnoreCase(mail)) {
                     return true;
                 }
             } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
                 log.error("cant find teacher: {}", email, e);
 
             }

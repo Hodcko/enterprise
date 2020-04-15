@@ -4,6 +4,9 @@ import com.github.hodcko.multy.service.IServiceValidation;
 
 
 public class ServiceValidation implements IServiceValidation {
+    String mailPattern = ("[a-zA-Z0-9]+@[a-zA-Z0-9.]+");
+    String namePattern = ("[a-zA-Zа-яА-Я]+");
+    String agePattern = ("[0-9]{2}");
 
     private static volatile IServiceValidation instance;
 
@@ -22,9 +25,7 @@ public class ServiceValidation implements IServiceValidation {
 
     @Override
     public boolean validationStudent(String name, String secondName, String email, int age) {
-        String mailPattern = ("[a-zA-Z0-9]+@[a-zA-Z0-9.]+");
-        String namePattern = ("[a-zA-Zа-яА-Я]+");
-        String agePattern = ("[0-9]{2}");
+
 
         if(name.matches(namePattern)){
             if(secondName.matches(namePattern)){

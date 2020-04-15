@@ -22,13 +22,8 @@ public class ServiceCursTest {
     private static IDaoCurs iDaoCurs;
 
     @InjectMocks
-    private static IServiceCurs iServiceCurs;
+    private static ServiceCurs iServiceCurs;
 
-
-    @BeforeAll
-    public static void createInstance() {
-        iServiceCurs = ServiceCurs.getInstance();
-    }
 
     @Test
     void createCursTest(){

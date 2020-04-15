@@ -13,13 +13,14 @@ import java.sql.Date;
 
 @WebServlet("/curs")
 public class CreateCursServlet extends HttpServlet {
+
+    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cursName = req.getParameter("name");
         Date startDate = Date.valueOf(req.getParameter("startDate"));
         Date endDate = Date.valueOf(req.getParameter("endDate"));
-
-        IServiceCurs iServiceCurs = ServiceCurs.getInstance();
 
         iServiceCurs.createCurs(cursName, startDate, endDate);
 

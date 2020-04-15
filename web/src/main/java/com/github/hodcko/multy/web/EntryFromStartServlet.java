@@ -13,17 +13,15 @@ import java.util.List;
 
 @WebServlet("/personalStart")
 public class EntryFromStartServlet extends HttpServlet {
+    ISecurityService iSecurityService = ServiceAuthUserLogin.getInstance();
+    IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+    IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+    IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();
+    IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        ISecurityService iSecurityService = ServiceAuthUserLogin.getInstance();
-        IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
-        IServiceCurs iServiceCurs = ServiceCurs.getInstance();
-        IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();
-        IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
-
         HttpSession session = req.getSession();
         String login = req.getParameter("login");
         String password = req.getParameter("password");
