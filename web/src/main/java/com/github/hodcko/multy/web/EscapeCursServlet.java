@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @WebServlet("/escape")
 public class EscapeCursServlet extends HttpServlet {
-    IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+    private IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
 
 
     @Override

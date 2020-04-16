@@ -45,7 +45,6 @@ public class DaoCursManager implements IDaoCurs {
             id = rs.getInt(1);
             log.info("create curs: {}", names);
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
             log.error("fail to create curs: {}", names, e);
         }
         return new Curs(id, names, start, end);

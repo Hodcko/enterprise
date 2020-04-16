@@ -59,3 +59,14 @@ create table if not exists teacher
 create index curs_id
     on teacher (curs_id);
 
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>cobertura-maven-plugin</artifactId>
+            <version>${cobertura-maven-plugin.version}</version>
+            <exclusions>
+            <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage</artifactId>
+            </exclusion>
+            </exclusions>
+        </dependency>

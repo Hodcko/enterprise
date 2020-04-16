@@ -49,7 +49,6 @@ public class  DaoGetIdByEmail implements IDaoGetIdByEmail {
                 }
                 return id;
             } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
                 log.error("cant get id:{}{}", email, userType, e);
             }
         } else if (userType.equalsIgnoreCase("teacher")) {
@@ -67,7 +66,6 @@ public class  DaoGetIdByEmail implements IDaoGetIdByEmail {
                 }
                 return id;
             } catch (SQLException | ClassNotFoundException e) {
-                e.printStackTrace();
                 log.error("cant get id:{}{}", email, userType, e);
             }
         }

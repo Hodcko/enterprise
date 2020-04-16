@@ -19,11 +19,13 @@ import java.io.IOException;
 
 @WebServlet("/validation")
 public class ValidationServlet extends HttpServlet {
+
+    private IServiceIsExist iServiceIsExist = ServiceIsExist.getInstance();
+    private IServiceValidation iServiceValidation = ServiceValidation.getInstance();
+    private IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        IServiceIsExist iServiceIsExist = ServiceIsExist.getInstance();
-        IServiceValidation iServiceValidation = ServiceValidation.getInstance();
-        IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
 
         HttpSession session = req.getSession();
         AuthUser authUser;

@@ -13,14 +13,13 @@ import java.util.List;
 
 @WebServlet("/personal")
 public class PersonalAreaEntryServlet extends HttpServlet {
+    private IServiceAuthUser instance = ServiceAuthUser.getInstance();
+    private IServiceGetIdByEmail getId = ServiceGetIdByEmail.getInstance();
+    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
 
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        IServiceAuthUser instance = ServiceAuthUser.getInstance();
-        IServiceGetIdByEmail getId = ServiceGetIdByEmail.getInstance();
-        IServiceCurs iServiceCurs = ServiceCurs.getInstance();
 
         HttpSession session = req.getSession();
         String email = (String) session.getAttribute("email");
@@ -31,7 +30,6 @@ public class PersonalAreaEntryServlet extends HttpServlet {
         AuthUser authUser;
         Curs curs;
         List<DTOGroup> dtoGroup;
-
 
         if (userType.equalsIgnoreCase("student")) {
                     authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);

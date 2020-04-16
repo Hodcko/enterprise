@@ -15,9 +15,11 @@ import java.io.IOException;
 
 @WebServlet("/test")
 public class TestServlet extends HttpServlet {
+
+    private IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
         HttpSession session = req.getSession();
         Student student = (Student)session.getAttribute("student");
 

@@ -15,11 +15,11 @@ import java.io.IOException;
 @WebServlet("/teacher")
 public class TeacherRegistrationServlet extends HttpServlet {
 
+    private IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
+    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
-        IServiceCurs iServiceCurs = ServiceCurs.getInstance();
-
 
         String name =  rq.getParameter("name");
         String secondName =  rq.getParameter("secondName");

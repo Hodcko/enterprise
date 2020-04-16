@@ -15,10 +15,11 @@ import java.io.IOException;
 @WebServlet("/change")
 public class ChangePasswordServlet extends HttpServlet {
 
+    private ISecurityService iSecurityService = ServiceAuthUserLogin.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        ISecurityService iSecurityService = ServiceAuthUserLogin.getInstance();
 
         AuthUser authUser = (AuthUser) session.getAttribute("authUser");
         String newPassword = req.getParameter("newPassword");

@@ -1,16 +1,38 @@
 package com.github.hodcko.multy.model;
 
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table (name = "student")
 public class Student{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String name;
+    @Column (name = "second_name")
     private String secondName;
+    @Column
     private String email;
+    @Column
     private int age;
+    @Column
     private int curs_id;
 
+
+   public Student(){
+
+   }
+
+    public Student(String name, String secondName, String email, int age, int curs_id) {
+        this.name = name;
+        this.secondName = secondName;
+        this.email = email;
+        this.age = age;
+        this.curs_id = curs_id;
+    }
 
     public Student(int id, String name, String secondName, String email, int age, int curs_id) {
         this.id = id;

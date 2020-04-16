@@ -13,11 +13,12 @@ import java.util.List;
 
 @WebServlet("/personalStart")
 public class EntryFromStartServlet extends HttpServlet {
-    ISecurityService iSecurityService = ServiceAuthUserLogin.getInstance();
-    IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
-    IServiceCurs iServiceCurs = ServiceCurs.getInstance();
-    IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();
-    IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
+
+    private ISecurityService iSecurityService = ServiceAuthUserLogin.getInstance();
+    private IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+    private IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();
+    private IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
 
 
     @Override

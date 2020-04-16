@@ -17,11 +17,11 @@ import java.io.IOException;
 @WebServlet("/student")
 public class StudentsRegistrationServlet extends HttpServlet {
 
+    private IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();
+    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
-        IServiceStudent iServiceStudent = ServiceStudentManager.getInstance();
-        IServiceCurs iServiceCurs = ServiceCurs.getInstance();
-
 
         String name =  rq.getParameter("name");
         String secondName =  rq.getParameter("secondName");

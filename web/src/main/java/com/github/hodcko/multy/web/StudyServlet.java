@@ -18,13 +18,14 @@ import java.io.IOException;
 
 @WebServlet("/study")
 public class StudyServlet extends HttpServlet {
+    private IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("student");
 
-        IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
         iServiceGradebook.addStudentToGradebook(student.getId());
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/StudyPage.jsp");
