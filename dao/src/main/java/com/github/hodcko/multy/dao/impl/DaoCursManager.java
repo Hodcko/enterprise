@@ -2,7 +2,7 @@ package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.dao.IDaoCurs;
-import com.github.hodcko.multy.dao.MysqlDataBase;
+import com.github.hodcko.multy.dao.utils.MysqlDataBase;
 import com.github.hodcko.multy.model.DTOGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

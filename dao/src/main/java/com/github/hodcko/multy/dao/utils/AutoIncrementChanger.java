@@ -1,4 +1,4 @@
-package com.github.hodcko.multy.dao;
+package com.github.hodcko.multy.dao.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;

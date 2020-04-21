@@ -2,6 +2,7 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.dao.impl.DaoUserAuth;
+import com.github.hodcko.multy.dao.utils.AutoIncrementChanger;
 import com.github.hodcko.multy.model.AuthUser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -11,15 +12,6 @@ import org.junit.jupiter.api.Test;
 public class DaoAuthUserTest {
 
     IDaoAuth iDaoAuth = DaoUserAuth.getInstance();
-    @BeforeEach
-    public void change(){
-        AutoIncrementChanger.changeAutoIncrement("auth_user");
-    }
-    @AfterEach
-    public void changes(){
-        AutoIncrementChanger.changeAutoIncrement("auth_user");
-    }
-
 
     @Test
     void saveAuthUserTest() {
@@ -36,9 +28,9 @@ public class DaoAuthUserTest {
     @Test
     void getRoleTest() {
         AuthUser studentTest = iDaoAuth.saveAuthUser(3,"John", "Snow", "student");
-        AuthUser teacherTest = iDaoAuth.saveAuthUser(4,"John", "Snow", "teacher");
+        AuthUser teacherTest = iDaoAuth.saveAuthUser(4,"Jim", "Bill", "teacher");
         Assertions.assertEquals(studentTest.getRole(), iDaoAuth.getRole(studentTest.getLogin(), studentTest.getPassword()));
-        Assertions.assertEquals(studentTest.getRole(), iDaoAuth.getRole(teacherTest.getLogin(), teacherTest.getPassword()));
+        Assertions.assertEquals(teacherTest.getRole(), iDaoAuth.getRole(teacherTest.getLogin(), teacherTest.getPassword()));
         iDaoAuth.deleteAuthUser(3, "student");
         iDaoAuth.deleteAuthUser(4, "teacher");
     }

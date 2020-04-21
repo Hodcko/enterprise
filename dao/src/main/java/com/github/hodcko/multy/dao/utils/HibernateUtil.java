@@ -1,4 +1,4 @@
-package com.github.hodcko.multy.dao;
+package com.github.hodcko.multy.dao.utils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

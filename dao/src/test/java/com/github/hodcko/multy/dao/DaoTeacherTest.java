@@ -3,6 +3,7 @@ package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.dao.impl.DaoTeacherManager;
 
+import com.github.hodcko.multy.dao.utils.AutoIncrementChanger;
 import com.github.hodcko.multy.model.Teacher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

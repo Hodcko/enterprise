@@ -2,8 +2,11 @@ package com.github.hodcko.multy.dao.impl;
 
 
 import com.github.hodcko.multy.dao.IDaoStudent;
-import com.github.hodcko.multy.dao.MysqlDataBase;
+import com.github.hodcko.multy.dao.utils.MysqlDataBase;
+import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Student;
+import org.hibernate.HibernateError;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
@@ -13,8 +16,6 @@ public class DaoStudentManager implements IDaoStudent {
 
     private static volatile IDaoStudent instance;
     private static final Logger log = LoggerFactory.getLogger(DaoStudentManager.class);
-    MysqlDataBase dataBase = new MysqlDataBase();
-
 
     public static IDaoStudent getInstance(){
         IDaoStudent localInstance = instance;
@@ -29,74 +30,48 @@ public class DaoStudentManager implements IDaoStudent {
         return localInstance;
     }
 
-
-
     @Override
-    public Student saveStudent(String name, String second_name, String email, int age, int curs_id){
-        int id;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("insert into student(name, second_name, email, age, curs_id) values(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(1, name);
-            statement.setString(2, second_name);
-            statement.setString(3, email);
-            statement.setInt(4, age);
-            statement.setInt(5, curs_id);
-            statement.executeUpdate();
-
-            ResultSet rs = statement.getGeneratedKeys();
-            rs.next();
-            id = rs.getInt(1);
+    public Student saveStudent(String name, String second_name, String email, int age, int curs_id) {
+        Student student = new Student(name, second_name, email, age, curs_id);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            session.saveOrUpdate(student);
+            session.getTransaction().commit();
             log.info("create student: name {} second name  {} email {}", name, second_name, email);
-            return new Student(id, name, second_name, email, age, curs_id);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            log.error("fail to create student name{}  second name {}  email {}", name, second_name, email, e);
+            return student;
+        }catch (HibernateError e){
+            log.error("fail to create student: name {} second name  {} email {}", name, second_name, email, e);
         }
         return null;
     }
 
     @Override
     public Student getStudent(int id){
-        String name = null;
-        String secondName = null;
-        String email = null;
-        int age = 0;
-        int cursId = 0;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("select   name, second_name, email, age, curs_id from auth_user a\n" +
-                             "join student s on  a.id = s.id\n" +
-                             "where a.id = ?")) {
-            statement.setInt(1, id);
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    name = rs.getString("name");
-                    secondName = rs.getString("second_name");
-                    email = rs.getString("email");
-                    age = rs.getInt("age");
-                    cursId = rs.getInt("curs_id");
-                }
-                return new Student(id, name, secondName, email, age, cursId);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            log.error("fail to get student with name {} second name {} email {}", name, secondName, email, e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Student student = session.get(Student.class, id);
+            session.getTransaction().commit();
+            log.info("get student: name {} second name  {} email {}", student.getName(), student.getSecondName(), student.getEmail());
+            return student;
+        }catch (HibernateError e){
+            log.error("fail to get student with id{}", id, e);
         }
         return null;
     }
 
     @Override
     public boolean deleteStudent(String email){
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("delete from student where email = ? ")) {
-            statement.setString(1, email);
-            statement.executeUpdate();
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Student student = session.createQuery("select s from Student s where email = :mail", Student.class)
+                    .setParameter("mail", email).getSingleResult();
+            session.delete(student);
+            session.getTransaction().commit();
             log.info("deleted student with email {}", email);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return true;
+        }catch (HibernateError e){
+            log.error("fail to deleted student with email {}", email);
         }
-        return true;
+        return false;
     }
 }

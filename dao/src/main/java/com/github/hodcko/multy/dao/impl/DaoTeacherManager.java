@@ -1,7 +1,7 @@
 package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.IDaoTeacher;
-import com.github.hodcko.multy.dao.MysqlDataBase;
+import com.github.hodcko.multy.dao.utils.MysqlDataBase;
 import com.github.hodcko.multy.model.Teacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -17,7 +17,8 @@
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://localhost:3306/academy?serverTimezone=Europe/Moscow&amp;useSSL=false&amp;createDatabaseIfNotExist=true&amp;logger=com.mysql.cj.log.Slf4JLogger&amp;profileSQL=true"/>
+                      value="jdbc:mysql://localhost:3306/academy?serverTimezone=Europe/Moscow&amp;
+                      useSSL=false&amp;createDatabaseIfNotExist=true&amp;logger=com.mysql.cj.log.Slf4JLogger&amp;profileSQL=true"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="Sasha123"/>
             <property name="hibernate.dialect.storage_engine" value="innodb"/>
