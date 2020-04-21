@@ -1,12 +1,12 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.AuthUser;
-import com.github.hodcko.multy.service.IServiceAuthUser;
-import com.github.hodcko.multy.service.IServiceIsExist;
-import com.github.hodcko.multy.service.IServiceValidation;
-import com.github.hodcko.multy.service.impl.ServiceAuthUser;
-import com.github.hodcko.multy.service.impl.ServiceIsExist;
-import com.github.hodcko.multy.service.impl.ServiceValidation;
+import com.github.hodcko.multy.service.ServiceAuthUser;
+import com.github.hodcko.multy.service.ServiceIsExist;
+import com.github.hodcko.multy.service.ServiceValidation;
+import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
+import com.github.hodcko.multy.service.impl.ServiceIsExistDefault;
+import com.github.hodcko.multy.service.impl.ServiceValidationDefault;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,9 +20,9 @@ import java.io.IOException;
 @WebServlet("/validation")
 public class ValidationServlet extends HttpServlet {
 
-    private IServiceIsExist iServiceIsExist = ServiceIsExist.getInstance();
-    private IServiceValidation iServiceValidation = ServiceValidation.getInstance();
-    private IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+    private ServiceIsExist serviceIsExist = ServiceIsExistDefault.getInstance();
+    private ServiceValidation serviceValidation = ServiceValidationDefault.getInstance();
+    private ServiceAuthUser serviceAuthUser = ServiceAuthUserDefault.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,21 +34,21 @@ public class ValidationServlet extends HttpServlet {
         String email = req.getParameter("email");
         String userType = req.getParameter("userType");
 
-        if (!iServiceIsExist.isExist(email, userType)) {
+        if (!serviceIsExist.isExist(email, userType)) {
             if (userType.equalsIgnoreCase("student")) {
-                if (iServiceValidation.validationStudent(name, secondName, email, Integer.parseInt(req.getParameter("age")))) {
+                if (serviceValidation.validationStudent(name, secondName, email, Integer.parseInt(req.getParameter("age")))) {
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/student");
                     dispatcher.forward(req, resp);
                 }
             }
             else if (userType.equalsIgnoreCase("teacher")) {
-                if (iServiceValidation.validationTeacher(name, secondName, email)) {
+                if (serviceValidation.validationTeacher(name, secondName, email)) {
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/teacher");
                     dispatcher.forward(req, resp);
                 }
             }
         }else {
-            authUser = iServiceAuthUser.getAuthUser(name, iServiceAuthUser.passwordGenerate(email, userType));
+            authUser = serviceAuthUser.getAuthUser(name, serviceAuthUser.passwordGenerate(email, userType));
             session.setAttribute("login", authUser.getLogin());
             session.setAttribute("password", authUser.getPassword());
 

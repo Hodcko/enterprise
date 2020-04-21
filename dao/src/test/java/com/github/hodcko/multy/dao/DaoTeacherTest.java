@@ -1,7 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 
-import com.github.hodcko.multy.dao.impl.DaoTeacherManager;
+import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 
 import com.github.hodcko.multy.dao.utils.AutoIncrementChanger;
 import com.github.hodcko.multy.model.Teacher;
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DaoTeacherTest {
-    IDaoTeacher iDaoTeacher = DaoTeacherManager.getInstance();
+    DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
     @BeforeEach
     public void change(){
         AutoIncrementChanger.changeAutoIncrement("teacher");
@@ -25,8 +25,8 @@ public class DaoTeacherTest {
     @Test
     void saveTeacherTest() {
         Teacher teacher = new Teacher(3, "John", "Snow", "winter@gmail.com", 1);
-        Teacher teacherTest = iDaoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
-        iDaoTeacher.deleteTeacher("winter@gmail.com");
+        Teacher teacherTest = daoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
+        daoTeacher.deleteTeacher("winter@gmail.com");
         Assertions.assertEquals(teacher, teacherTest);
 
     }

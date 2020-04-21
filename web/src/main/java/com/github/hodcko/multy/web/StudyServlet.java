@@ -2,8 +2,8 @@ package com.github.hodcko.multy.web;
 
 
 import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.service.IServiceGradebook;
-import com.github.hodcko.multy.service.impl.ServiceGradebook;
+import com.github.hodcko.multy.service.ServiceGradebook;
+import com.github.hodcko.multy.service.impl.ServiceGradebookDefault;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +18,7 @@ import java.io.IOException;
 
 @WebServlet("/study")
 public class StudyServlet extends HttpServlet {
-    private IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
+    private ServiceGradebook serviceGradebook = ServiceGradebookDefault.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,7 +26,7 @@ public class StudyServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("student");
 
-        iServiceGradebook.addStudentToGradebook(student.getId());
+        serviceGradebook.addStudentToGradebook(student.getId());
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/StudyPage.jsp");
         dispatcher.forward(req, resp);

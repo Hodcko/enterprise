@@ -1,9 +1,9 @@
 package com.github.hodcko.multy.web;
 
-import com.github.hodcko.multy.service.IServiceCurs;
-import com.github.hodcko.multy.service.IServiceTeacher;
-import com.github.hodcko.multy.service.impl.ServiceCurs;
-import com.github.hodcko.multy.service.impl.ServiceTeacherManager;
+import com.github.hodcko.multy.service.ServiceCurs;
+import com.github.hodcko.multy.service.ServiceTeacher;
+import com.github.hodcko.multy.service.impl.ServiceCursDefault;
+import com.github.hodcko.multy.service.impl.ServiceTeacherDefault;
 import com.github.hodcko.multy.model.Teacher;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,8 +15,8 @@ import java.io.IOException;
 @WebServlet("/teacher")
 public class TeacherRegistrationServlet extends HttpServlet {
 
-    private IServiceTeacher iServiceTeacher = ServiceTeacherManager.getInstance();
-    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+    private ServiceTeacher serviceTeacher = ServiceTeacherDefault.getInstance();
+    private ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest rq, HttpServletResponse rs) throws ServletException, IOException {
@@ -27,7 +27,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
         String userType = rq.getParameter("userType");
         String langType = rq.getParameter("langType");
 
-        Teacher teacher =  iServiceTeacher.saveTeacher(name, secondName, email, iServiceCurs.getCurs_id(langType));
+        Teacher teacher =  serviceTeacher.saveTeacher(name, secondName, email, serviceCurs.getCurs_id(langType));
         HttpSession session = rq.getSession();
 
         session.setAttribute("teacher", teacher);

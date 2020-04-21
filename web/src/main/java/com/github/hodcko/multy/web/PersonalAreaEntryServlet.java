@@ -1,8 +1,13 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.*;
-import com.github.hodcko.multy.service.*;
-import com.github.hodcko.multy.service.impl.*;
+import com.github.hodcko.multy.service.ServiceAuthUser;
+import com.github.hodcko.multy.service.ServiceCurs;
+import com.github.hodcko.multy.service.ServiceGetIdByEmail;
+import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
+import com.github.hodcko.multy.service.impl.ServiceCursDefault;
+import com.github.hodcko.multy.service.impl.ServiceGetIdByEmailDefault;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +18,9 @@ import java.util.List;
 
 @WebServlet("/personal")
 public class PersonalAreaEntryServlet extends HttpServlet {
-    private IServiceAuthUser instance = ServiceAuthUser.getInstance();
-    private IServiceGetIdByEmail getId = ServiceGetIdByEmail.getInstance();
-    private IServiceCurs iServiceCurs = ServiceCurs.getInstance();
+    private ServiceAuthUser instance = ServiceAuthUserDefault.getInstance();
+    private ServiceGetIdByEmail getId = ServiceGetIdByEmailDefault.getInstance();
+    private ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
 
 
     @Override
@@ -33,7 +38,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
 
         if (userType.equalsIgnoreCase("student")) {
                     authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
-                    curs = iServiceCurs.getCurs(((Student) session.getAttribute("student")).getCurs_id());
+                    curs = serviceCurs.getCurs(((Student) session.getAttribute("student")).getCurs_id());
 
                     session.setAttribute("authUser", authUser);
                     session.setAttribute("curs", curs);
@@ -43,8 +48,8 @@ public class PersonalAreaEntryServlet extends HttpServlet {
             }
             else if (userType.equalsIgnoreCase("teacher")) {
                         authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
-                        curs = iServiceCurs.getCurs(((Teacher) session.getAttribute("teacher")).getCurs_id());
-                        dtoGroup = iServiceCurs.getMyStudents(((Teacher) session.getAttribute("teacher")).getCurs_id());
+                        curs = serviceCurs.getCurs(((Teacher) session.getAttribute("teacher")).getCurs_id());
+                        dtoGroup = serviceCurs.getMyStudents(((Teacher) session.getAttribute("teacher")).getCurs_id());
 
                         session.setAttribute("students", dtoGroup);
                         session.setAttribute("authUser", authUser);

@@ -1,13 +1,8 @@
 package com.github.hodcko.multy.dao;
 
-import com.github.hodcko.multy.service.IServiceCurs;
-import com.github.hodcko.multy.service.IServiceGetIdByEmail;
-import com.github.hodcko.multy.service.impl.ServiceAuthUser;
-import com.github.hodcko.multy.service.impl.ServiceAuthUserLogin;
-import com.github.hodcko.multy.service.impl.ServiceGetIdByEmail;
-import org.junit.jupiter.api.AfterEach;
+import com.github.hodcko.multy.service.ServiceGetIdByEmail;
+import com.github.hodcko.multy.service.impl.ServiceGetIdByEmailDefault;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,14 +16,14 @@ import static org.mockito.Mockito.when;
 public class ServiceGetIdTest {
 
     @Mock
-    private static IDaoGetIdByEmail IDGIBE;
+    private static DaoGetIdByEmail IDGIBE;
 
     @InjectMocks
-    private static IServiceGetIdByEmail ISGIBE;
+    private static ServiceGetIdByEmail ISGIBE;
 
     @BeforeAll
     public static void createInstance() {
-        ISGIBE = ServiceGetIdByEmail.getInstance();
+        ISGIBE = ServiceGetIdByEmailDefault.getInstance();
     }
 
     @Test

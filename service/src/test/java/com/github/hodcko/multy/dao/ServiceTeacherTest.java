@@ -2,8 +2,8 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.model.Teacher;
-import com.github.hodcko.multy.service.IServiceTeacher;
-import com.github.hodcko.multy.service.impl.ServiceTeacherManager;
+import com.github.hodcko.multy.service.ServiceTeacher;
+import com.github.hodcko.multy.service.impl.ServiceTeacherDefault;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,31 +18,31 @@ import static org.mockito.Mockito.when;
 public class ServiceTeacherTest {
 
     @Mock
-    private static IDaoTeacher iDaoTeacher;
+    private static DaoTeacher daoTeacher;
 
 
     @InjectMocks
-    private static IServiceTeacher iServiceTeacher;
+    private static ServiceTeacher serviceTeacher;
 
 
     @BeforeAll
     public static void createInstance() {
-        iServiceTeacher = ServiceTeacherManager.getInstance();
+        serviceTeacher = ServiceTeacherDefault.getInstance();
     }
 
     @Test
     void saveStudentTest(){
         Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
-        when(iDaoTeacher.saveTeacher("John", "Snow", "Winter@gmail.com", 1)).thenReturn(teacher);
-        Teacher teacherTest = iServiceTeacher.saveTeacher("John", "Snow", "Winter@gmail.com",  1);
+        when(daoTeacher.saveTeacher("John", "Snow", "Winter@gmail.com", 1)).thenReturn(teacher);
+        Teacher teacherTest = serviceTeacher.saveTeacher("John", "Snow", "Winter@gmail.com",  1);
         assertEquals(teacher, teacherTest);
     }
 
     @Test
     void getStudentTest(){
         Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
-        when(iDaoTeacher.getTeacher(1)).thenReturn(teacher);
-        Teacher teacherTest = iServiceTeacher.getTeacher( 1);
+        when(daoTeacher.getTeacher(1)).thenReturn(teacher);
+        Teacher teacherTest = serviceTeacher.getTeacher( 1);
         assertEquals(teacher, teacherTest);
     }
 

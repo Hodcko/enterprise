@@ -1,8 +1,8 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.service.IServiceGradebook;
-import com.github.hodcko.multy.service.impl.ServiceGradebook;
+import com.github.hodcko.multy.service.ServiceGradebook;
+import com.github.hodcko.multy.service.impl.ServiceGradebookDefault;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 @WebServlet("/test")
 public class TestServlet extends HttpServlet {
 
-    private IServiceGradebook iServiceGradebook = ServiceGradebook.getInstance();
+    private ServiceGradebook serviceGradebook = ServiceGradebookDefault.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +29,7 @@ public class TestServlet extends HttpServlet {
         String fourthQ = req.getParameter("fourth");
         String fifthQ = req.getParameter("fifth");
 
-        int resultOfTest = iServiceGradebook.checkTest(student.getId(), firstQ, secondQ, thirdQ, fourthQ, fifthQ);
+        int resultOfTest = serviceGradebook.checkTest(student.getId(), firstQ, secondQ, thirdQ, fourthQ, fifthQ);
 
         req.setAttribute("result", resultOfTest);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/ResultOfTest.jsp");

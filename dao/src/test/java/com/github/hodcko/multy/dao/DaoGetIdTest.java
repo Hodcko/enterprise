@@ -1,9 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 
-import com.github.hodcko.multy.dao.impl.DaoGetIdByEmail;
-
-
+import com.github.hodcko.multy.dao.impl.DaoGetIdByEmailDefault;
 import org.junit.jupiter.api.Test;
 
 
@@ -11,15 +9,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DaoGetIdTest {
-    final IDaoGetIdByEmail iDaoGetIdByEmail = DaoGetIdByEmail.getInstance();
+    final DaoGetIdByEmail daoGetIdByEmail = DaoGetIdByEmailDefault.getInstance();
 
 
 
 
     @Test
     void createCursTest() {
-        int studentId = iDaoGetIdByEmail.getId("hodckoq@gmail.com", "student");
-        int teacherId = iDaoGetIdByEmail.getId("hodckoq@gmail.com", "teacher");
+        int studentId = daoGetIdByEmail.getId("hodckoq@gmail.com", "student");
+        int teacherId = daoGetIdByEmail.getId("hodckoq@gmail.com", "teacher");
         assertEquals(1, studentId);
         assertEquals(2, teacherId);
 

@@ -1,13 +1,13 @@
 package com.github.hodcko.multy.dao;
 
-import com.github.hodcko.multy.dao.impl.DaoStudentManager;
+import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.dao.utils.AutoIncrementChanger;
 import com.github.hodcko.multy.model.Student;
 import org.junit.jupiter.api.*;
 
 
 public class DaoStudentTest {
-    IDaoStudent iDaoStudent = DaoStudentManager.getInstance();
+    DaoStudent daoStudent = DaoStudentDefault.getInstance();
     @BeforeEach
      public void change(){
         AutoIncrementChanger.changeAutoIncrement("student");
@@ -20,9 +20,9 @@ public class DaoStudentTest {
 
     @Test
     void saveStudentTest() {
-        Student student = iDaoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
-        Student studentTest = iDaoStudent.getStudent(student.getId());
-        iDaoStudent.deleteStudent("winter@gmail.com");
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
+        Student studentTest = daoStudent.getStudent(student.getId());
+        daoStudent.deleteStudent("winter@gmail.com");
         Assertions.assertEquals(student, studentTest);
 
     }

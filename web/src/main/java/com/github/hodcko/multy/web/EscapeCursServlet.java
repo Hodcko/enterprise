@@ -2,8 +2,9 @@ package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
-import com.github.hodcko.multy.service.IServiceAuthUser;
-import com.github.hodcko.multy.service.impl.ServiceAuthUser;
+import com.github.hodcko.multy.service.ServiceAuthUser;
+import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 @WebServlet("/escape")
 public class EscapeCursServlet extends HttpServlet {
-    private IServiceAuthUser iServiceAuthUser = ServiceAuthUser.getInstance();
+    private ServiceAuthUser serviceAuthUser = ServiceAuthUserDefault.getInstance();
 
 
     @Override
@@ -25,11 +26,11 @@ public class EscapeCursServlet extends HttpServlet {
         if(req.getParameter("escape").equalsIgnoreCase("escape")){
             if(session.getAttribute("student") != null){
                 Student student = (Student) session.getAttribute("student");
-                iServiceAuthUser.deleteAuthUser(student.getId(), "student");
+                serviceAuthUser.deleteAuthUser(student.getId(), "student");
             }
             if (session.getAttribute("teacher") != null){
                 Teacher teacher = (Teacher) session.getAttribute("teacher");
-                iServiceAuthUser.deleteAuthUser(teacher.getId(), "teacher");
+                serviceAuthUser.deleteAuthUser(teacher.getId(), "teacher");
             }
             req.getSession().invalidate();
             RequestDispatcher dispatcher = req.getRequestDispatcher("/start");
