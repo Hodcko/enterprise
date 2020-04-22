@@ -2,6 +2,7 @@ package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
 
@@ -26,11 +27,11 @@ public class EscapeCursServlet extends HttpServlet {
         if(req.getParameter("escape").equalsIgnoreCase("escape")){
             if(session.getAttribute("student") != null){
                 Student student = (Student) session.getAttribute("student");
-                serviceAuthUser.deleteAuthUser(student.getId(), "student");
+                serviceAuthUser.deleteAuthUser(student.getId(), UserType.STUDENT);
             }
             if (session.getAttribute("teacher") != null){
                 Teacher teacher = (Teacher) session.getAttribute("teacher");
-                serviceAuthUser.deleteAuthUser(teacher.getId(), "teacher");
+                serviceAuthUser.deleteAuthUser(teacher.getId(), UserType.TEACHER);
             }
             req.getSession().invalidate();
             RequestDispatcher dispatcher = req.getRequestDispatcher("/start");

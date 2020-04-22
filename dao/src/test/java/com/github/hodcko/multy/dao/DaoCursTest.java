@@ -25,8 +25,9 @@ public class DaoCursTest {
     void getCursTest() {
         Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
         Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
-        daoCurs.deleteCurs(testCurs.getId());
         assertEquals(curs, daoCurs.getCurs(curs.getId()));
+        daoCurs.deleteCurs(testCurs.getId());
+
     }
 
 

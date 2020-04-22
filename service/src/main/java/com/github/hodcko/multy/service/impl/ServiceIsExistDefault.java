@@ -3,6 +3,7 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoIsExist;
 import com.github.hodcko.multy.dao.impl.DaoIsExistDefault;
+import com.github.hodcko.multy.model.UserType;
 
 public class ServiceIsExistDefault implements com.github.hodcko.multy.service.ServiceIsExist {
 
@@ -23,7 +24,7 @@ public class ServiceIsExistDefault implements com.github.hodcko.multy.service.Se
         return localInstance;
     }
 
-    public boolean isExist(String email, String userType){
+    public boolean isExist(String email, UserType userType){
         return daoIsExist.isExist(email, userType);
     }
 

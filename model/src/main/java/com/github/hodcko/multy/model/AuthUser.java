@@ -14,9 +14,10 @@ public class AuthUser {
     @Column
     private String password;
     @Column (name = "Role")
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserType role;
 
-    public AuthUser(String login, String password, String role, Integer userId) {
+    public AuthUser(String login, String password, UserType role, Integer userId) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -35,7 +36,7 @@ public class AuthUser {
         return password;
     }
 
-    public String getRole() {
+    public UserType getRole() {
         return role;
     }
 
@@ -51,7 +52,7 @@ public class AuthUser {
         this.password = password;
     }
 
-    public void setRole(String role) {
+    public void setRole(UserType role) {
         this.role = role;
     }
 
@@ -77,7 +78,7 @@ public class AuthUser {
         return Objects.equals(userId, authUser.userId) &&
                 Objects.equals(login, authUser.login) &&
                 Objects.equals(password, authUser.password) &&
-                Objects.equals(role, authUser.role);
+                role == authUser.role;
     }
 
     @Override

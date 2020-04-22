@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.service.impl;
 
 
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceCurs;
 import com.github.hodcko.multy.service.ServiceStudent;
 import com.github.hodcko.multy.service.ServiceTeacher;
@@ -28,11 +29,11 @@ public class ServiceRegistrationDefault implements com.github.hodcko.multy.servi
     }
 
     @Override
-    public boolean registration(String name, String secondName, String email, int age, String userType, String langType) {
-        if(userType.equals("student")){
+    public boolean registration(String name, String secondName, String email, int age, UserType userType, String langType) {
+        if(userType.equals(UserType.STUDENT)){
             serviceStudent.saveStudent(name, secondName, email, age, serviceCurs.getCurs_id(langType));
             return true;
-        }else if(userType.equals("teacher")){
+        }else if(userType.equals(UserType.TEACHER)){
             serviceTeacher.saveTeacher(name, secondName, email, serviceCurs.getCurs_id(langType));
             return true;
         }else{

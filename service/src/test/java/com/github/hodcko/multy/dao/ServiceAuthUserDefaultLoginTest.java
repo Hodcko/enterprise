@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.SecurityService;
 import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
@@ -45,7 +46,7 @@ public class ServiceAuthUserDefaultLoginTest {
     @Test
     void loginTest(){
         when(daoAuthUser.getByLogin("mockLogin")).thenReturn("mockLogin");
-        serviceAuthUser.saveAuthUser(1, "mockLogin", "mockPassword", "mockRole");
+        serviceAuthUser.saveAuthUser(1, "mockLogin", "mockPassword", UserType.STUDENT);
         String login = serviceAuthUser.getByLogin("mockLogin");
         assertEquals("mockLogin", login);
 

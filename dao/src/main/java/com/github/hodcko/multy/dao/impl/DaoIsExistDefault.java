@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.utils.SFUtil;
+import com.github.hodcko.multy.model.UserType;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +29,8 @@ public class DaoIsExistDefault implements com.github.hodcko.multy.dao.DaoIsExist
     }
 
     @Override
-    public boolean isExist(String email, String userType){
-        if (userType.equalsIgnoreCase("student")) {
+    public boolean isExist(String email, UserType userType){
+        if (userType.equals(UserType.STUDENT)) {
             try (Session session = SFUtil.getSession()) {
                 session.beginTransaction();
                 String studentEmail = (String) session.createNativeQuery("select email from student where email = :mail")
@@ -42,7 +43,7 @@ public class DaoIsExistDefault implements com.github.hodcko.multy.dao.DaoIsExist
             }catch (NoResultException e ){
                 log.info("fail to check student with email {}", email, e);
             }
-        } else if (userType.equalsIgnoreCase("teacher")) {
+        } else if (userType.equals(UserType.TEACHER)) {
             try (Session session = SFUtil.getSession()) {
                 session.beginTransaction();
                 String teacherEmail = (String) session.createNativeQuery("select email from teacher where email = :mail")

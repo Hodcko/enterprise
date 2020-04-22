@@ -2,6 +2,7 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoGetIdByEmail;
 import com.github.hodcko.multy.dao.impl.DaoGetIdByEmailDefault;
+import com.github.hodcko.multy.model.UserType;
 
 public class ServiceGetIdByEmailDefault implements com.github.hodcko.multy.service.ServiceGetIdByEmail {
 
@@ -21,7 +22,7 @@ public class ServiceGetIdByEmailDefault implements com.github.hodcko.multy.servi
         return localInstance;
     }
 
-    public int getId(String email, String userType){
+    public int getId(String email, UserType userType){
        return daoGetIdByEmail.getId(email, userType);
     }
 

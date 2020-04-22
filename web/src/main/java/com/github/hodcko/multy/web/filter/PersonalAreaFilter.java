@@ -2,6 +2,7 @@ package com.github.hodcko.multy.web.filter;
 
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
+import com.github.hodcko.multy.model.UserType;
 
 
 import javax.servlet.*;
@@ -22,8 +23,8 @@ public class PersonalAreaFilter implements Filter {
         HttpSession session = ((HttpServletRequest) servletRequest).getSession();
         String login = servletRequest.getParameter("login");
         String password = servletRequest.getParameter("password");
-        String userType = (String) session.getAttribute("userType");
-        if(userType.equalsIgnoreCase("student")){
+        UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
+        if(userType.equals(UserType.STUDENT)){
             Student student = (Student) session.getAttribute("student");
             if(student.getName().equalsIgnoreCase(login)&&
                     (password.equalsIgnoreCase(student.getSecondName()+student.getId()))){
@@ -32,7 +33,7 @@ public class PersonalAreaFilter implements Filter {
                 RequestDispatcher dispatcher = servletRequest.getRequestDispatcher("/InvalidData.jsp");
                 dispatcher.forward(servletRequest, servletResponse);
             }
-        }else if(userType.equalsIgnoreCase("teacher")) {
+        }else if(userType.equals(UserType.TEACHER)) {
             Teacher teacher = (Teacher) session.getAttribute("teacher");
             if (teacher.getName().equalsIgnoreCase(login) &&
                     (password.equalsIgnoreCase(teacher.getSecondName() + teacher.getId()))) {

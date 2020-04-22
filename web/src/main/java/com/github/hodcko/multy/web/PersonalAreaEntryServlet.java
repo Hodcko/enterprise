@@ -28,7 +28,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String email = (String) session.getAttribute("email");
-        String userType = (String) session.getAttribute("userType");
+        UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase()) ;
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
@@ -36,7 +36,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
         Curs curs;
         List<DTOGroup> dtoGroup;
 
-        if (userType.equalsIgnoreCase("student")) {
+        if (userType.equals(UserType.STUDENT)) {
                     authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
                     curs = serviceCurs.getCurs(((Student) session.getAttribute("student")).getCurs_id());
 
@@ -46,7 +46,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
                     dispatcher.forward(req, resp);
             }
-            else if (userType.equalsIgnoreCase("teacher")) {
+            else if (userType.equals(UserType.TEACHER)) {
                         authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
                         curs = serviceCurs.getCurs(((Teacher) session.getAttribute("teacher")).getCurs_id());
                         dtoGroup = serviceCurs.getMyStudents(((Teacher) session.getAttribute("teacher")).getCurs_id());

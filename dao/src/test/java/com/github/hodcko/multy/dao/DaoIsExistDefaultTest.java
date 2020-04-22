@@ -3,6 +3,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.dao.impl.DaoIsExistDefault;
 import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
+import com.github.hodcko.multy.model.UserType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,8 +19,8 @@ public class DaoIsExistDefaultTest {
     void isExistTest() {
         daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30, 1);
         daoTeacher.saveTeacher("test", "test", "hodckoq@mail.com",  1);
-        boolean studentResult = daoIsExist.isExist("hodckoq@mail.com", "student");
-        boolean teacherResult =  daoIsExist.isExist("hodckoq@mail.com", "teacher");
+        boolean studentResult = daoIsExist.isExist("hodckoq@mail.com", UserType.STUDENT);
+        boolean teacherResult =  daoIsExist.isExist("hodckoq@mail.com", UserType.TEACHER);
         daoStudent.deleteStudent("hodckoq@mail.com");
         daoTeacher.deleteTeacher("hodckoq@mail.com");
         assertTrue(teacherResult);

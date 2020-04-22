@@ -1,5 +1,6 @@
 package com.github.hodcko.multy.dao;
 
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceGetIdByEmail;
 import com.github.hodcko.multy.service.impl.ServiceGetIdByEmailDefault;
 import org.junit.jupiter.api.BeforeAll;
@@ -29,9 +30,8 @@ public class ServiceGetIdTest {
     @Test
     void getIdTest(){
         String email = "hodckoq@gmail.com";
-        String userType = "teacher";
-        when(IDGIBE.getId(email,userType)).thenReturn(2);
-        int testResult =  ISGIBE.getId(email, userType);
+        when(IDGIBE.getId(email,UserType.STUDENT)).thenReturn(2);
+        int testResult =  ISGIBE.getId(email, UserType.STUDENT);
         assertEquals(2, testResult);
     }
 

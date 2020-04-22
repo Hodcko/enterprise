@@ -30,7 +30,7 @@ public class EntryFromStartServlet extends HttpServlet {
         String password = req.getParameter("password");
 
         AuthUser authUser = serviceAuthUser.getAuthUser(login, password);
-        String role = authUser.getRole();
+        UserType role = authUser.getRole();
 
         Curs curs;
         List<DTOGroup> dtoGroup;
@@ -39,7 +39,7 @@ public class EntryFromStartServlet extends HttpServlet {
 
 
         if(login.equalsIgnoreCase(securityService.login(login, password))) {
-            if (role.equalsIgnoreCase("student")) {
+            if (role.equals(UserType.STUDENT)) {
                 student = serviceStudent.getStudent(authUser.getUserId());
                 curs = serviceCurs.getCurs(student.getCurs_id());
                 session.setAttribute("authUser", authUser);
@@ -47,7 +47,7 @@ public class EntryFromStartServlet extends HttpServlet {
                 session.setAttribute("student", student);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
                 dispatcher.forward(req, resp);
-            } else if (role.equalsIgnoreCase("teacher")) {
+            } else if (role.equals(UserType.TEACHER)) {
                 teacher = serviceTeacher.getTeacher(authUser.getUserId());
                 curs = serviceCurs.getCurs(teacher.getCurs_id());
                 dtoGroup = serviceCurs.getMyStudents(teacher.getCurs_id());

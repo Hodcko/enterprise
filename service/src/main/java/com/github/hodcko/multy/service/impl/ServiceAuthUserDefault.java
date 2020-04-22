@@ -3,6 +3,7 @@ package com.github.hodcko.multy.service.impl;
 import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.dao.DaoAuthUser;
+import com.github.hodcko.multy.model.UserType;
 
 public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.ServiceAuthUser {
 
@@ -23,7 +24,7 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
     }
 
     @Override
-    public AuthUser saveAuthUser(int user_id, String login, String password, String role){
+    public AuthUser saveAuthUser(int user_id, String login, String password, UserType role){
         return daoAuthUser.saveAuthUser(user_id, login, password, role);
     }
 
@@ -33,17 +34,17 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
     }
 
     @Override
-    public String passwordGenerate(String email, String userType){
+    public String passwordGenerate(String email, UserType userType){
         return daoAuthUser.passwordGenerate(email, userType);
     }
 
     @Override
-    public boolean deleteAuthUser(int id, String role){
+    public boolean deleteAuthUser(int id, UserType role){
         return daoAuthUser.deleteAuthUser(id, role);
     }
 
     @Override
-    public String getRole(String login, String password){
+    public UserType getRole(String login, String password){
         return daoAuthUser.getRole(login, password);
     }
 

@@ -4,6 +4,7 @@ package com.github.hodcko.multy.dao.impl;
 import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
+import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -32,8 +33,8 @@ public class DaoGetIdByEmailDefault implements com.github.hodcko.multy.dao.DaoGe
     }
 
     @Override
-    public int getId(String email, String userType) {
-        if (userType.equalsIgnoreCase("student")) {
+    public int getId(String email, UserType userType) {
+        if (userType.equals(UserType.STUDENT)) {
             Student student;
             try (Session session = SFUtil.getSession()) {
                 session.beginTransaction();
@@ -46,7 +47,7 @@ public class DaoGetIdByEmailDefault implements com.github.hodcko.multy.dao.DaoGe
                 log.error("fail to return id of student with email {}", email, e);
             }
             return 0;
-        } else if (userType.equalsIgnoreCase("teacher")) {
+        } else if (userType.equals(UserType.TEACHER)) {
             Teacher teacher;
             try (Session session = SFUtil.getSession()) {
                 session.beginTransaction();

@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.AuthUser;
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.ServiceIsExist;
 import com.github.hodcko.multy.service.ServiceValidation;
@@ -32,16 +33,16 @@ public class ValidationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String secondName = req.getParameter("secondName");
         String email = req.getParameter("email");
-        String userType = req.getParameter("userType");
+        UserType userType = UserType.valueOf(req.getParameter("userType").toUpperCase());
 
         if (!serviceIsExist.isExist(email, userType)) {
-            if (userType.equalsIgnoreCase("student")) {
+            if (userType.equals(UserType.STUDENT)) {
                 if (serviceValidation.validationStudent(name, secondName, email, Integer.parseInt(req.getParameter("age")))) {
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/student");
                     dispatcher.forward(req, resp);
                 }
             }
-            else if (userType.equalsIgnoreCase("teacher")) {
+            else if (userType.equals(UserType.TEACHER)) {
                 if (serviceValidation.validationTeacher(name, secondName, email)) {
                     RequestDispatcher dispatcher = req.getRequestDispatcher("/teacher");
                     dispatcher.forward(req, resp);

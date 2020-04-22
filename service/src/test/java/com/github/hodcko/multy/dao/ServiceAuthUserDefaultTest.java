@@ -2,6 +2,7 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.model.AuthUser;
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.SecurityService;
 import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
@@ -34,24 +35,24 @@ public class ServiceAuthUserDefaultTest {
 
     @Test
     void saveAuthUserTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", "mockRole", 1);
-        when(daoAuthUser.saveAuthUser(1, "mockLogin", "mockPassword", "mockRole")).thenReturn(authUserStudent);
-        AuthUser authUser = serviceAuthUser.saveAuthUser(1,"mockLogin", "mockPassword", "mockRole");
+        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
+        when(daoAuthUser.saveAuthUser(1, "mockLogin", "mockPassword", UserType.STUDENT)).thenReturn(authUserStudent);
+        AuthUser authUser = serviceAuthUser.saveAuthUser(1,"mockLogin", "mockPassword", UserType.STUDENT);
         Assertions.assertEquals(authUserStudent, authUser);
 
     }
 
     @Test
     void getRoleTest() {
-        when(daoAuthUser.getRole("mockLogin", "mockPassword")).thenReturn("mockRole");
-        String role = serviceAuthUser.getRole("mockLogin", "mockPassword");
-        Assertions.assertEquals(role, "mockRole");
+        when(daoAuthUser.getRole("mockLogin", "mockPassword")).thenReturn(UserType.STUDENT);
+        UserType role = serviceAuthUser.getRole("mockLogin", "mockPassword");
+        Assertions.assertEquals(role, UserType.STUDENT);
 
     }
 
     @Test
     void getAuthUserTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", "mockRole", 1);
+        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
         when(daoAuthUser.getAuthUser("mockLogin", "mockPassword")).thenReturn(authUserStudent);
         AuthUser authUserTest = serviceAuthUser.getAuthUser("mockLogin", "mockPassword");
         Assertions.assertEquals(authUserStudent, authUserTest);
@@ -59,7 +60,7 @@ public class ServiceAuthUserDefaultTest {
 
     @Test
     void changePasswordTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", "mockRole", 1);
+        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
         when(daoAuthUser.changePassword("mockLogin","mockPassword", "qwerty" )).thenReturn(true);
         Boolean result = securityService.changePassword(authUserStudent.getLogin(), authUserStudent.getPassword(), "qwerty");
         Assertions.assertEquals(true, result);

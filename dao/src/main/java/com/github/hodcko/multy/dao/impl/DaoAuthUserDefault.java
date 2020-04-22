@@ -3,6 +3,7 @@ package com.github.hodcko.multy.dao.impl;
 import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.dao.DaoAuthUser;
+import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -45,7 +46,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     }
 
         @Override
-        public AuthUser saveAuthUser (int user_id, String login, String password, String role) {
+        public AuthUser saveAuthUser (int user_id, String login, String password, UserType role) {
             AuthUser authUser = new AuthUser(login, password, role, user_id);
             try (Session session = SFUtil.getSession()) {
                 session.beginTransaction();
@@ -60,8 +61,8 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         }
 
         @Override
-        public String passwordGenerate(String email, String userType) {
-            if(userType.equalsIgnoreCase("student")) {
+        public String passwordGenerate(String email, UserType userType) {
+            if(userType.equals(UserType.STUDENT)) {
                 try (Session session = SFUtil.getSession()) {
                     session.beginTransaction();
                     String secondName = (String) session.createNativeQuery("select second_name from student where email = :mail")
@@ -95,7 +96,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         }
 
     @Override
-    public boolean deleteAuthUser (int id, String role) {
+    public boolean deleteAuthUser (int id, UserType role) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             AuthUser authUser = session.createQuery("select a from AuthUser a where userId = :user_id and role = :role", AuthUser.class)
@@ -113,7 +114,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     }
 
     @Override
-    public String getRole(String login, String password){
+    public UserType getRole(String login, String password){
         String role;
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
@@ -122,7 +123,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
                     .setParameter("pass", password)
                     .getSingleResult();
             session.getTransaction().commit();
-            return role;
+            return UserType.valueOf(role.toUpperCase());
         }catch (HibernateError e){
             log.error("fail to get role from authUser with login {} and password {}", login, password, e);
         }

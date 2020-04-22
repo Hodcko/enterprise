@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceIsExist;
 import com.github.hodcko.multy.service.impl.ServiceIsExistDefault;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,9 +31,8 @@ public class ServiceIsExistDefaultTest {
     @Test
     void isExistTest(){
         String email = "hodckoq@gmail.com";
-        String userType = "student";
-        when(daoIsExist.isExist(email, userType)).thenReturn(true);
-        boolean result = serviceIsExist.isExist(email, userType);
+        when(daoIsExist.isExist(email, UserType.STUDENT)).thenReturn(true);
+        boolean result = serviceIsExist.isExist(email, UserType.STUDENT);
         assertTrue(result);
 
     }

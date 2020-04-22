@@ -1,5 +1,6 @@
 package com.github.hodcko.multy.web;
 
+import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceCurs;
 import com.github.hodcko.multy.service.ServiceTeacher;
 import com.github.hodcko.multy.service.impl.ServiceCursDefault;
@@ -24,7 +25,7 @@ public class TeacherRegistrationServlet extends HttpServlet {
         String name =  rq.getParameter("name");
         String secondName =  rq.getParameter("secondName");
         String email = rq.getParameter("email");
-        String userType = rq.getParameter("userType");
+        UserType userType = UserType.valueOf(rq.getParameter("userType").toUpperCase()) ;
         String langType = rq.getParameter("langType");
 
         Teacher teacher =  serviceTeacher.saveTeacher(name, secondName, email, serviceCurs.getCurs_id(langType));
