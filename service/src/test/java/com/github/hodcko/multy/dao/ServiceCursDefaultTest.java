@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -25,9 +25,9 @@ public class ServiceCursDefaultTest {
 
     @Test
     void createCursTest(){
-        Curs curs = new Curs(1, "Java", new Date(2020, 4, 10), new Date(2020, 4, 10));
+        Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         when(daoCurs.createCurs(curs.getName(), curs.getStart(), curs.getEnd())).thenReturn(curs);
-        Curs cursTest = iServiceCursDefault.createCurs("Java", new Date(2020, 4, 10), new Date(2020, 4, 10));
+        Curs cursTest = iServiceCursDefault.createCurs("Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         assertEquals(curs, cursTest);
     }
 
@@ -39,7 +39,7 @@ public class ServiceCursDefaultTest {
 
     @Test
     void getCursTest(){
-        Curs curs = new Curs(1, "Java", new Date(2020, 4, 10), new Date(2020, 4, 10));
+        Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         when(daoCurs.getCurs(1)).thenReturn(curs);
         Curs cursTest = iServiceCursDefault.getCurs(1);
         assertEquals(curs, cursTest);

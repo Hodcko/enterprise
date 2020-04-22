@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Student{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column
     private String name;
     @Column (name = "second_name")
@@ -17,16 +17,16 @@ public class Student{
     @Column
     private String email;
     @Column
-    private int age;
+    private Integer age;
     @Column
-    private int curs_id;
+    private Integer curs_id;
 
 
    public Student(){
 
    }
 
-    public Student(String name, String secondName, String email, int age, int curs_id) {
+    public Student(String name, String secondName, String email, Integer age, Integer curs_id) {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
@@ -34,7 +34,7 @@ public class Student{
         this.curs_id = curs_id;
     }
 
-    public Student(int id, String name, String secondName, String email, int age, int curs_id) {
+    public Student(int id, String name, String secondName, String email, Integer age, Integer curs_id) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
@@ -59,11 +59,11 @@ public class Student{
         return email;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public int getCurs_id() {
+    public Integer getCurs_id() {
         return curs_id;
     }
 
@@ -79,17 +79,18 @@ public class Student{
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id &&
-                age == student.age &&
-                curs_id == student.curs_id &&
+        return Objects.equals(id, student.id) &&
                 Objects.equals(name, student.name) &&
                 Objects.equals(secondName, student.secondName) &&
-                Objects.equals(email, student.email);
+                Objects.equals(email, student.email) &&
+                Objects.equals(age, student.age) &&
+                Objects.equals(curs_id, student.curs_id);
     }
 
     @Override

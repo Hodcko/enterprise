@@ -9,31 +9,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DaoGradebookDefaultTest {
     DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
+    private int studentId = 1;
 
     @Test
     void addStudentToGradebookTest() {
-        int studentId = 1;
         int result = daoGradebook.addStudentToGradebook(studentId);
-        assertEquals(1, result);
+        daoGradebook.deleteStudentFromGradebook(studentId);
+        assertEquals(studentId, result);
     }
 
     @Test
     void addGradeTest() {
-        int studentId = 1;
+        daoGradebook.addStudentToGradebook(studentId);
         int result = daoGradebook.addGrade(studentId);
-        assertEquals(1, result);
+        daoGradebook.deleteStudentFromGradebook(studentId);
+        assertEquals(studentId, result);
     }
 
     @Test
     void getGradeTest() {
-        int studentId = 1;
+        daoGradebook.addStudentToGradebook(studentId);
+        daoGradebook.addGrade(studentId);
         int result = daoGradebook.getGrade(studentId);
         assertEquals(1, result);
         daoGradebook.deleteStudentFromGradebook(studentId);
     }
-
-
-
-
-
 }

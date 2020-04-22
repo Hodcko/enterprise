@@ -1,14 +1,14 @@
 package com.github.hodcko.multy.dao;
 
 
-import com.github.hodcko.multy.dao.impl.DaoAuthUserUserDefault;
+import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
 import com.github.hodcko.multy.model.AuthUser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DaoAuthUserUserTest {
 
-    DaoAuthUser daoAuthUser = DaoAuthUserUserDefault.getInstance();
+    DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
 
     @Test
     void saveAuthUserTest() {

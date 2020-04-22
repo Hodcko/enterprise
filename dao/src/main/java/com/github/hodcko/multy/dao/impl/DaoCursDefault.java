@@ -1,14 +1,21 @@
 package com.github.hodcko.multy.dao.impl;
 
+import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.dao.DaoCurs;
 import com.github.hodcko.multy.dao.utils.MysqlDataBase;
 import com.github.hodcko.multy.model.DTOGroup;
+import com.github.hodcko.multy.model.Student;
+import org.hibernate.HibernateError;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DaoCursDefault implements DaoCurs {
     MysqlDataBase dataBase = new MysqlDataBase();
@@ -30,53 +37,65 @@ public class DaoCursDefault implements DaoCurs {
     }
 
     @Override
-    public Curs createCurs(String names, Date start, Date end) {
-        int id = 0;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("update curs set start_date = ?, end_date = ?  where name = ?", Statement.RETURN_GENERATED_KEYS)) {
-            statement.setDate(1, start);
-            statement.setDate(2, end);
-            statement.setString(3, names);
-
-            statement.executeUpdate();
-            ResultSet rs = statement.getGeneratedKeys();
-            rs.next();
-            id = rs.getInt(1);
-            log.info("create curs: {}", names);
-        } catch (SQLException | ClassNotFoundException e) {
-            log.error("fail to create curs: {}", names, e);
+    public Curs createCurs(String names, LocalDate start, LocalDate end) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Curs curs = session.createQuery("select c from Curs c where name = :name", Curs.class)
+                    .setParameter("name", names).getSingleResult();
+            curs.setStart(start);
+            curs.setEnd(end);
+            session.getTransaction().commit();
+            log.info("create curs {}, start {}, end {}", names, start, end);
+            return curs;
+        }catch (HibernateError e){
+            log.error("fail to create curs {}, start {}, end {}", names, start, end, e);
         }
-        return new Curs(id, names, start, end);
+        return null;
     }
 
     @Override
     public Curs getCurs(int curs_id) {
-        String name = null;
-        Date start = null;
-        Date end = null;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("select * from curs where id = ?")) {
-            statement.setInt(1, curs_id);
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    name = rs.getString("name");
-                    start = rs.getDate("start_date");
-                    end = rs.getDate("end_date");
-                }
-                log.info("curs get: {}", name);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
+                    .setParameter("id", curs_id).getSingleResult();
+            session.getTransaction().commit();
+            log.info("curs get with id {}", curs_id);
+            return curs;
+        }catch (HibernateError e){
+            log.error("fail to curs get with id {}", curs_id);
         }
-        return new Curs(curs_id, name, start, end);
+        return null;
+    }
+
+    @Override
+    public boolean deleteCurs(int curs_id) {
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
+                    .setParameter("id", curs_id).getSingleResult();
+            curs.setStart(null);
+            curs.setEnd(null);
+            session.getTransaction().commit();
+            log.info("curs with id {} deleted", curs_id);
+            return true;
+        }catch (HibernateError e){
+            log.error("fail to delete curs with id {}", curs_id);
+        }
+        return false;
     }
 
     @Override
     public List<DTOGroup> getMyStudents(int curs_id){
+//        try (Session session = SFUtil.getSession()) {
+//            session.getTransaction();
+//            List<DTOGroup> query = session.createNativeQuery("select name, second_name, email, grade" +
+//                    "from student s join gradebook g on s.id = g.student_id where curs_id = :id and grade > 0"
+//                    ,DTOGroup.class).setParameter("id", curs_id).getResultList();
+//            session.getTransaction().commit();
+//            log.info("get all students of curs get with id {}", curs_id);
+//            return query;
+//        }
         List<DTOGroup> list = new ArrayList<>();
         String name = null;
         String secondName = null;

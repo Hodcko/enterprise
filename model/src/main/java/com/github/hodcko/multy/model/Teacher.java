@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column
     private String name;
     @Column (name = "second_name")
@@ -17,20 +17,20 @@ public class Teacher {
     @Column
     private String email;
     @Column
-    private int curs_id;
+    private Integer curs_id;
 
 
     public Teacher(){
     }
 
-    public Teacher(String name, String secondName, String email, int curs_id) {
+    public Teacher(String name, String secondName, String email, Integer curs_id) {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
         this.curs_id = curs_id;
     }
 
-    public Teacher(int id, String name, String secondName, String email, int curs_id) {
+    public Teacher(Integer id, String name, String secondName, String email, Integer curs_id) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
@@ -38,7 +38,7 @@ public class Teacher {
         this.curs_id = curs_id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -54,7 +54,7 @@ public class Teacher {
         return email;
     }
 
-    public int getCurs_id() {
+    public Integer getCurs_id() {
         return curs_id;
     }
 
@@ -74,11 +74,11 @@ public class Teacher {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Teacher teacher = (Teacher) o;
-        return id == teacher.id &&
-                curs_id == teacher.curs_id &&
+        return Objects.equals(id, teacher.id) &&
                 Objects.equals(name, teacher.name) &&
                 Objects.equals(secondName, teacher.secondName) &&
-                Objects.equals(email, teacher.email);
+                Objects.equals(email, teacher.email) &&
+                Objects.equals(curs_id, teacher.curs_id);
     }
 
     @Override

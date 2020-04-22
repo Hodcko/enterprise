@@ -2,4 +2,3 @@
 2. Enum для студента и учителя
 3*. IsExist and passwordGenerate в разные классы
 4*. Навести порядок в пом
-5. int -> Integer в БД

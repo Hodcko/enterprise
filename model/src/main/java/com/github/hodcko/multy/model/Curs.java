@@ -1,23 +1,34 @@
 package com.github.hodcko.multy.model;
 
+import javax.persistence.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
+@Table(name = "curs")
 public class Curs {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    @Column
     private String name;
-    private Date start;
-    private Date end;
+    @Column (name = "start_date")
+    private LocalDate start;
+    @Column (name = "end_date")
+    private LocalDate end;
 
-    public Curs(int id, String name, Date start, Date end) {
+    public Curs(Integer id, String name, LocalDate start, LocalDate end) {
         this.id = id;
         this.name = name;
         this.start = start;
         this.end = end;
     }
 
+    public Curs() {
+    }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -25,12 +36,28 @@ public class Curs {
         return name;
     }
 
-    public Date getStart() {
+    public LocalDate getStart() {
         return start;
     }
 
-    public Date getEnd() {
+    public LocalDate getEnd() {
         return end;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
+    public void setEnd(LocalDate end) {
+        this.end = end;
     }
 
     @Override
@@ -42,12 +69,13 @@ public class Curs {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Curs curs = (Curs) o;
-        return id == curs.id &&
+        return Objects.equals(id, curs.id) &&
                 Objects.equals(name, curs.name) &&
                 Objects.equals(start, curs.start) &&
                 Objects.equals(end, curs.end);

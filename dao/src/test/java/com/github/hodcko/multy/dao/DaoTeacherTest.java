@@ -24,10 +24,9 @@ public class DaoTeacherTest {
 
     @Test
     void saveTeacherTest() {
-        Teacher teacher = new Teacher(3, "John", "Snow", "winter@gmail.com", 1);
         Teacher teacherTest = daoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
+        Teacher teacher = daoTeacher.getTeacher(teacherTest.getId());
         daoTeacher.deleteTeacher("winter@gmail.com");
         Assertions.assertEquals(teacher, teacherTest);
-
     }
 }

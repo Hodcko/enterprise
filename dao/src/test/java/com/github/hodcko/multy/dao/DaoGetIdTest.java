@@ -2,6 +2,10 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.dao.impl.DaoGetIdByEmailDefault;
+import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
+import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
+import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.Teacher;
 import org.junit.jupiter.api.Test;
 
 
@@ -10,16 +14,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DaoGetIdTest {
     final DaoGetIdByEmail daoGetIdByEmail = DaoGetIdByEmailDefault.getInstance();
-
+    final DaoStudent daoStudent = DaoStudentDefault.getInstance();
+    final DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
 
 
 
     @Test
-    void createCursTest() {
-        int studentId = daoGetIdByEmail.getId("hodckoq@gmail.com", "student");
-        int teacherId = daoGetIdByEmail.getId("hodckoq@gmail.com", "teacher");
-        assertEquals(1, studentId);
-        assertEquals(2, teacherId);
+    void setDaoGetIdByEmailTest() {
+        Student student = daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30, 1);
+        Teacher teacher = daoTeacher.saveTeacher("test", "test", "hodckoq@mail.com",  1);
+        int studentId = daoGetIdByEmail.getId("hodckoq@mail.com", "student");
+        int teacherId = daoGetIdByEmail.getId("hodckoq@mail.com", "teacher");
+        daoStudent.deleteStudent("hodckoq@mail.com");
+        daoTeacher.deleteTeacher("hodckoq@mail.com");
+        assertEquals(student.getId(), studentId);
+        assertEquals(teacher.getId(), teacherId);
 
     }
 

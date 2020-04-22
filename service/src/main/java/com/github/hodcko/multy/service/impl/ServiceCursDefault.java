@@ -6,6 +6,7 @@ import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.DTOGroup;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ServiceCursDefault implements com.github.hodcko.multy.service.ServiceCurs {
@@ -27,7 +28,7 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     }
 
     @Override
-    public Curs createCurs(String name, Date start, Date end){
+    public Curs createCurs(String name, LocalDate start, LocalDate end){
         return daoCurs.createCurs(name, start, end);
     }
 

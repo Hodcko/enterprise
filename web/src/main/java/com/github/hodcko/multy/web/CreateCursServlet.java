@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @WebServlet("/curs")
 public class CreateCursServlet extends HttpServlet {
@@ -20,8 +21,8 @@ public class CreateCursServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String cursName = req.getParameter("name");
-        Date startDate = Date.valueOf(req.getParameter("startDate"));
-        Date endDate = Date.valueOf(req.getParameter("endDate"));
+        LocalDate startDate = Date.valueOf(req.getParameter("startDate")).toLocalDate();
+        LocalDate endDate = Date.valueOf(req.getParameter("endDate")).toLocalDate();
 
         serviceCurs.createCurs(cursName, startDate, endDate);
 

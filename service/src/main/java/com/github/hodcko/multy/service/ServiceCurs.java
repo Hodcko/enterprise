@@ -4,11 +4,12 @@ import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.DTOGroup;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ServiceCurs {
 
-    Curs createCurs(String name, Date start, Date end);
+    Curs createCurs(String name, LocalDate start, LocalDate end);
 
     int getCurs_id(String langType);
 

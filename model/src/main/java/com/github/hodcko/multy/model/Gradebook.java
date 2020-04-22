@@ -2,40 +2,66 @@ package com.github.hodcko.multy.model;
 
 
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.*;
 
+@Entity
+@Table(name = "gradebook")
 public class Gradebook {
 
-    private List<Integer> grades = new ArrayList<>();
-    private Map<Integer , List<Integer>> gradelist = new HashMap<>();
+    @Id
+    @Column (name = "student_id")
+    private Integer studentId;
+    @Column
+    private Integer grade;
 
-    private static volatile Gradebook instance;
-
-    public static Gradebook getInstance(){
-        Gradebook localInstance = instance;
-        if(localInstance == null){
-            synchronized (Gradebook.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new Gradebook();
-                }
-            }
-        }
-        return localInstance;
+    public Gradebook() {
     }
 
+    public Gradebook(Integer studentId, Integer grade){
+        this.studentId = studentId;
+        this.grade = grade;
+    }
+
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Gradebook gradelist1 = (Gradebook) o;
-        return Objects.equals(grades, gradelist1.grades) &&
-                Objects.equals(gradelist, gradelist1.gradelist);
+        Gradebook gradebook = (Gradebook) o;
+        return Objects.equals(studentId, gradebook.studentId) &&
+                Objects.equals(grade, gradebook.grade);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(grades, gradelist);
+        return Objects.hash(studentId, grade);
+    }
+
+    @Override
+    public String toString() {
+        return "Gradebook{" +
+                "studentId=" + studentId +
+                ", grade=" + grade +
+                '}';
     }
 }

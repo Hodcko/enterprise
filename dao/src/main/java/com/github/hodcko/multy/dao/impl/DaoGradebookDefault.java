@@ -1,17 +1,17 @@
 package com.github.hodcko.multy.dao.impl;
 
-import com.github.hodcko.multy.dao.utils.MysqlDataBase;
+
+import com.github.hodcko.multy.dao.utils.SFUtil;
+import com.github.hodcko.multy.model.Gradebook;
+import org.hibernate.HibernateError;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGradebook {
 
     private static volatile com.github.hodcko.multy.dao.DaoGradebook instance;
-    MysqlDataBase dataBase = new MysqlDataBase();
     private static final Logger log = LoggerFactory.getLogger(DaoGradebookDefault.class);
 
 
@@ -31,65 +31,63 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
 
     @Override
     public int addGrade(int studetn_id) {
-        int id = 0;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("UPDATE gradebook SET grade = grade + 1 where student_id = ?;")) {
-            statement.setInt(1, studetn_id);
-
-            statement.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id",
+                    Gradebook.class).setParameter("id", studetn_id).getSingleResult();
+            gradebook.setGrade(gradebook.getGrade() + 1);
+            session.getTransaction().commit();
+            log.info("increment grade by student with id {}", studetn_id);
+            return studetn_id;
+        }catch (HibernateError e){
+            log.error("fail to increment grade by student with id {}", studetn_id, e);
         }
-        return studetn_id;
+        return 0;
     }
 
     @Override
     public int addStudentToGradebook(int studetn_id){
-        int id = 0;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("insert into gradebook(student_id) values(?)")) {
-            statement.setInt(1, studetn_id);
-            statement.executeUpdate();
-            log.info("added to gradeBook: {}", studetn_id);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            log.error("cant add to gradeBook: {}", studetn_id, e);
-
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Gradebook gradebook = new Gradebook(studetn_id, 0);
+            session.saveOrUpdate(gradebook);
+            session.getTransaction().commit();
+            log.info("added to gradeBook student with id {}", studetn_id);
+            return studetn_id;
+        }catch (HibernateError e){
+            log.error("fail to add to gradeBook student with id {}", studetn_id, e);
         }
-        return studetn_id;
+        return 0;
     }
 
     @Override
     public int getGrade(int studetn_id){
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("select grade from gradebook where student_id = ?")) {
-            statement.setInt(1, studetn_id);
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    return rs.getInt("grade");
-                }
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            log.error("cant get grade: {}", studetn_id, e);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            int grade = (int) session.createNativeQuery("select grade from gradebook where student_id = :id")
+                    .setParameter("id", studetn_id).getSingleResult();
+            session.getTransaction().commit();
+            log.info("student with id {} take grade {}", studetn_id, grade);
+            return grade;
+        }catch (HibernateError e){
+            log.error("fail to get grade from student with id {}", studetn_id, e);
         }
         return 0;
     }
 
     @Override
     public boolean deleteStudentFromGradebook(int student_id){
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("delete from gradebook where student_id = ? ")) {
-            statement.setInt(1, student_id);
-            statement.executeUpdate();
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id",
+                    Gradebook.class).setParameter("id", student_id).getSingleResult();
+            session.delete(gradebook);
+            session.getTransaction().commit();
             log.info("Student with id {} deleted from GradeBook", student_id);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+            return true;
+        }catch (HibernateError e){
+            log.error(" fail to delete Student with id {} from GradeBook", student_id);
         }
-        return true;
+        return false;
     }
 }

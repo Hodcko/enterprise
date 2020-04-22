@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 
 
 
-public class DaoAuthUserUserDefault implements DaoAuthUser {
-    private static final Logger log = LoggerFactory.getLogger(DaoAuthUserUserDefault.class);
+public class DaoAuthUserDefault implements DaoAuthUser {
+    private static final Logger log = LoggerFactory.getLogger(DaoAuthUserDefault.class);
     private static volatile DaoAuthUser instance;
 
     public static DaoAuthUser getInstance() {
@@ -20,7 +20,7 @@ public class DaoAuthUserUserDefault implements DaoAuthUser {
             synchronized (DaoAuthUser.class) {
                 localInstance = instance;
                 if (localInstance == null) {
-                    instance = localInstance = new DaoAuthUserUserDefault();
+                    instance = localInstance = new DaoAuthUserDefault();
                 }
             }
         }

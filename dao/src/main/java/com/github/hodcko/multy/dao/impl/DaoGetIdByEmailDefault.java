@@ -1,18 +1,18 @@
 package com.github.hodcko.multy.dao.impl;
 
 
-import com.github.hodcko.multy.dao.utils.MysqlDataBase;
+import com.github.hodcko.multy.dao.utils.SFUtil;
+import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.Teacher;
+import org.hibernate.HibernateError;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
 
 
 public class DaoGetIdByEmailDefault implements com.github.hodcko.multy.dao.DaoGetIdByEmail {
 
-    MysqlDataBase dataBase = new MysqlDataBase();
     private static volatile com.github.hodcko.multy.dao.DaoGetIdByEmail instance;
     private static final Logger log = LoggerFactory.getLogger(DaoGetIdByEmailDefault.class);
 
@@ -34,39 +34,31 @@ public class DaoGetIdByEmailDefault implements com.github.hodcko.multy.dao.DaoGe
     @Override
     public int getId(String email, String userType) {
         if (userType.equalsIgnoreCase("student")) {
-            int id = 0;
-            try (Connection connection = dataBase.connect();
-                 PreparedStatement statement = connection.prepareStatement
-                         ("select id from student where email = ?")) {
-                statement.setString(1, email);
-                try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        id = rs.getInt("id");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                return id;
-            } catch (SQLException | ClassNotFoundException e) {
-                log.error("cant get id:{}{}", email, userType, e);
+            Student student;
+            try (Session session = SFUtil.getSession()) {
+                session.beginTransaction();
+                student = session.createQuery("select s from Student s where email = :email", Student.class)
+                        .setParameter("email", email).getSingleResult();
+                session.getTransaction().commit();
+                log.info("return id {} of student with email {}", student.getId(), email);
+                return student.getId();
+            }catch (HibernateError e){
+                log.error("fail to return id of student with email {}", email, e);
             }
+            return 0;
         } else if (userType.equalsIgnoreCase("teacher")) {
-            int id = 0;
-            try (Connection connection = dataBase.connect();
-                 PreparedStatement statement = connection.prepareStatement
-                         ("select id from teacher where email = ?")) {
-                statement.setString(1, email);
-                try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        id = rs.getInt("id");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                return id;
-            } catch (SQLException | ClassNotFoundException e) {
-                log.error("cant get id:{}{}", email, userType, e);
+            Teacher teacher;
+            try (Session session = SFUtil.getSession()) {
+                session.beginTransaction();
+                teacher = session.createQuery("select s from Teacher s where email = :email", Teacher.class)
+                        .setParameter("email", email).getSingleResult();
+                session.getTransaction().commit();
+                log.info("return id {} of teacher with email {}", teacher.getId(), email);
+                return teacher.getId();
+            }catch (HibernateError e){
+                log.error("fail to return id of teacher with email {}", email, e);
             }
+            return 0;
         }
         return 0;
     }

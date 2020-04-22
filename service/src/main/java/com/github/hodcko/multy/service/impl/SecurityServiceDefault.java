@@ -2,11 +2,11 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoAuthUser;
 import com.github.hodcko.multy.service.SecurityService;
-import com.github.hodcko.multy.dao.impl.DaoAuthUserUserDefault;
+import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
 
 public class SecurityServiceDefault implements SecurityService {
 
-    private DaoAuthUser daoAuthUser = DaoAuthUserUserDefault.getInstance();
+    private DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
     private static volatile SecurityService instance;
 
     public static SecurityService getInstance() {

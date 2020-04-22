@@ -8,7 +8,7 @@ import java.util.Objects;
 public class AuthUser {
     @Id
     @Column (name = "id")
-    private int userId;
+    private Integer userId;
     @Column
     private String login;
     @Column
@@ -16,7 +16,7 @@ public class AuthUser {
     @Column (name = "Role")
     private String role;
 
-    public AuthUser(String login, String password, String role, int userId) {
+    public AuthUser(String login, String password, String role, Integer userId) {
         this.login = login;
         this.password = password;
         this.role = role;
@@ -39,7 +39,7 @@ public class AuthUser {
         return role;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -55,7 +55,7 @@ public class AuthUser {
         this.role = role;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -74,7 +74,7 @@ public class AuthUser {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuthUser authUser = (AuthUser) o;
-        return userId == authUser.userId &&
+        return Objects.equals(userId, authUser.userId) &&
                 Objects.equals(login, authUser.login) &&
                 Objects.equals(password, authUser.password) &&
                 Objects.equals(role, authUser.role);
@@ -82,6 +82,6 @@ public class AuthUser {
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password, role, userId);
+        return Objects.hash(userId, login, password, role);
     }
 }

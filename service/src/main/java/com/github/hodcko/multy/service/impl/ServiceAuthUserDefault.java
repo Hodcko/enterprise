@@ -1,12 +1,12 @@
 package com.github.hodcko.multy.service.impl;
 
-import com.github.hodcko.multy.dao.impl.DaoAuthUserUserDefault;
+import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.dao.DaoAuthUser;
 
 public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.ServiceAuthUser {
 
-    private DaoAuthUser daoAuthUser = DaoAuthUserUserDefault.getInstance();
+    private DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
     private static volatile com.github.hodcko.multy.service.ServiceAuthUser instance;
 
     public static com.github.hodcko.multy.service.ServiceAuthUser getInstance(){

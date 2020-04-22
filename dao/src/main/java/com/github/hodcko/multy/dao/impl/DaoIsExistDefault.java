@@ -1,17 +1,14 @@
 package com.github.hodcko.multy.dao.impl;
 
-
-import com.github.hodcko.multy.dao.utils.MysqlDataBase;
+import com.github.hodcko.multy.dao.utils.SFUtil;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.NoResultException;
+
 
 public class DaoIsExistDefault implements com.github.hodcko.multy.dao.DaoIsExist {
 
-    MysqlDataBase dataBase = new MysqlDataBase();
     private static volatile com.github.hodcko.multy.dao.DaoIsExist instance;
     private static final Logger log = LoggerFactory.getLogger(DaoIsExistDefault.class);
 
@@ -33,49 +30,32 @@ public class DaoIsExistDefault implements com.github.hodcko.multy.dao.DaoIsExist
     @Override
     public boolean isExist(String email, String userType){
         if (userType.equalsIgnoreCase("student")) {
-            String mail = null;
-            try (Connection connection = dataBase.connect();
-                 PreparedStatement statement = connection.prepareStatement
-                         ("select email from student where email = ?")) {
-                statement.setString(1, email);
-                try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        mail = rs.getString("email");
-                    }
-                } catch (SQLException e) {
-                    log.error("cant find student: {}", email, e);
-                }
-                if (email.equalsIgnoreCase(mail)) {
+            try (Session session = SFUtil.getSession()) {
+                session.beginTransaction();
+                String studentEmail = (String) session.createNativeQuery("select email from student where email = :mail")
+                        .setParameter("mail", email).getSingleResult();
+                session.getTransaction().commit();
+                if (email.equalsIgnoreCase(studentEmail)) {
+                    log.info("student with email {} is already existed", email);
                     return true;
                 }
-            } catch (SQLException | ClassNotFoundException e) {
-                log.error("cant find student: {}", email, e);
-
+            }catch (NoResultException e ){
+                log.info("fail to check student with email {}", email, e);
             }
         } else if (userType.equalsIgnoreCase("teacher")) {
-            String mail = null;
-            try (Connection connection = dataBase.connect();
-                 PreparedStatement statement = connection.prepareStatement
-                         ("select email from teacher where email = ?")) {
-                statement.setString(1, email);
-                try (ResultSet rs = statement.executeQuery()) {
-                    while (rs.next()) {
-                        mail = rs.getString("email");
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace(); // logs
-                }
-                if (email.equalsIgnoreCase(mail)) {
+            try (Session session = SFUtil.getSession()) {
+                session.beginTransaction();
+                String teacherEmail = (String) session.createNativeQuery("select email from teacher where email = :mail")
+                        .setParameter("mail", email).getSingleResult();
+                session.getTransaction().commit();
+                if (email.equalsIgnoreCase(teacherEmail)) {
+                    log.info("teacher with email {} is already existed", email);
                     return true;
                 }
-            } catch (SQLException | ClassNotFoundException e) {
-                log.error("cant find teacher: {}", email, e);
-
+            }catch (NoResultException e){
+                log.info("fail to check teacher with email {}", email, e);
             }
         }
         return false;
     }
-
-
-
 }
