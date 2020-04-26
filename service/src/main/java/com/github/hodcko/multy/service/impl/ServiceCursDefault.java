@@ -50,7 +50,7 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     }
 
     @Override
-    public List<DTOGroup> getMyStudents(int curs_id) {
-        return daoCurs.getMyStudents(curs_id);
+    public List<DTOGroup> getMyStudents(int curs_id, int numPage) {
+        return daoCurs.getMyStudents(curs_id, numPage);
     }
 }

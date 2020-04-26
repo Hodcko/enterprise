@@ -38,6 +38,10 @@ public class Teacher {
         this.curs_id = curs_id;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private AuthUser authUser;
+
     public Integer getId() {
         return id;
     }

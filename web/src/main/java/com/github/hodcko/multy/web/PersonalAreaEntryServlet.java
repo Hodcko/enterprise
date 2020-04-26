@@ -49,7 +49,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
             else if (userType.equals(UserType.TEACHER)) {
                         authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
                         curs = serviceCurs.getCurs(((Teacher) session.getAttribute("teacher")).getCurs_id());
-                        dtoGroup = serviceCurs.getMyStudents(((Teacher) session.getAttribute("teacher")).getCurs_id());
+                        dtoGroup = serviceCurs.getMyStudents(((Teacher) session.getAttribute("teacher")).getCurs_id(),1);
 
                         session.setAttribute("students", dtoGroup);
                         session.setAttribute("authUser", authUser);

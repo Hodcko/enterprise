@@ -50,7 +50,7 @@ public class EntryFromStartServlet extends HttpServlet {
             } else if (role.equals(UserType.TEACHER)) {
                 teacher = serviceTeacher.getTeacher(authUser.getUserId());
                 curs = serviceCurs.getCurs(teacher.getCurs_id());
-                dtoGroup = serviceCurs.getMyStudents(teacher.getCurs_id());
+                dtoGroup = serviceCurs.getMyStudents(teacher.getCurs_id(), 1);
                 session.setAttribute("students", dtoGroup);
                 session.setAttribute("teacher", teacher);
                 session.setAttribute("authUser", authUser);

@@ -2,6 +2,8 @@ package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.UserType;
+import org.hibernate.HibernateError;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +42,8 @@ public class DaoIsExistDefault implements com.github.hodcko.multy.dao.DaoIsExist
                     log.info("student with email {} is already existed", email);
                     return true;
                 }
-            }catch (NoResultException e ){
-                log.info("fail to check student with email {}", email, e);
+            }catch (HibernateException | NoResultException e){
+                log.error("fail to check student with email {}", email, e);
             }
         } else if (userType.equals(UserType.TEACHER)) {
             try (Session session = SFUtil.getSession()) {
@@ -53,8 +55,8 @@ public class DaoIsExistDefault implements com.github.hodcko.multy.dao.DaoIsExist
                     log.info("teacher with email {} is already existed", email);
                     return true;
                 }
-            }catch (NoResultException e){
-                log.info("fail to check teacher with email {}", email, e);
+            }catch (HibernateException | NoResultException e){
+                log.error("fail to check teacher with email {}", email, e);
             }
         }
         return false;

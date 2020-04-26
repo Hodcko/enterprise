@@ -7,8 +7,11 @@ import com.github.hodcko.multy.dao.utils.MysqlDataBase;
 import com.github.hodcko.multy.model.DTOGroup;
 import com.github.hodcko.multy.model.Student;
 import org.hibernate.HibernateError;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.*;
@@ -74,6 +77,7 @@ public class DaoCursDefault implements DaoCurs {
             session.beginTransaction();
             Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
                     .setParameter("id", curs_id).getSingleResult();
+            curs.setId(curs_id);
             curs.setStart(null);
             curs.setEnd(null);
             session.getTransaction().commit();
@@ -86,41 +90,25 @@ public class DaoCursDefault implements DaoCurs {
     }
 
     @Override
-    public List<DTOGroup> getMyStudents(int curs_id){
-//        try (Session session = SFUtil.getSession()) {
-//            session.getTransaction();
-//            List<DTOGroup> query = session.createNativeQuery("select name, second_name, email, grade" +
-//                    "from student s join gradebook g on s.id = g.student_id where curs_id = :id and grade > 0"
-//                    ,DTOGroup.class).setParameter("id", curs_id).getResultList();
-//            session.getTransaction().commit();
-//            log.info("get all students of curs get with id {}", curs_id);
-//            return query;
-//        }
-        List<DTOGroup> list = new ArrayList<>();
-        String name = null;
-        String secondName = null;
-        String email = null;
-        int grade = 0;
-        try (Connection connection = dataBase.connect();
-             PreparedStatement statement = connection.prepareStatement
-                     ("select name, second_name, email, grade from student s\n" +
-                             "join gradebook g on s.id = g.student_id\n" +
-                             "where curs_id = ? and grade > 0\n")) {
-            statement.setInt(1, curs_id);
-            try (ResultSet rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    name = rs.getString("name");
-                    secondName = rs.getString("second_name");
-                    email = rs.getString("email");
-                    grade = rs.getInt("grade");
-                    list.add(new DTOGroup(name, secondName, email, grade));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+    public List<DTOGroup> getMyStudents(int curs_id, int numPage){
+        int limit = (numPage - 1) * 1;
+        try (Session session = SFUtil.getSession()) {
+            session.getTransaction().begin();
+            List<DTOGroup> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
+                    "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0 limit :limit, 1")
+                    .setParameter("id", curs_id).setParameter("limit", limit)
+                    .addScalar("secondName", StandardBasicTypes.STRING)
+                    .addScalar("name", StandardBasicTypes.STRING)
+                    .addScalar("email", StandardBasicTypes.STRING)
+                    .addScalar("grade", StandardBasicTypes.INTEGER)
+                    .setResultTransformer(Transformers.aliasToBean(DTOGroup.class))
+                    .list();
+            session.getTransaction().commit();
+            log.info("get all students of curs with id {}", curs_id);
+            return groupDtos;
+        }catch (HibernateException e){
+            log.error("fail to get all students of curs with id {}", curs_id);
         }
-        return list;
+        return null;
     }
 }

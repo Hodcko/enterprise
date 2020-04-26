@@ -3,6 +3,8 @@ package com.github.hodcko.multy.model;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +29,22 @@ public class Curs {
 
     public Curs() {
     }
+
+    public Curs(Integer id, String name, LocalDate start, LocalDate end, List<Student> studentList) {
+        this.id = id;
+        this.name = name;
+        this.start = start;
+        this.end = end;
+        this.studentList = studentList;
+    }
+
+
+
+    @OneToMany(mappedBy = "curs", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Student> studentList = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "curses", cascade = CascadeType.ALL)
+    private List<Student> students = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -60,15 +78,31 @@ public class Curs {
         this.end = end;
     }
 
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
     @Override
     public String toString() {
         return "Curs{" +
-                "name=" + name +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", start=" + start +
                 ", end=" + end +
                 '}';
     }
-
 
     @Override
     public boolean equals(Object o) {

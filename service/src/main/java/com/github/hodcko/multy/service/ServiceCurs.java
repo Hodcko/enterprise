@@ -15,6 +15,6 @@ public interface ServiceCurs {
 
     Curs getCurs(int curs_id);
 
-    List<DTOGroup> getMyStudents(int curs_id);
+    List<DTOGroup> getMyStudents(int curs_id, int numPage);
 
 }

@@ -28,6 +28,14 @@ public class AuthUser {
 
     }
 
+    @OneToOne(mappedBy = "authUser", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Student student;
+
+    @OneToOne(mappedBy = "authUser", fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    private Teacher teacher;
+
     public String getLogin() {
         return login;
     }
