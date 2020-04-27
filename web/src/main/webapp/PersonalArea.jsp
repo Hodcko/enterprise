@@ -46,24 +46,50 @@
                 <td><c:out value="Дата окончания курса"/></td>
                 <td><c:out value="${curs.end}"/></td>
             </tr>
+
         </table>
-            <h2 style="text-align: center"><c:out value="Список моих студентов"/></h2>
-            <table style="width: 100%">
-                        <tr>
-                            <td><c:out value="Имя"/></td>
-                            <td><c:out value="Фамилия"/></td>
-                            <td><c:out value="Адрес электронной почты"/></td>
-                            <td><c:out value="Итоговый балл"/></td>
-                        </tr>
-            <c:forEach items="${students}" var="students">
+        <h2 style="text-align: center"><c:out value="Список моих студентов"/></h2>
+        <table style="width: 100%">
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Адрес электронной почты</th>
+                    <th>Итоговый балл</th>
+                </tr>
+
+                <c:forEach var="student" items="${students}">
                     <tr>
-                        <td>${students.name}</td>
-                        <td>${students.secondName}</td>
-                        <td>${students.email}</td>
-                        <td>${students.grade}</td>
+                        <td>${student.name}</td>
+                        <td>${student.secondName}</td>
+                        <td>${student.email}</td>
+                        <td>${student.grade}</td>
                     </tr>
-            </c:forEach>
+                </c:forEach>
             </table>
+
+            <c:if test="${currentPage != 1}">
+            <td><a href="${pageContext.request.contextPath}/pagination?page=${currentPage - 1}">Previous</a></td>
+            </c:if>
+
+
+            <table border="1" cellpadding="5" cellspacing="5">
+                <tr>
+                    <c:forEach begin="1" end="${noOfPages}" var="i">
+                        <c:choose>
+                            <c:when test="${currentPage eq i}">
+                                <td>${i}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><a href="${pageContext.request.contextPath}/pagination?page=${i}">${i}</a></td>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </tr>
+            </table>
+
+            <c:if test="${currentPage lt noOfPages}">
+            <td><a href="${pageContext.request.contextPath}/pagination?page=${currentPage + 1}">Next</a></td>
+            </c:if>
 
     </c:if>
     <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">

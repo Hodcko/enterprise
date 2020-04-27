@@ -28,7 +28,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
 
         HttpSession session = req.getSession();
         String email = (String) session.getAttribute("email");
-        UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase()) ;
+        UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
@@ -37,27 +37,34 @@ public class PersonalAreaEntryServlet extends HttpServlet {
         List<DTOGroup> dtoGroup;
 
         if (userType.equals(UserType.STUDENT)) {
-                    authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
-                    curs = serviceCurs.getCurs(((Student) session.getAttribute("student")).getCurs_id());
+            authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
+            curs = serviceCurs.getCurs(((Student) session.getAttribute("student")).getCurs_id());
 
-                    session.setAttribute("authUser", authUser);
-                    session.setAttribute("curs", curs);
+            session.setAttribute("authUser", authUser);
+            session.setAttribute("curs", curs);
 
-                    RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
-                    dispatcher.forward(req, resp);
-            }
-            else if (userType.equals(UserType.TEACHER)) {
-                        authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
-                        curs = serviceCurs.getCurs(((Teacher) session.getAttribute("teacher")).getCurs_id());
-                        dtoGroup = serviceCurs.getMyStudents(((Teacher) session.getAttribute("teacher")).getCurs_id(),1);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+            dispatcher.forward(req, resp);
+        } else if (userType.equals(UserType.TEACHER)) {
+            int page = 1;
+            int cursId = ((Teacher) session.getAttribute("teacher")).getCurs_id();
+            int noOfRecords = serviceCurs.countOfStudents(cursId);
+            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
 
-                        session.setAttribute("students", dtoGroup);
-                        session.setAttribute("authUser", authUser);
-                        session.setAttribute("curs", curs);
 
-                        RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
-                        dispatcher.forward(req, resp);
-        }else{
+            authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
+            curs = serviceCurs.getCurs(cursId);
+            dtoGroup = serviceCurs.getMyStudents(cursId, page);
+
+            req.setAttribute("noOfPages", noOfPages);
+            req.setAttribute("currentPage", page);
+            session.setAttribute("students", dtoGroup);
+            session.setAttribute("authUser", authUser);
+            session.setAttribute("curs", curs);
+
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+            dispatcher.forward(req, resp);
+        } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/InvalidData.jsp");
             dispatcher.forward(req, resp);
         }

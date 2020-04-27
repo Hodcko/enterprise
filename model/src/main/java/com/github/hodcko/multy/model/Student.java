@@ -61,11 +61,11 @@ public class Student{
     @JoinColumn(name = "curs_id", insertable = false, updatable = false)
     private Curs curs;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_curs", joinColumns = {@JoinColumn(name = "student_id")},
-            inverseJoinColumns = {@JoinColumn(name = "curs_id")}
-    )
-    private List<Curs> curses = new ArrayList<>();
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "student_curs", joinColumns = {@JoinColumn(name = "student_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "curs_id")}
+//    )
+  //  private List<Curs> curses = new ArrayList<>();
 
 
     public int getId() {
@@ -132,13 +132,13 @@ public class Student{
         this.authUser = authUser;
     }
 
-    public List<Curs> getCurses() {
-        return curses;
-    }
-
-    public void setCurses(List<Curs> curses) {
-        this.curses = curses;
-    }
+//    public List<Curs> getCurses() {
+//        return curses;
+//    }
+//
+//    public void setCurses(List<Curs> curses) {
+//        this.curses = curses;
+//    }
 
     @Override
     public String toString() {

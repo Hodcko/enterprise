@@ -111,4 +111,27 @@ public class DaoCursDefault implements DaoCurs {
         }
         return null;
     }
+
+
+    @Override
+    public int countOfStudents(int curs_id){
+        try (Session session = SFUtil.getSession()) {
+            session.getTransaction().begin();
+            List<DTOGroup> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
+                    "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0")
+                    .setParameter("id", curs_id)
+                    .addScalar("secondName", StandardBasicTypes.STRING)
+                    .addScalar("name", StandardBasicTypes.STRING)
+                    .addScalar("email", StandardBasicTypes.STRING)
+                    .addScalar("grade", StandardBasicTypes.INTEGER)
+                    .setResultTransformer(Transformers.aliasToBean(DTOGroup.class))
+                    .list();
+            session.getTransaction().commit();
+            log.info("get count of students with curs id {}", curs_id);
+            return groupDtos.size();
+        }catch (HibernateException e){
+            log.error("fail to get count of students with curs id {}", curs_id);
+        }
+        return 0;
+    }
 }

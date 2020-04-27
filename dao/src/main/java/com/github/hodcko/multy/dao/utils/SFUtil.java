@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import static com.mysql.cj.conf.PropertyKey.profileSQL;
 
 public class SFUtil {
     private static final SessionFactory sessionFactory;

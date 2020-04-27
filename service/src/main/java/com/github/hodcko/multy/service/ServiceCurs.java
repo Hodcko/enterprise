@@ -17,4 +17,6 @@ public interface ServiceCurs {
 
     List<DTOGroup> getMyStudents(int curs_id, int numPage);
 
+    int countOfStudents(int curs_id);
+
 }

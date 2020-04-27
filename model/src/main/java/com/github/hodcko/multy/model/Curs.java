@@ -43,8 +43,8 @@ public class Curs {
     @OneToMany(mappedBy = "curs", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Student> studentList = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "curses", cascade = CascadeType.ALL)
-    private List<Student> students = new ArrayList<>();
+//    @ManyToMany(mappedBy = "curses", cascade = CascadeType.ALL)
+//    private List<Student> students = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -86,13 +86,13 @@ public class Curs {
         this.studentList = studentList;
     }
 
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
+//    public List<Student> getStudents() {
+//        return students;
+//    }
+//
+//    public void setStudents(List<Student> students) {
+//        this.students = students;
+//    }
 
     @Override
     public String toString() {

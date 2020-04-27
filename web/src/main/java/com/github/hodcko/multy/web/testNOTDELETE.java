@@ -6,6 +6,9 @@ import com.github.hodcko.multy.dao.impl.DaoCursDefault;
 import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.UserType;
+import com.github.hodcko.multy.service.ServiceIsExist;
+import com.github.hodcko.multy.service.impl.ServiceIsExistDefault;
 import org.hibernate.Session;
 
 import java.time.LocalDate;
@@ -89,9 +92,14 @@ public class testNOTDELETE {
 //
 //        session.getTransaction().commit();
 
-        DaoCurs daoCurs = DaoCursDefault.getInstance();
-        System.out.println(daoCurs.getMyStudents(1,2));
+//        DaoCurs daoCurs = DaoCursDefault.getInstance();
+//        System.out.println(daoCurs.getMyStudents(1,2));
 
+
+
+        Session session = SFUtil.getSession();
+        session.beginTransaction();
+        session.getTransaction().commit();
 
 
 

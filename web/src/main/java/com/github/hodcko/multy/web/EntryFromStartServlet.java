@@ -48,9 +48,17 @@ public class EntryFromStartServlet extends HttpServlet {
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
                 dispatcher.forward(req, resp);
             } else if (role.equals(UserType.TEACHER)) {
+
+                int page = 1;
                 teacher = serviceTeacher.getTeacher(authUser.getUserId());
                 curs = serviceCurs.getCurs(teacher.getCurs_id());
-                dtoGroup = serviceCurs.getMyStudents(teacher.getCurs_id(), 1);
+                dtoGroup = serviceCurs.getMyStudents(teacher.getCurs_id(), page);
+                int cursId = (teacher.getCurs_id());
+                int noOfRecords = serviceCurs.countOfStudents(cursId);
+                int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
+
+                req.setAttribute("noOfPages", noOfPages);
+                req.setAttribute("currentPage", page);
                 session.setAttribute("students", dtoGroup);
                 session.setAttribute("teacher", teacher);
                 session.setAttribute("authUser", authUser);

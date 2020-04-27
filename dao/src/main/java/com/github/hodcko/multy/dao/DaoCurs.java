@@ -17,4 +17,6 @@ public interface DaoCurs {
     boolean deleteCurs(int curs_id);
 
     List<DTOGroup> getMyStudents(int curs_id, int numPage);
+
+    int countOfStudents(int curs_id);
 }
