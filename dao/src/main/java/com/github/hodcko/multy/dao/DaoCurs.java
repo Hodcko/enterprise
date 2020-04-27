@@ -2,6 +2,7 @@ package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.DTOGroup;
+import com.github.hodcko.multy.model.Student;
 
 import javax.persistence.Id;
 import java.sql.Date;
@@ -19,4 +20,6 @@ public interface DaoCurs {
     List<DTOGroup> getMyStudents(int curs_id, int numPage);
 
     int countOfStudents(int curs_id);
+
+    List<Student> getClassmates(int curs_id);
 }

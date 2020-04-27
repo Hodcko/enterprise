@@ -113,9 +113,9 @@
     </form>
 </c:if>
 <c:if test="${student != null}">
-    <h3 style="text-align: center"><c:out value="Доступные курсы"/></h3>
-    <c:if test="${curs.end != null}">
-    <table style="width: 100%">
+    <c:if test="${curs.end != null && studentOnCurs == false}">
+        <h3 style="text-align: center"><c:out value="Доступные для записи курсы"/></h3>
+        <table style="width: 100%">
     <tr>
     <td><c:out value="Название курса"/></td>
     <td><c:out value="${curs.name}"/></td>
@@ -135,6 +135,24 @@
                 <br><input type="submit" name="reg" value="Зарегистрироваться">
             </fieldset>
         </form>
+    </c:if>
+    <c:if test="${studentOnCurs == true}">
+    <h2 style="text-align: center"><c:out value="Список моих одногруппников"/></h2>
+    <table style="width: 100%">
+            <tr>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Адрес электронной почты</th>
+            </tr>
+
+            <c:forEach var="classmate" items="${classmates}">
+                <tr>
+                    <td>${classmate.name}</td>
+                    <td>${classmate.secondName}</td>
+                    <td>${classmate.email}</td>
+                </tr>
+            </c:forEach>
+        </table>
     </c:if>
     <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">
         <fieldset>

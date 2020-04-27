@@ -21,6 +21,8 @@ public class EntryFromStartServlet extends HttpServlet {
     private ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
     private ServiceStudent serviceStudent = ServiceStudentDefault.getInstance();
     private ServiceTeacher serviceTeacher = ServiceTeacherDefault.getInstance();
+    private ServiceGradebook serviceGradebook = ServiceGradebookDefault.getInstance();
+
 
 
     @Override
@@ -42,9 +44,16 @@ public class EntryFromStartServlet extends HttpServlet {
             if (role.equals(UserType.STUDENT)) {
                 student = serviceStudent.getStudent(authUser.getUserId());
                 curs = serviceCurs.getCurs(student.getCurs_id());
+
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
                 session.setAttribute("student", student);
+
+                if(serviceGradebook.isExist(student.getId())){
+                    List<Student> classmates = serviceCurs.getClassmates(student.getCurs_id());
+                    session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));
+                    session.setAttribute("classmates", classmates);
+                }
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
                 dispatcher.forward(req, resp);
             } else if (role.equals(UserType.TEACHER)) {

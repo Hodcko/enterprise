@@ -14,6 +14,8 @@ import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.security.ssl.HandshakeInStream;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -134,4 +136,18 @@ public class DaoCursDefault implements DaoCurs {
         }
         return 0;
     }
+
+    @Override
+    public List<Student> getClassmates(int curs_id){
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Curs curs = session.get(Curs.class, curs_id);
+            session.getTransaction().commit();
+            log.info("get classmates from curs with id {} {}",curs_id, curs.getStudentList());
+            return curs.getStudentList();
+        }catch (HibernateException e){
+            log.error("fail to get classmates from curs id {}", curs_id, e);
+        }return null;
+    }
+
 }

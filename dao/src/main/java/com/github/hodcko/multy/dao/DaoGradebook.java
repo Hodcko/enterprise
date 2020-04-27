@@ -11,4 +11,6 @@ public interface DaoGradebook {
     int getGrade(int studetn_id);
 
     boolean deleteStudentFromGradebook(int student_id);
+
+    boolean isExist(int student_id);
 }

@@ -37,6 +37,11 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
     }
 
     @Override
+    public boolean isExist(int student_id){
+        return daoGradebook.isExist(student_id);
+    }
+
+    @Override
     public int checkTest(int student_id, String first, String second, String third, String fourth, String fifth){
         if(first.equalsIgnoreCase("java")){
             addGrade(student_id);

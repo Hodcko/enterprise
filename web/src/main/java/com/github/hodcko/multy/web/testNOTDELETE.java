@@ -2,53 +2,58 @@ package com.github.hodcko.multy.web;
 
 
 import com.github.hodcko.multy.dao.DaoCurs;
+import com.github.hodcko.multy.dao.DaoGradebook;
 import com.github.hodcko.multy.dao.impl.DaoCursDefault;
+import com.github.hodcko.multy.dao.impl.DaoGradebookDefault;
 import com.github.hodcko.multy.dao.utils.SFUtil;
+import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
+import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.ServiceIsExist;
+import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
 import com.github.hodcko.multy.service.impl.ServiceIsExistDefault;
 import org.hibernate.Session;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class testNOTDELETE {
     public static void main(String[] args) {
 
-        // One to many
-//        Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
+       //  One to many
+      //  Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
 //        Student student = new Student("Jack", "Dani1els6", "jack@mail.ru", 31, curs.getId());
 //
 //        curs.getStudentList().add(student);
-//
+
 //        System.out.println("student added");
 //
 //        Session session = SFUtil.getSession();
 //        session.beginTransaction();
 //        session.save(curs);
 //        session.getTransaction().commit();
-//
+
 //        Session session1 = SFUtil.getSession();
 //        session1.beginTransaction();
 //        Curs curs1 = session1.get(Curs.class, 1);
 //        System.out.println("curs getted");
-//        System.out.println(curs.getStudentList());
-//
-//        student = curs1.getStudentList().iterator().next();
-//        System.out.println("student getted");
-//
-//        System.out.println(student.getCurs().getStudentList());
-//
-//        curs1.getStudentList().remove(student);
-//        session1.getTransaction().commit();
-//        Employee employee1 = new Employee(null, "Yulij", "Slabko", null);
-//        Employee employee2 = new Employee(null, "Sergey", "Kruk", null);
-//        final ArrayList<Employee> employees = new ArrayList<>();
-//        employees.add(employee1);
-//        employees.add(employee2);
+//        System.out.println(curs1.getStudentList());
+
+       // student = curs1.getStudentList().iterator().next();
+       // System.out.println("student getted");
+
+       // System.out.println(student.getCurs().getStudentList());
+
+       // curs1.getStudentList().remove(student);
+       // session1.getTransaction().commit();
+
+        DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
+        System.out.println(daoGradebook.isExist(84)==false);
+
 
         // many to many
 //        Student student = new Student("Jack", "Dani1els6", "jack@mail.ru", 31, 1);
@@ -97,9 +102,6 @@ public class testNOTDELETE {
 
 
 
-        Session session = SFUtil.getSession();
-        session.beginTransaction();
-        session.getTransaction().commit();
 
 
 

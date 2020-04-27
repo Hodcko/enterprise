@@ -47,7 +47,10 @@
   <br><input type="submit" name="test" value="Test">
  </fieldset>
 </form>
-
+<form action="${pageContext.request.contextPath}/PersonalArea.jsp">
+ <h3><c:out value="Вернуться в личный кабинет"/></h3>
+ <input type="submit" value="Вернуться">
+</form>
   </body>
 </html>
 

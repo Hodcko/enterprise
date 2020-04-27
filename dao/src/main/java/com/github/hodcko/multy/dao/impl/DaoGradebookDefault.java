@@ -4,9 +4,12 @@ package com.github.hodcko.multy.dao.impl;
 import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Gradebook;
 import org.hibernate.HibernateError;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.persistence.NoResultException;
 
 
 public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGradebook {
@@ -87,6 +90,22 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
             return true;
         }catch (HibernateError e){
             log.error(" fail to delete Student with id {} from GradeBook", student_id);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isExist(int student_id){
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            int id = (Integer) session.createNativeQuery("select student_id from gradebook where student_id = :id")
+                    .setParameter("id", student_id).getSingleResult();
+            if (student_id == id) {
+                log.info("student with id {} is already existed", student_id);
+                return true;
+            }
+        }catch (HibernateException | NoResultException e){
+            log.error("fail to check student with id {}", student_id, e);
         }
         return false;
     }

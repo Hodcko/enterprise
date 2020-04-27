@@ -28,6 +28,8 @@ public class StudyServlet extends HttpServlet {
 
         serviceGradebook.addStudentToGradebook(student.getId());
 
+        session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));
+
         RequestDispatcher dispatcher = req.getRequestDispatcher("/StudyPage.jsp");
         dispatcher.forward(req, resp);
 

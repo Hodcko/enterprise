@@ -12,4 +12,6 @@ public interface ServiceGradebook {
 
     int checkTest(int student_id, String first, String second, String third, String fourth, String fifth);
 
+    boolean isExist(int student_id);
+
 }
