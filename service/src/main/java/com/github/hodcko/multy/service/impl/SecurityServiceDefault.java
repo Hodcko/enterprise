@@ -25,7 +25,7 @@ public class SecurityServiceDefault implements SecurityService {
     @Override
     public String login(String login, String password){
         String user_login = daoAuthUser.getByLogin(password);
-        if ( user_login == null) {
+        if (user_login == null) {
             return null;
         }
         if (user_login.equals(login)) {

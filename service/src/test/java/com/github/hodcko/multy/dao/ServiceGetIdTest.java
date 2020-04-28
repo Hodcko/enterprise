@@ -19,22 +19,32 @@ public class ServiceGetIdTest {
     @Mock
     private static DaoStudent daoStudent;
 
+    @Mock
+    private static DaoTeacher daoTeacher;
+
     @InjectMocks
-    private static ServiceGetIdByEmail ISGIBE;
+    private static ServiceGetIdByEmail serviceGetIdByEmail;
 
     @BeforeAll
     public static void createInstance() {
-        ISGIBE = ServiceGetIdByEmailDefault.getInstance();
+        serviceGetIdByEmail = ServiceGetIdByEmailDefault.getInstance();
     }
 
     @Test
     void getIdTest(){
         String email = "hodckoq@gmail.com";
         when(daoStudent.getId(email,UserType.STUDENT)).thenReturn(2);
-        int testResult =  ISGIBE.getId(email, UserType.STUDENT);
+        int testResult =  serviceGetIdByEmail.getId(email, UserType.STUDENT);
         assertEquals(2, testResult);
     }
 
+    @Test
+    void getIdTest2(){
+        String email = "hodckoq@gmail.com";
+        when(daoTeacher.getId(email,UserType.TEACHER)).thenReturn(2);
+        int testResult =  serviceGetIdByEmail.getId(email, UserType.TEACHER);
+        assertEquals(2, testResult);
+    }
 
 
 }

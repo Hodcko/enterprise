@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -49,7 +50,13 @@ public class ServiceAuthUserDefaultLoginTest {
         serviceAuthUser.saveAuthUser(1, "mockLogin", "mockPassword", UserType.STUDENT);
         String login = serviceAuthUser.getByLogin("mockLogin");
         assertEquals("mockLogin", login);
+    }
 
+    @Test
+    void loginTestNull(){
+        when(daoAuthUser.getByLogin("mockLogin")).thenReturn(null);
+        String login = serviceAuthUser.getByLogin("mockLogin");
+        assertNull(login);
     }
 
 

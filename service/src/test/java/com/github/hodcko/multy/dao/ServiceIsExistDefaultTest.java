@@ -19,6 +19,9 @@ public class ServiceIsExistDefaultTest {
     @Mock
     private static DaoStudent daoStudent;
 
+    @Mock
+    private static DaoTeacher daoTeacher;
+
     @InjectMocks
     private static ServiceIsExist serviceIsExist;
 
@@ -34,7 +37,14 @@ public class ServiceIsExistDefaultTest {
         when(daoStudent.isExist(email, UserType.STUDENT)).thenReturn(true);
         boolean result = serviceIsExist.isExist(email, UserType.STUDENT);
         assertTrue(result);
+    }
 
+    @Test
+    void isExistTest2(){
+        String email = "hodckoq@gmail.com";
+        when(daoTeacher.isExist(email, UserType.TEACHER)).thenReturn(true);
+        boolean result = serviceIsExist.isExist(email, UserType.TEACHER);
+        assertTrue(result);
     }
 
 

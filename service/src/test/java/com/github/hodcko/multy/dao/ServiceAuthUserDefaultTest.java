@@ -2,6 +2,7 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.model.AuthUser;
+import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.SecurityService;
 import com.github.hodcko.multy.service.ServiceAuthUser;
@@ -20,6 +21,9 @@ public class ServiceAuthUserDefaultTest {
 
     @Mock
     private static DaoAuthUser daoAuthUser;
+
+    @Mock
+    private static DaoStudent daoStudent;
 
     @InjectMocks
     private static ServiceAuthUser serviceAuthUser;
@@ -66,4 +70,19 @@ public class ServiceAuthUserDefaultTest {
         Assertions.assertEquals(true, result);
     }
 
+    @Test
+    void passwordGenerateTest() {
+        Student student = new Student("John", "Snow", "Snow@gmail.com", 31, 1);
+        when(serviceAuthUser.passwordGenerate("Snow@gmail.com", UserType.STUDENT )).thenReturn("Snow1");
+        String password = serviceAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT);
+        Assertions.assertEquals("Snow1", password);
+    }
+
+    @Test
+    void deleteAuthUserTest() {
+        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
+        when(serviceAuthUser.deleteAuthUser(authUserStudent.getUserId(), authUserStudent.getRole())).thenReturn(true);
+        boolean result = serviceAuthUser.deleteAuthUser(authUserStudent.getUserId(), authUserStudent.getRole());
+        Assertions.assertTrue(result);
+    }
 }
