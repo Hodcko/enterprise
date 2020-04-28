@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class ServiceIsExistDefaultTest {
 
     @Mock
-    private static DaoIsExist daoIsExist;
+    private static DaoStudent daoStudent;
 
     @InjectMocks
     private static ServiceIsExist serviceIsExist;
@@ -31,7 +31,7 @@ public class ServiceIsExistDefaultTest {
     @Test
     void isExistTest(){
         String email = "hodckoq@gmail.com";
-        when(daoIsExist.isExist(email, UserType.STUDENT)).thenReturn(true);
+        when(daoStudent.isExist(email, UserType.STUDENT)).thenReturn(true);
         boolean result = serviceIsExist.isExist(email, UserType.STUDENT);
         assertTrue(result);
 

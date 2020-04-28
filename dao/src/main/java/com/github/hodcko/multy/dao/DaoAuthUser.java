@@ -9,8 +9,6 @@ public interface DaoAuthUser {
 
     AuthUser saveAuthUser(int user_id, String login, String password, UserType role);
 
-    String passwordGenerate(String email, UserType userType);
-
     boolean deleteAuthUser(int id, UserType role);
 
     UserType getRole(String login, String password);

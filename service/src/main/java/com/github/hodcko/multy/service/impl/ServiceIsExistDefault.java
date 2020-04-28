@@ -1,14 +1,18 @@
 package com.github.hodcko.multy.service.impl;
 
 
-import com.github.hodcko.multy.dao.DaoIsExist;
-import com.github.hodcko.multy.dao.impl.DaoIsExistDefault;
+import com.github.hodcko.multy.dao.DaoStudent;
+import com.github.hodcko.multy.dao.DaoTeacher;
+import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
+import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 import com.github.hodcko.multy.model.UserType;
 
 public class ServiceIsExistDefault implements com.github.hodcko.multy.service.ServiceIsExist {
 
     private static volatile com.github.hodcko.multy.service.ServiceIsExist instance;
-    private DaoIsExist daoIsExist = DaoIsExistDefault.getInstance();
+    private DaoStudent daoStudent = DaoStudentDefault.getInstance();
+    private DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
+
 
 
     public static com.github.hodcko.multy.service.ServiceIsExist getInstance(){
@@ -25,7 +29,11 @@ public class ServiceIsExistDefault implements com.github.hodcko.multy.service.Se
     }
 
     public boolean isExist(String email, UserType userType){
-        return daoIsExist.isExist(email, userType);
+        if(userType.equals(UserType.STUDENT)){
+            return daoStudent.isExist(email, userType);
+        }else {
+            return daoTeacher.isExist(email, userType);
+        }
     }
 
 }

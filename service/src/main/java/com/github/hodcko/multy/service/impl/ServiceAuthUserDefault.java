@@ -1,6 +1,10 @@
 package com.github.hodcko.multy.service.impl;
 
+import com.github.hodcko.multy.dao.DaoStudent;
+import com.github.hodcko.multy.dao.DaoTeacher;
 import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
+import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
+import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.dao.DaoAuthUser;
 import com.github.hodcko.multy.model.UserType;
@@ -8,6 +12,8 @@ import com.github.hodcko.multy.model.UserType;
 public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.ServiceAuthUser {
 
     private DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
+    private DaoStudent daoStudent = DaoStudentDefault.getInstance();
+    private DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
     private static volatile com.github.hodcko.multy.service.ServiceAuthUser instance;
 
     public static com.github.hodcko.multy.service.ServiceAuthUser getInstance(){
@@ -35,7 +41,11 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
 
     @Override
     public String passwordGenerate(String email, UserType userType){
-        return daoAuthUser.passwordGenerate(email, userType);
+        if(userType.equals(UserType.STUDENT)){
+            return daoStudent.passwordGenerate(email, userType);
+        }else {
+            return daoTeacher.passwordGenerate(email, userType);
+        }
     }
 
     @Override

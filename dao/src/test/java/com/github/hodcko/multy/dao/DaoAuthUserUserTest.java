@@ -62,16 +62,4 @@ public class DaoAuthUserUserTest {
         Assertions.assertEquals(daoAuthUser.getByLogin("Snow"), studentTest.getLogin());
         daoAuthUser.deleteAuthUser(6, UserType.STUDENT);
     }
-
-    @Test
-    void passwordGenerateTest(){
-        Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31, 1);
-        Teacher teacher = daoTeacher.saveTeacher("Jonh", "Snow", "snow@gmail.com",  1);
-        Assertions.assertEquals(daoAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT), student.getSecondName()+student.getId());
-        Assertions.assertEquals(daoAuthUser.passwordGenerate(teacher.getEmail(), UserType.TEACHER), teacher.getSecondName()+teacher.getId());
-        daoStudent.deleteStudent(student.getEmail());
-        daoTeacher.deleteTeacher(teacher.getEmail());
-    }
-
-
 }

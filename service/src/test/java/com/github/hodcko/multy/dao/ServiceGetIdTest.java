@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class ServiceGetIdTest {
 
     @Mock
-    private static DaoGetIdByEmail IDGIBE;
+    private static DaoStudent daoStudent;
 
     @InjectMocks
     private static ServiceGetIdByEmail ISGIBE;
@@ -30,7 +30,7 @@ public class ServiceGetIdTest {
     @Test
     void getIdTest(){
         String email = "hodckoq@gmail.com";
-        when(IDGIBE.getId(email,UserType.STUDENT)).thenReturn(2);
+        when(daoStudent.getId(email,UserType.STUDENT)).thenReturn(2);
         int testResult =  ISGIBE.getId(email, UserType.STUDENT);
         assertEquals(2, testResult);
     }

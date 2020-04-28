@@ -45,55 +45,21 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         return null;
     }
 
-        @Override
-        public AuthUser saveAuthUser (int user_id, String login, String password, UserType role) {
-            AuthUser authUser = new AuthUser(login, password, role, user_id);
-            try (Session session = SFUtil.getSession()) {
-                session.beginTransaction();
-                session.saveOrUpdate(authUser);
-                session.getTransaction().commit();
-                log.info("create authUser with login  {} password {} role {} id {}", login, password, role, user_id);
-                return authUser;
-            }catch (HibernateError e){
-                log.error(" fail to create authUser with login  {} password {} role {} id {}", login, password, role, user_id, e);
-            }
-            return null;
+    @Override
+    public AuthUser saveAuthUser(int user_id, String login, String password, UserType role) {
+        AuthUser authUser = new AuthUser(login, password, role, user_id);
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            session.saveOrUpdate(authUser);
+            session.getTransaction().commit();
+            log.info("create authUser with login  {} password {} role {} id {}", login, password, role, user_id);
+            return authUser;
+        } catch (HibernateError e) {
+            log.error(" fail to create authUser with login  {} password {} role {} id {}", login, password, role, user_id, e);
         }
+        return null;
+    }
 
-        @Override
-        public String passwordGenerate(String email, UserType userType) {
-            if(userType.equals(UserType.STUDENT)) {
-                try (Session session = SFUtil.getSession()) {
-                    session.beginTransaction();
-                    String secondName = (String) session.createNativeQuery("select second_name from student where email = :mail")
-                            .setParameter("mail", email).getSingleResult();
-                    int id = (Integer) session.createNativeQuery("select id from student where email = :mail")
-                            .setParameter("mail", email).getSingleResult();
-                    session.getTransaction().commit();
-                    log.info("student with email {} generate password {}{}", email, secondName, id);
-                    return secondName + id;
-                }catch (HibernateError e){
-                    log.error("fail to generate password for student with email {}", email, e);
-                }
-                return null;
-            }else{
-                String secondName;
-                int id;
-                try (Session session = SFUtil.getSession()) {
-                    session.beginTransaction();
-                    secondName = (String) session.createNativeQuery("select second_name from teacher where email = :mail")
-                            .setParameter("mail", email).getSingleResult();
-                    id = (Integer) session.createNativeQuery("select id from teacher where email = :mail")
-                            .setParameter("mail", email).getSingleResult();
-                    session.getTransaction().commit();
-                    log.info("teacher with email {} generate password {}{}", email, secondName, id);
-                    return secondName + id;
-                }catch (HibernateError e){
-                    log.error("fail to generate password for teacher with email {}", email, e);
-                }
-                return null;
-            }
-        }
 
     @Override
     public boolean deleteAuthUser (int id, UserType role) {
