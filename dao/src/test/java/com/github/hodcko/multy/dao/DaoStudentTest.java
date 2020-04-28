@@ -24,6 +24,19 @@ public class DaoStudentTest {
         Student studentTest = daoStudent.getStudent(student.getId());
         daoStudent.deleteStudent("winter@gmail.com");
         Assertions.assertEquals(student, studentTest);
+    }
 
+    @Test
+    void getStudentTest(){
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
+        Assertions.assertEquals(student, daoStudent.getStudent(student.getId()));
+        daoStudent.deleteStudent("winter@gmail.com");
+    }
+
+    @Test
+    void deleteStudentTest(){
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
+        daoStudent.deleteStudent("winter@gmail.com");
+        Assertions.assertNull(daoStudent.getStudent(student.getId()));
     }
 }

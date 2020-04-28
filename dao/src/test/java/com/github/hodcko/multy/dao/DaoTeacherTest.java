@@ -29,4 +29,18 @@ public class DaoTeacherTest {
         daoTeacher.deleteTeacher("winter@gmail.com");
         Assertions.assertEquals(teacher, teacherTest);
     }
+
+    @Test
+    void getTeacherTest() {
+        Teacher teacherTest = daoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
+        Assertions.assertEquals(daoTeacher.getTeacher(teacherTest.getId()), teacherTest);
+        daoTeacher.deleteTeacher("winter@gmail.com");
+    }
+
+    @Test
+    void deleteTeacherTest() {
+        Teacher teacherTest = daoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
+        daoTeacher.deleteTeacher("winter@gmail.com");
+        Assertions.assertNull(daoTeacher.getTeacher(teacherTest.getId()));
+    }
 }

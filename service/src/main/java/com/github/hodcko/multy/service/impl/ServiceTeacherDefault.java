@@ -33,4 +33,8 @@ public class ServiceTeacherDefault implements ServiceTeacher {
         return daoTeacher.getTeacher(id);
     }
 
+    @Override
+    public boolean deleteTeacher(String email) {
+        return daoTeacher.deleteTeacher(email);
+    }
 }

@@ -2,7 +2,11 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
+import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
+import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 import com.github.hodcko.multy.model.AuthUser;
+import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,6 +14,9 @@ import org.junit.jupiter.api.Test;
 public class DaoAuthUserUserTest {
 
     DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
+    DaoStudent daoStudent = DaoStudentDefault.getInstance();
+    DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
+
 
     @Test
     void saveAuthUserTest() {
@@ -47,6 +54,23 @@ public class DaoAuthUserUserTest {
         daoAuthUser.changePassword(studentTest.getLogin(), studentTest.getPassword(), "qwerty");
         Assertions.assertEquals(daoAuthUser.getByLogin("qwerty"), studentTest.getLogin());
         daoAuthUser.deleteAuthUser(6, UserType.STUDENT);
+    }
+
+    @Test
+    void getByLoginTest(){
+        AuthUser studentTest = daoAuthUser.saveAuthUser(6,"John", "Snow", UserType.STUDENT);
+        Assertions.assertEquals(daoAuthUser.getByLogin("Snow"), studentTest.getLogin());
+        daoAuthUser.deleteAuthUser(6, UserType.STUDENT);
+    }
+
+    @Test
+    void passwordGenerateTest(){
+        Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31, 1);
+        Teacher teacher = daoTeacher.saveTeacher("Jonh", "Snow", "snow@gmail.com",  1);
+        Assertions.assertEquals(daoAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT), student.getSecondName()+student.getId());
+        Assertions.assertEquals(daoAuthUser.passwordGenerate(teacher.getEmail(), UserType.TEACHER), teacher.getSecondName()+teacher.getId());
+        daoStudent.deleteStudent(student.getEmail());
+        daoTeacher.deleteTeacher(teacher.getEmail());
     }
 
 

@@ -53,7 +53,7 @@ public class DaoTeacherDefault implements DaoTeacher {
             session.getTransaction().commit();
             log.info("get teacher: name {} second name  {} email {}", teacher.getName(), teacher.getSecondName(), teacher.getEmail());
             return teacher;
-        }catch (HibernateError e){
+        }catch (HibernateError | NullPointerException e){
             log.error("fail to get teacher with id{}", id, e);
         }
         return null;

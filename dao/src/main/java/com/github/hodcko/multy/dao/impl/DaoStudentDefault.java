@@ -51,7 +51,7 @@ public class DaoStudentDefault implements DaoStudent {
             session.getTransaction().commit();
             log.info("get student: name {} second name  {} email {}", student.getName(), student.getSecondName(), student.getEmail());
             return student;
-        }catch (HibernateError e){
+        }catch (HibernateError | NullPointerException e){
             log.error("fail to get student with id{}", id, e);
         }
         return null;

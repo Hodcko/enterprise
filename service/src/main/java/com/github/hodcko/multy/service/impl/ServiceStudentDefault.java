@@ -7,7 +7,7 @@ import com.github.hodcko.multy.model.Student;
 
 public class ServiceStudentDefault implements ServiceStudent {
 
-    private DaoStudent DaoStudent = DaoStudentDefault.getInstance();
+    private DaoStudent daoStudent = DaoStudentDefault.getInstance();
 
     private static volatile ServiceStudent instance;
 
@@ -26,14 +26,16 @@ public class ServiceStudentDefault implements ServiceStudent {
 
     @Override
     public Student saveStudent(String name, String second_name, String email, int age, int curs_id){
-       return DaoStudent.saveStudent(name, second_name, email, age, curs_id);
+       return daoStudent.saveStudent(name, second_name, email, age, curs_id);
     }
 
     @Override
     public Student getStudent(int id){
-        return  DaoStudent.getStudent(id);
+        return  daoStudent.getStudent(id);
     }
 
-
-
+    @Override
+    public boolean deleteStudent(String email) {
+        return daoStudent.deleteStudent(email);
+    }
 }

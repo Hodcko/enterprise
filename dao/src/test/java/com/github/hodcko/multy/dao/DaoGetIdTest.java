@@ -21,7 +21,7 @@ public class DaoGetIdTest {
 
 
     @Test
-    void setDaoGetIdByEmailTest() {
+    void DaoGetIdByEmailTest() {
         Student student = daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30, 1);
         Teacher teacher = daoTeacher.saveTeacher("test", "test", "hodckoq@mail.com",  1);
         int studentId = daoGetIdByEmail.getId("hodckoq@mail.com", UserType.STUDENT);

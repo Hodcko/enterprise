@@ -14,4 +14,7 @@ public interface ServiceGradebook {
 
     boolean isExist(int student_id);
 
+    boolean deleteStudentFromGradebook(int student_id);
+
+
 }

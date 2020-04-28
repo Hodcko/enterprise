@@ -3,9 +3,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.dao.impl.DaoGradebookDefault;
 import org.junit.jupiter.api.Test;
 
-
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DaoGradebookDefaultTest {
     DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
@@ -32,6 +30,20 @@ public class DaoGradebookDefaultTest {
         daoGradebook.addGrade(studentId);
         int result = daoGradebook.getGrade(studentId);
         assertEquals(1, result);
+        daoGradebook.deleteStudentFromGradebook(studentId);
+    }
+
+    @Test
+    void deleteStudentFromGradebookTest(){
+        daoGradebook.addStudentToGradebook(studentId);
+        daoGradebook.deleteStudentFromGradebook(studentId);
+        assertFalse(daoGradebook.isExist(studentId));
+    }
+
+    @Test
+    void isExistTest(){
+        daoGradebook.addStudentToGradebook(studentId);
+        assertTrue(daoGradebook.isExist(studentId));
         daoGradebook.deleteStudentFromGradebook(studentId);
     }
 }

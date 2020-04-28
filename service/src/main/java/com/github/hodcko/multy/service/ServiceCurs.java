@@ -22,4 +22,6 @@ public interface ServiceCurs {
 
     List<Student> getClassmates(int curs_id);
 
+    boolean deleteCurs(int curs_id);
+
 }

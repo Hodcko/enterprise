@@ -64,4 +64,9 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     public List<Student> getClassmates(int curs_id){
         return daoCurs.getClassmates(curs_id);
     }
+
+    @Override
+    public boolean deleteCurs(int curs_id) {
+        return daoCurs.deleteCurs(curs_id);
+    }
 }

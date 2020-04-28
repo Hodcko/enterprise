@@ -159,15 +159,11 @@ public class Student{
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return Objects.equals(id, student.id) &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(secondName, student.secondName) &&
-                Objects.equals(email, student.email) &&
-                Objects.equals(age, student.age) &&
-                Objects.equals(curs_id, student.curs_id);
+                Objects.equals(email, student.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, secondName, email, age, curs_id);
+        return Objects.hash(id, email);
     }
 }
