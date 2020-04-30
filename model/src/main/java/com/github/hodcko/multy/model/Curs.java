@@ -1,5 +1,7 @@
 package com.github.hodcko.multy.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -9,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "curs")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Curs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

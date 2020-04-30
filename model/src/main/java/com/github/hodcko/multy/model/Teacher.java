@@ -1,11 +1,14 @@
 package com.github.hodcko.multy.model;
 
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table (name = "teacher")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

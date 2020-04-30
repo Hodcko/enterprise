@@ -12,8 +12,11 @@ import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.ServiceIsExist;
+import com.github.hodcko.multy.service.ServiceTeacher;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
 import com.github.hodcko.multy.service.impl.ServiceIsExistDefault;
+
+import net.sf.ehcache.CacheManager;
 import org.hibernate.Session;
 
 import java.time.LocalDate;
@@ -51,9 +54,15 @@ public class testNOTDELETE {
        // curs1.getStudentList().remove(student);
        // session1.getTransaction().commit();
 
-        DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
-        System.out.println(daoGradebook.isExist(84)==false);
+        Session session = SFUtil.getSession();
+        Student doc =  session.load(Student.class, 126);
+        System.out.println(doc.getName());
+        session.close();
 
+        session = SFUtil.getSession();
+        doc = (Student) session.load(Student.class, 126);
+        System.out.println(doc.getName());
+        session.close();
 
         // many to many
 //        Student student = new Student("Jack", "Dani1els6", "jack@mail.ru", 31, 1);

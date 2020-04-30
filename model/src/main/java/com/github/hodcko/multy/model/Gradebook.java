@@ -2,6 +2,8 @@ package com.github.hodcko.multy.model;
 
 
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "gradebook")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Gradebook {
 
     @Id
