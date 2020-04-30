@@ -4,13 +4,13 @@ package com.github.hodcko.multy.dao;
 
 public interface DaoGradebook {
 
-    int addStudentToGradebook(int studetn_id);
+    int addStudentToGradebook(int studentId);
 
-    int addGrade(int studetn_id);
+    int addGrade(int studentId);
 
-    int getGrade(int studetn_id);
+    int getGrade(int studentId);
 
-    boolean deleteStudentFromGradebook(int student_id);
+    boolean deleteStudentFromGradebook(int studentId);
 
-    boolean isExist(int student_id);
+    boolean isExist(int studentId);
 }

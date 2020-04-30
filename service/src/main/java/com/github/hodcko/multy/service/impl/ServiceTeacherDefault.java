@@ -24,8 +24,8 @@ public class ServiceTeacherDefault implements ServiceTeacher {
     }
 
     @Override
-    public Teacher saveTeacher(String name, String second_name, String email, int curs_id){
-        return daoTeacher.saveTeacher(name, second_name, email, curs_id);
+    public Teacher saveTeacher(String name, String second_name, String email, int cursId){
+        return daoTeacher.saveTeacher(name, second_name, email, cursId);
     }
 
     @Override

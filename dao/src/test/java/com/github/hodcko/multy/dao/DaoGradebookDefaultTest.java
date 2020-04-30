@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DaoGradebookDefaultTest {
+
     DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
     private int studentId = 1;
 

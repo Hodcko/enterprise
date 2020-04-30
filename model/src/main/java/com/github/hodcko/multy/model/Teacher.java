@@ -9,19 +9,7 @@ import java.util.Objects;
 @Entity
 @Table (name = "teacher")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Teacher {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column
-    private String name;
-    @Column (name = "second_name")
-    private String secondName;
-    @Column
-    private String email;
-    @Column
-    private Integer curs_id;
-
+public class Teacher extends User{
 
     public Teacher(){
     }
@@ -30,7 +18,7 @@ public class Teacher {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
-        this.curs_id = curs_id;
+        this.cursId = curs_id;
     }
 
     public Teacher(Integer id, String name, String secondName, String email, Integer curs_id) {
@@ -38,32 +26,14 @@ public class Teacher {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
-        this.curs_id = curs_id;
+        this.cursId = curs_id;
     }
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private AuthUser authUser;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Integer getCurs_id() {
-        return curs_id;
-    }
 
     @Override
     public String toString() {
@@ -72,7 +42,7 @@ public class Teacher {
                 ", name='" + name + '\'' +
                 ", secondName='" + secondName + '\'' +
                 ", email='" + email + '\'' +
-                ", curs_id=" + curs_id +
+                ", curs_id=" + cursId +
                 '}';
     }
 
@@ -85,11 +55,11 @@ public class Teacher {
                 Objects.equals(name, teacher.name) &&
                 Objects.equals(secondName, teacher.secondName) &&
                 Objects.equals(email, teacher.email) &&
-                Objects.equals(curs_id, teacher.curs_id);
+                Objects.equals(cursId, teacher.cursId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, secondName, email, curs_id);
+        return Objects.hash(id, name, secondName, email, cursId);
     }
 }

@@ -1,9 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
-import com.github.hodcko.multy.dao.utils.AutoIncrementChanger;
 import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.junit.jupiter.api.*;
 
@@ -13,15 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DaoStudentTest {
     DaoStudent daoStudent = DaoStudentDefault.getInstance();
-    @BeforeEach
-     public void change(){
-        AutoIncrementChanger.changeAutoIncrement("student");
-    }
-    @AfterEach
-    public void changes(){
-        AutoIncrementChanger.changeAutoIncrement("student");
-    }
-
 
     @Test
     void saveStudentTest() {

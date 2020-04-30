@@ -46,16 +46,16 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     }
 
     @Override
-    public AuthUser saveAuthUser(int user_id, String login, String password, UserType role) {
-        AuthUser authUser = new AuthUser(login, password, role, user_id);
+    public AuthUser saveAuthUser(int userID, String login, String password, UserType role) {
+        AuthUser authUser = new AuthUser(login, password, role, userID);
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             session.saveOrUpdate(authUser);
             session.getTransaction().commit();
-            log.info("create authUser with login  {} password {} role {} id {}", login, password, role, user_id);
+            log.info("create authUser with login  {} password {} role {} id {}", login, password, role, userID);
             return authUser;
         } catch (HibernateError e) {
-            log.error(" fail to create authUser with login  {} password {} role {} id {}", login, password, role, user_id, e);
+            log.error(" fail to create authUser with login  {} password {} role {} id {}", login, password, role, userID, e);
         }
         return null;
     }

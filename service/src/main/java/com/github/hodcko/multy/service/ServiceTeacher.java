@@ -4,7 +4,7 @@ import com.github.hodcko.multy.model.Teacher;
 
 public interface ServiceTeacher {
 
-    Teacher saveTeacher(String name, String second_name, String email, int curs_id);
+    Teacher saveTeacher(String name, String second_name, String email, int cursId);
 
     Teacher getTeacher(int id);
 

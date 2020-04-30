@@ -5,7 +5,7 @@ import com.github.hodcko.multy.model.UserType;
 
 public interface DaoTeacher {
 
-    Teacher saveTeacher(String name, String second_name, String email, int curs_id);
+    Teacher saveTeacher(String name, String second_name, String email, int cursId);
 
     Teacher getTeacher(int id);
 

@@ -16,7 +16,7 @@ public class AuthUser {
     private String login;
     @Column
     private String password;
-    @Column (name = "Role")
+    @Column
     @Enumerated(EnumType.STRING)
     private UserType role;
 

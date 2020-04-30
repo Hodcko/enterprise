@@ -35,8 +35,8 @@ public class DaoTeacherDefault implements DaoTeacher {
     }
 
     @Override
-    public Teacher saveTeacher(String name, String second_name, String email,  int curs_id) {
-        Teacher teacher = new Teacher(name, second_name, email, curs_id);
+    public Teacher saveTeacher(String name, String second_name, String email,  int cursId) {
+        Teacher teacher = new Teacher(name, second_name, email, cursId);
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             session.saveOrUpdate(teacher);

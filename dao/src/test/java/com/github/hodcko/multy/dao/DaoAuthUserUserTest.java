@@ -13,9 +13,8 @@ import org.junit.jupiter.api.Test;
 
 public class DaoAuthUserUserTest {
 
-    DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
-    DaoStudent daoStudent = DaoStudentDefault.getInstance();
-    DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
+    final DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
+
 
 
     @Test

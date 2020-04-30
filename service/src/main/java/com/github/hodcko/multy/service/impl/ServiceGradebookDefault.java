@@ -22,47 +22,47 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
     }
 
     @Override
-    public int addStudentToGradebook(int studetn_id){
-        return daoGradebook.addStudentToGradebook(studetn_id);
+    public int addStudentToGradebook(int studentId){
+        return daoGradebook.addStudentToGradebook(studentId);
     }
 
     @Override
-    public int addGrade(int studetn_id){
-        return daoGradebook.addGrade(studetn_id);
+    public int addGrade(int studentId){
+        return daoGradebook.addGrade(studentId);
     }
 
     @Override
-    public int getGrade(int studetn_id){
-        return daoGradebook.getGrade(studetn_id);
+    public int getGrade(int studentId){
+        return daoGradebook.getGrade(studentId);
     }
 
     @Override
-    public boolean isExist(int student_id){
-        return daoGradebook.isExist(student_id);
+    public boolean isExist(int studentId){
+        return daoGradebook.isExist(studentId);
     }
 
     @Override
-    public boolean deleteStudentFromGradebook(int student_id) {
-        return daoGradebook.deleteStudentFromGradebook(student_id);
+    public boolean deleteStudentFromGradebook(int studentId) {
+        return daoGradebook.deleteStudentFromGradebook(studentId);
     }
 
     @Override
-    public int checkTest(int student_id, String first, String second, String third, String fourth, String fifth){
+    public int checkTest(int studentId, String first, String second, String third, String fourth, String fifth){
         if(first.equalsIgnoreCase("java")){
-            addGrade(student_id);
+            addGrade(studentId);
         }
         if(second.equalsIgnoreCase("programming")){
-            addGrade(student_id);
+            addGrade(studentId);
         }
         if(third.equalsIgnoreCase("interface")){
-            addGrade(student_id);
+            addGrade(studentId);
         }
         if(fourth.equalsIgnoreCase("4")){
-            addGrade(student_id);
+            addGrade(studentId);
         }
         if(fifth.equalsIgnoreCase("8")){
-            addGrade(student_id);
+            addGrade(studentId);
         }
-        return getGrade(student_id);
+        return getGrade(studentId);
     }
 }

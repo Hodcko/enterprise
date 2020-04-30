@@ -59,46 +59,46 @@ public class DaoCursDefault implements DaoCurs {
     }
 
     @Override
-    public Curs getCurs(int curs_id) {
+    public Curs getCurs(int cursId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
-                    .setParameter("id", curs_id).getSingleResult();
+                    .setParameter("id", cursId).getSingleResult();
             session.getTransaction().commit();
-            log.info("curs get with id {}", curs_id);
+            log.info("curs get with id {}", cursId);
             return curs;
         }catch (HibernateError e){
-            log.error("fail to curs get with id {}", curs_id);
+            log.error("fail to curs get with id {}", cursId);
         }
         return null;
     }
 
     @Override
-    public boolean deleteCurs(int curs_id) {
+    public boolean deleteCurs(int cursId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
-                    .setParameter("id", curs_id).getSingleResult();
-            curs.setId(curs_id);
+                    .setParameter("id", cursId).getSingleResult();
+            curs.setId(cursId);
             curs.setStart(null);
             curs.setEnd(null);
             session.getTransaction().commit();
-            log.info("curs with id {} deleted", curs_id);
+            log.info("curs with id {} deleted", cursId);
             return true;
         }catch (HibernateError e){
-            log.error("fail to delete curs with id {}", curs_id);
+            log.error("fail to delete curs with id {}", cursId);
         }
         return false;
     }
 
     @Override
-    public List<DTOGroup> getMyStudents(int curs_id, int numPage){
+    public List<DTOGroup> getMyStudents(int cursId, int numPage){
         int limit = (numPage - 1) * 1;
         try (Session session = SFUtil.getSession()) {
             session.getTransaction().begin();
             List<DTOGroup> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
                     "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0 limit :limit, 1")
-                    .setParameter("id", curs_id).setParameter("limit", limit)
+                    .setParameter("id", cursId).setParameter("limit", limit)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("name", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
@@ -106,22 +106,22 @@ public class DaoCursDefault implements DaoCurs {
                     .setResultTransformer(Transformers.aliasToBean(DTOGroup.class))
                     .list();
             session.getTransaction().commit();
-            log.info("get all students of curs with id {}", curs_id);
+            log.info("get all students of curs with id {}", cursId);
             return groupDtos;
         }catch (HibernateException e){
-            log.error("fail to get all students of curs with id {}", curs_id);
+            log.error("fail to get all students of curs with id {}", cursId);
         }
         return null;
     }
 
 
     @Override
-    public int countOfStudents(int curs_id){
+    public int countOfStudents(int cursId){
         try (Session session = SFUtil.getSession()) {
             session.getTransaction().begin();
             List<DTOGroup> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
                     "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0")
-                    .setParameter("id", curs_id)
+                    .setParameter("id", cursId)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("name", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
@@ -129,24 +129,24 @@ public class DaoCursDefault implements DaoCurs {
                     .setResultTransformer(Transformers.aliasToBean(DTOGroup.class))
                     .list();
             session.getTransaction().commit();
-            log.info("get count of students with curs id {}", curs_id);
+            log.info("get count of students with curs id {}", cursId);
             return groupDtos.size();
         }catch (HibernateException e){
-            log.error("fail to get count of students with curs id {}", curs_id);
+            log.error("fail to get count of students with curs id {}", cursId);
         }
         return 0;
     }
 
     @Override
-    public List<Student> getClassmates(int curs_id){
+    public List<Student> getClassmates(int cursId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Curs curs = session.get(Curs.class, curs_id);
+            Curs curs = session.get(Curs.class, cursId);
             session.getTransaction().commit();
-            log.info("get classmates from curs with id {} {}",curs_id, curs.getStudentList());
+            log.info("get classmates from curs with id {} {}",cursId, curs.getStudentList());
             return curs.getStudentList();
         }catch (HibernateException e){
-            log.error("fail to get classmates from curs id {}", curs_id, e);
+            log.error("fail to get classmates from curs id {}", cursId, e);
         }return null;
     }
 

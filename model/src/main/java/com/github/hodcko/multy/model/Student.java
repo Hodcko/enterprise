@@ -12,41 +12,28 @@ import java.util.Objects;
 @Table (name = "student")
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Student{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column
-    private String name;
-    @Column (name = "second_name")
-    private String secondName;
-    @Column
-    private String email;
+public class Student extends User{
     @Column
     private Integer age;
-    @Column
-    private Integer curs_id;
-
 
    public Student(){
-
    }
 
-    public Student(String name, String secondName, String email, Integer age, Integer curs_id) {
+    public Student(String name, String secondName, String email, Integer age, Integer cursId) {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
         this.age = age;
-        this.curs_id = curs_id;
+        this.cursId = cursId;
     }
 
-    public Student(int id, String name, String secondName, String email, Integer age, Integer curs_id) {
+    public Student(int id, String name, String secondName, String email, Integer age, Integer cursId) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
         this.email = email;
         this.age = age;
-        this.curs_id = curs_id;
+        this.cursId = cursId;
     }
 
     public Student(String name, String secondName, String email, Integer age, Curs curs) {
@@ -65,59 +52,19 @@ public class Student{
     @JoinColumn(name = "curs_id", insertable = false, updatable = false)
     private Curs curs;
 
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "student_curs", joinColumns = {@JoinColumn(name = "student_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "curs_id")}
-//    )
-  //  private List<Curs> curses = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "student_curs", joinColumns = {@JoinColumn(name = "student_id")},
+            inverseJoinColumns = {@JoinColumn(name = "curs_id")}
+    )
+    private List<Curs> curses = new ArrayList<>();
 
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
     public Integer getAge() {
         return age;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public void setCurs_id(Integer curs_id) {
-        this.curs_id = curs_id;
-    }
-
-    public Integer getCurs_id() {
-        return curs_id;
     }
 
     public Curs getCurs() {
@@ -128,21 +75,14 @@ public class Student{
         this.curs = curs;
     }
 
-    public AuthUser getAuthUser() {
-        return authUser;
+
+    public List<Curs> getCurses() {
+        return curses;
     }
 
-    public void setAuthUser(AuthUser authUser) {
-        this.authUser = authUser;
+    public void setCurses(List<Curs> curses) {
+        this.curses = curses;
     }
-
-//    public List<Curs> getCurses() {
-//        return curses;
-//    }
-//
-//    public void setCurses(List<Curs> curses) {
-//        this.curses = curses;
-//    }
 
     @Override
     public String toString() {
@@ -152,7 +92,7 @@ public class Student{
                 ", secondName='" + secondName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
-                ", curs_id=" + curs_id +
+                ", curs_id=" + cursId +
                 '}';
     }
 

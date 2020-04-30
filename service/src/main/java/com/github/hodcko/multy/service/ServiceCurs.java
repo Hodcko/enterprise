@@ -14,14 +14,14 @@ public interface ServiceCurs {
 
     int getCurs_id(String langType);
 
-    Curs getCurs(int curs_id);
+    Curs getCurs(int cursId);
 
-    List<DTOGroup> getMyStudents(int curs_id, int numPage);
+    List<DTOGroup> getMyStudents(int cursId, int numPage);
 
-    int countOfStudents(int curs_id);
+    int countOfStudents(int cursId);
 
-    List<Student> getClassmates(int curs_id);
+    List<Student> getClassmates(int cursId);
 
-    boolean deleteCurs(int curs_id);
+    boolean deleteCurs(int cursId);
 
 }

@@ -30,8 +30,8 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
     }
 
     @Override
-    public AuthUser saveAuthUser(int user_id, String login, String password, UserType role){
-        return daoAuthUser.saveAuthUser(user_id, login, password, role);
+    public AuthUser saveAuthUser(int userId, String login, String password, UserType role){
+        return daoAuthUser.saveAuthUser(userId, login, password, role);
     }
 
     @Override

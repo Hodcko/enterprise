@@ -5,7 +5,7 @@ import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.model.UserType;
 
 public interface ServiceAuthUser {
-    AuthUser saveAuthUser(int user_id, String login, String password, UserType role) ;
+    AuthUser saveAuthUser(int userId, String login, String password, UserType role) ;
 
     String getByLogin(String login);
 

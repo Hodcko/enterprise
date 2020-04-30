@@ -46,27 +46,27 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     }
 
     @Override
-    public Curs getCurs(int curs_id){
-        return daoCurs.getCurs(curs_id);
+    public Curs getCurs(int cursId){
+        return daoCurs.getCurs(cursId);
     }
 
     @Override
-    public List<DTOGroup> getMyStudents(int curs_id, int numPage) {
-        return daoCurs.getMyStudents(curs_id, numPage);
+    public List<DTOGroup> getMyStudents(int cursId, int numPage) {
+        return daoCurs.getMyStudents(cursId, numPage);
     }
 
     @Override
-    public int countOfStudents(int curs_id){
-        return daoCurs.countOfStudents(curs_id);
+    public int countOfStudents(int cursId){
+        return daoCurs.countOfStudents(cursId);
     }
 
     @Override
-    public List<Student> getClassmates(int curs_id){
-        return daoCurs.getClassmates(curs_id);
+    public List<Student> getClassmates(int cursId){
+        return daoCurs.getClassmates(cursId);
     }
 
     @Override
-    public boolean deleteCurs(int curs_id) {
-        return daoCurs.deleteCurs(curs_id);
+    public boolean deleteCurs(int cursId) {
+        return daoCurs.deleteCurs(cursId);
     }
 }
