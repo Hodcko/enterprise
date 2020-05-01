@@ -49,11 +49,11 @@ public abstract class User {
         this.email = email;
     }
 
-    public Integer getCurs_id() {
+    public Integer getCursId() {
         return cursId;
     }
 
-    public void setCurs_id(Integer curs_id) {
+    public void setCursId(Integer curs_id) {
         this.cursId = curs_id;
     }
 

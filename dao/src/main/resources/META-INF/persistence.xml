@@ -10,7 +10,7 @@
         <class>com.github.hodcko.multy.model.AuthUser</class>
         <class>com.github.hodcko.multy.model.Curs</class>
         <class>com.github.hodcko.multy.model.Gradebook</class>
-        <class>com.github.hodcko.multy.model.DTOGroup</class>
+        <class>com.github.hodcko.multy.model.GroupDTO</class>
 
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>

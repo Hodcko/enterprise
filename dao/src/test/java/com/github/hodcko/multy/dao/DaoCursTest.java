@@ -4,7 +4,7 @@ import com.github.hodcko.multy.dao.impl.DaoCursDefault;
 import com.github.hodcko.multy.dao.impl.DaoGradebookDefault;
 import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.DTOGroup;
+import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import org.junit.jupiter.api.Test;
 
@@ -49,9 +49,9 @@ public class DaoCursTest {
         Student student = daoStudent.saveStudent("Jogn", "Snow", "snow@gmail.com", 31, 1);
         daoGradebook.addStudentToGradebook(student.getId());
         daoGradebook.addGrade(student.getId());
-        DTOGroup dtoGroup = new DTOGroup(student.getName(), student.getSecondName(), student.getEmail(), daoGradebook.getGrade(student.getId()));
-        List<DTOGroup> list = new ArrayList<>();
-        list.add(dtoGroup);
+        GroupDTO groupDTO = new GroupDTO(student.getName(), student.getSecondName(), student.getEmail(), daoGradebook.getGrade(student.getId()));
+        List<GroupDTO> list = new ArrayList<>();
+        list.add(groupDTO);
         assertEquals(daoCurs.getMyStudents(student.getCurs_id(),1), list);
         daoStudent.deleteStudent(student.getEmail());
         daoGradebook.deleteStudentFromGradebook(student.getId());
@@ -62,9 +62,9 @@ public class DaoCursTest {
         Student student = daoStudent.saveStudent("Jogn", "Snow", "snow@gmail.com", 31, 1);
         daoGradebook.addStudentToGradebook(student.getId());
         daoGradebook.addGrade(student.getId());
-        DTOGroup dtoGroup = new DTOGroup(student.getName(), student.getSecondName(), student.getEmail(), daoGradebook.getGrade(student.getId()));
-        List<DTOGroup> list = new ArrayList<>();
-        list.add(dtoGroup);
+        GroupDTO groupDTO = new GroupDTO(student.getName(), student.getSecondName(), student.getEmail(), daoGradebook.getGrade(student.getId()));
+        List<GroupDTO> list = new ArrayList<>();
+        list.add(groupDTO);
         assertEquals(daoCurs.countOfStudents(student.getCurs_id()), 1);
         daoStudent.deleteStudent(student.getEmail());
         daoGradebook.deleteStudentFromGradebook(student.getId());

@@ -3,10 +3,9 @@ package com.github.hodcko.multy.service.impl;
 import com.github.hodcko.multy.dao.DaoCurs;
 import com.github.hodcko.multy.dao.impl.DaoCursDefault;
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.DTOGroup;
+import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     }
 
     @Override
-    public int getCurs_id(String langType) {
+    public int getCursId(String langType) {
         if (langType.equalsIgnoreCase("java")){
             return 1;
         }else if(langType.equalsIgnoreCase("php")){
@@ -51,7 +50,7 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     }
 
     @Override
-    public List<DTOGroup> getMyStudents(int cursId, int numPage) {
+    public List<GroupDTO> getMyStudents(int cursId, int numPage) {
         return daoCurs.getMyStudents(cursId, numPage);
     }
 

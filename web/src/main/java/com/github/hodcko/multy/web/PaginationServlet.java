@@ -23,18 +23,18 @@ public class PaginationServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        List<DTOGroup> dtoGroup;
+        List<GroupDTO> groupDTO;
 
         int page = Integer.parseInt(req.getParameter("page"));
-        int cursId = ((Teacher) session.getAttribute("teacher")).getCurs_id();
+        int cursId = ((Teacher) session.getAttribute("teacher")).getCursId();
         int noOfRecords = serviceCurs.countOfStudents(cursId);
         int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
 
-        dtoGroup = serviceCurs.getMyStudents(cursId, page);
+        groupDTO = serviceCurs.getMyStudents(cursId, page);
 
         req.setAttribute("noOfPages", noOfPages);
         req.setAttribute("currentPage", page);
-        session.setAttribute("students", dtoGroup);
+        session.setAttribute("students", groupDTO);
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
         dispatcher.forward(req, resp);

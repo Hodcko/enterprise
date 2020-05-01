@@ -4,23 +4,18 @@ import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.dao.DaoCurs;
 import com.github.hodcko.multy.dao.utils.MysqlDataBase;
-import com.github.hodcko.multy.model.DTOGroup;
+import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.StandardBasicTypes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.security.ssl.HandshakeInStream;
 
-import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DaoCursDefault implements DaoCurs {
     MysqlDataBase dataBase = new MysqlDataBase();
@@ -92,18 +87,19 @@ public class DaoCursDefault implements DaoCurs {
     }
 
     @Override
-    public List<DTOGroup> getMyStudents(int cursId, int numPage){
-        int limit = (numPage - 1) * 1;
+    public List<GroupDTO> getMyStudents(int cursId, int numPage){
+        int offset = 3;
+        int limit = (numPage - 1) * offset;
         try (Session session = SFUtil.getSession()) {
             session.getTransaction().begin();
-            List<DTOGroup> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
-                    "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0 limit :limit, 1")
+            List<GroupDTO> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
+                    "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0 limit :limit, offset")
                     .setParameter("id", cursId).setParameter("limit", limit)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("name", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
                     .addScalar("grade", StandardBasicTypes.INTEGER)
-                    .setResultTransformer(Transformers.aliasToBean(DTOGroup.class))
+                    .setResultTransformer(Transformers.aliasToBean(GroupDTO.class))
                     .list();
             session.getTransaction().commit();
             log.info("get all students of curs with id {}", cursId);
@@ -119,14 +115,14 @@ public class DaoCursDefault implements DaoCurs {
     public int countOfStudents(int cursId){
         try (Session session = SFUtil.getSession()) {
             session.getTransaction().begin();
-            List<DTOGroup> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
+            List<GroupDTO> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
                     "from Student s join Gradebook g on s.id = g.student_id  where s.curs_id = :id and g.grade > 0")
                     .setParameter("id", cursId)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("name", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
                     .addScalar("grade", StandardBasicTypes.INTEGER)
-                    .setResultTransformer(Transformers.aliasToBean(DTOGroup.class))
+                    .setResultTransformer(Transformers.aliasToBean(GroupDTO.class))
                     .list();
             session.getTransaction().commit();
             log.info("get count of students with curs id {}", cursId);

@@ -62,7 +62,4 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
     public AuthUser getAuthUser(String login, String password){
         return daoAuthUser.getAuthUser(login, password);
     }
-
-
-
 }

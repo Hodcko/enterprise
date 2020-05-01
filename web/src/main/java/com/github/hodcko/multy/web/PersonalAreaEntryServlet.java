@@ -38,10 +38,10 @@ public class PersonalAreaEntryServlet extends HttpServlet {
 
         AuthUser authUser;
         Curs curs;
-        List<DTOGroup> dtoGroup;
+        List<GroupDTO> groupDTO;
 
         if (userType.equals(UserType.STUDENT)) {
-            int cursId = ((Student) session.getAttribute("student")).getCurs_id();
+            int cursId = ((Student) session.getAttribute("student")).getCursId();
             authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
             curs = serviceCurs.getCurs(cursId);
             List<Student> classmates = serviceCurs.getClassmates(cursId);
@@ -55,18 +55,18 @@ public class PersonalAreaEntryServlet extends HttpServlet {
             dispatcher.forward(req, resp);
         } else if (userType.equals(UserType.TEACHER)) {
             int page = 1;
-            int cursId = ((Teacher) session.getAttribute("teacher")).getCurs_id();
+            int cursId = ((Teacher) session.getAttribute("teacher")).getCursId();
             int noOfRecords = serviceCurs.countOfStudents(cursId);
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
 
 
             authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
             curs = serviceCurs.getCurs(cursId);
-            dtoGroup = serviceCurs.getMyStudents(cursId, page);
+            groupDTO = serviceCurs.getMyStudents(cursId, page);
 
             req.setAttribute("noOfPages", noOfPages);
             req.setAttribute("currentPage", page);
-            session.setAttribute("students", dtoGroup);
+            session.setAttribute("students", groupDTO);
             session.setAttribute("authUser", authUser);
             session.setAttribute("curs", curs);
 

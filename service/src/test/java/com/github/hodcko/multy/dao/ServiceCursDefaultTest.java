@@ -1,7 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.DTOGroup;
+import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.service.impl.ServiceCursDefault;
 import org.junit.jupiter.api.Test;
@@ -56,19 +56,19 @@ public class ServiceCursDefaultTest {
 
     @Test
     void getMyStudentsTest(){
-        List<DTOGroup> list = new ArrayList<>();
-        DTOGroup dtoGroup = new DTOGroup("Jonh", "Snow", "snow@gmail.com", 5);
-        list.add(dtoGroup);
+        List<GroupDTO> list = new ArrayList<>();
+        GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
+        list.add(groupDTO);
         when(daoCurs.getMyStudents(1, 1)).thenReturn(list);
-        List<DTOGroup> dtoGroupList = iServiceCursDefault.getMyStudents(1, 1);
-        assertEquals(list, dtoGroupList);
+        List<GroupDTO> groupDTOList = iServiceCursDefault.getMyStudents(1, 1);
+        assertEquals(list, groupDTOList);
     }
 
     @Test
     void countOfStudentsTest(){
-        List<DTOGroup> list = new ArrayList<>();
-        DTOGroup dtoGroup = new DTOGroup("Jonh", "Snow", "snow@gmail.com", 5);
-        list.add(dtoGroup);
+        List<GroupDTO> list = new ArrayList<>();
+        GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
+        list.add(groupDTO);
         when(daoCurs.countOfStudents(1)).thenReturn(list.size());
         int count = iServiceCursDefault.countOfStudents(1);
         assertEquals(list.size(), count);

@@ -4,7 +4,7 @@ package com.github.hodcko.multy.model;
 import java.util.Objects;
 
 
-public class DTOGroup {
+public class GroupDTO {
 
     private String name;
 
@@ -14,14 +14,14 @@ public class DTOGroup {
 
     private Integer grade;
 
-    public DTOGroup(String name, String secondName, String email, Integer grade) {
+    public GroupDTO(String name, String secondName, String email, Integer grade) {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
         this.grade = grade;
     }
 
-    public DTOGroup() {
+    public GroupDTO() {
     }
 
     public void setName(String name) {
@@ -70,11 +70,11 @@ public class DTOGroup {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DTOGroup dtoGroup = (DTOGroup) o;
-        return Objects.equals(name, dtoGroup.name) &&
-                Objects.equals(secondName, dtoGroup.secondName) &&
-                Objects.equals(email, dtoGroup.email) &&
-                Objects.equals(grade, dtoGroup.grade);
+        GroupDTO groupDTO = (GroupDTO) o;
+        return Objects.equals(name, groupDTO.name) &&
+                Objects.equals(secondName, groupDTO.secondName) &&
+                Objects.equals(email, groupDTO.email) &&
+                Objects.equals(grade, groupDTO.grade);
     }
 
     @Override

@@ -33,79 +33,79 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
     }
 
     @Override
-    public int addGrade(int studetn_id) {
+    public int addGrade(int studetnId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id",
-                    Gradebook.class).setParameter("id", studetn_id).getSingleResult();
+                    Gradebook.class).setParameter("id", studetnId).getSingleResult();
             gradebook.setGrade(gradebook.getGrade() + 1);
             session.getTransaction().commit();
-            log.info("increment grade by student with id {}", studetn_id);
-            return studetn_id;
+            log.info("increment grade by student with id {}", studetnId);
+            return studetnId;
         }catch (HibernateError e){
-            log.error("fail to increment grade by student with id {}", studetn_id, e);
+            log.error("fail to increment grade by student with id {}", studetnId, e);
         }
         return 0;
     }
 
     @Override
-    public int addStudentToGradebook(int studetn_id){
+    public int addStudentToGradebook(int studetnId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Gradebook gradebook = new Gradebook(studetn_id, 0);
+            Gradebook gradebook = new Gradebook(studetnId, 0);
             session.saveOrUpdate(gradebook);
             session.getTransaction().commit();
-            log.info("added to gradeBook student with id {}", studetn_id);
-            return studetn_id;
+            log.info("added to gradeBook student with id {}", studetnId);
+            return studetnId;
         }catch (HibernateError e){
-            log.error("fail to add to gradeBook student with id {}", studetn_id, e);
+            log.error("fail to add to gradeBook student with id {}", studetnId, e);
         }
         return 0;
     }
 
     @Override
-    public int getGrade(int studetn_id){
+    public int getGrade(int studetnId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             int grade = (int) session.createNativeQuery("select grade from gradebook where student_id = :id")
-                    .setParameter("id", studetn_id).getSingleResult();
+                    .setParameter("id", studetnId).getSingleResult();
             session.getTransaction().commit();
-            log.info("student with id {} take grade {}", studetn_id, grade);
+            log.info("student with id {} take grade {}", studetnId, grade);
             return grade;
         }catch (HibernateError e){
-            log.error("fail to get grade from student with id {}", studetn_id, e);
+            log.error("fail to get grade from student with id {}", studetnId, e);
         }
         return 0;
     }
 
     @Override
-    public boolean deleteStudentFromGradebook(int student_id){
+    public boolean deleteStudentFromGradebook(int studetnId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id",
-                    Gradebook.class).setParameter("id", student_id).getSingleResult();
+                    Gradebook.class).setParameter("id", studetnId).getSingleResult();
             session.delete(gradebook);
             session.getTransaction().commit();
-            log.info("Student with id {} deleted from GradeBook", student_id);
+            log.info("Student with id {} deleted from GradeBook", studetnId);
             return true;
         }catch (HibernateError e){
-            log.error(" fail to delete Student with id {} from GradeBook", student_id);
+            log.error(" fail to delete Student with id {} from GradeBook", studetnId);
         }
         return false;
     }
 
     @Override
-    public boolean isExist(int student_id){
+    public boolean isExist(int studetnId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             int id = (Integer) session.createNativeQuery("select student_id from gradebook where student_id = :id")
-                    .setParameter("id", student_id).getSingleResult();
-            if (student_id == id) {
-                log.info("student with id {} is already existed", student_id);
+                    .setParameter("id", studetnId).getSingleResult();
+            if (studetnId == id) {
+                log.info("student with id {} is already existed", studetnId);
                 return true;
             }
         }catch (HibernateException | NoResultException e){
-            log.error("fail to check student with id {}", student_id, e);
+            log.error("fail to check student with id {}", studetnId, e);
         }
         return false;
     }

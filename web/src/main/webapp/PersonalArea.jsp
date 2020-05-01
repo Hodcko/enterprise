@@ -112,6 +112,11 @@
         </fieldset>
     </form>
 </c:if>
+
+
+
+
+
 <c:if test="${student != null}">
     <c:if test="${curs.end != null && studentOnCurs == false}">
         <h3 style="text-align: center"><c:out value="Доступные для записи курсы"/></h3>

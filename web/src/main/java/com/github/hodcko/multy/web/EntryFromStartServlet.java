@@ -35,7 +35,7 @@ public class EntryFromStartServlet extends HttpServlet {
         UserType role = authUser.getRole();
 
         Curs curs;
-        List<DTOGroup> dtoGroup;
+        List<GroupDTO> groupDTO;
         Student student;
         Teacher teacher;
 
@@ -43,14 +43,14 @@ public class EntryFromStartServlet extends HttpServlet {
         if(login.equalsIgnoreCase(securityService.login(login, password))) {
             if (role.equals(UserType.STUDENT)) {
                 student = serviceStudent.getStudent(authUser.getUserId());
-                curs = serviceCurs.getCurs(student.getCurs_id());
+                curs = serviceCurs.getCurs(student.getCursId());
 
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
                 session.setAttribute("student", student);
 
                 if(serviceGradebook.isExist(student.getId())){
-                    List<Student> classmates = serviceCurs.getClassmates(student.getCurs_id());
+                    List<Student> classmates = serviceCurs.getClassmates(student.getCursId());
                     session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));
                     session.setAttribute("classmates", classmates);
                 }
@@ -60,15 +60,15 @@ public class EntryFromStartServlet extends HttpServlet {
 
                 int page = 1;
                 teacher = serviceTeacher.getTeacher(authUser.getUserId());
-                curs = serviceCurs.getCurs(teacher.getCurs_id());
-                dtoGroup = serviceCurs.getMyStudents(teacher.getCurs_id(), page);
-                int cursId = (teacher.getCurs_id());
+                curs = serviceCurs.getCurs(teacher.getCursId());
+                groupDTO = serviceCurs.getMyStudents(teacher.getCursId(), page);
+                int cursId = (teacher.getCursId());
                 int noOfRecords = serviceCurs.countOfStudents(cursId);
                 int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
 
                 req.setAttribute("noOfPages", noOfPages);
                 req.setAttribute("currentPage", page);
-                session.setAttribute("students", dtoGroup);
+                session.setAttribute("students", groupDTO);
                 session.setAttribute("teacher", teacher);
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);

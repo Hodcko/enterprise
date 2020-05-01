@@ -48,7 +48,7 @@ public class SFUtil {
         sources.addAnnotatedClass(Teacher.class);
         sources.addAnnotatedClass(AuthUser.class);
         sources.addAnnotatedClass(Curs.class);
-        sources.addAnnotatedClass(DTOGroup.class);
+        sources.addAnnotatedClass(GroupDTO.class);
         sources.addAnnotatedClass(Gradebook.class);
         // Create Metadata
         Metadata metadata = sources.getMetadataBuilder().build();
