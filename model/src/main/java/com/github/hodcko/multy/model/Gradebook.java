@@ -4,10 +4,8 @@ package com.github.hodcko.multy.model;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.*;
 
 @Entity
@@ -16,19 +14,47 @@ import java.util.*;
 public class Gradebook {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Integer id;
     @Column (name = "student_id")
     private Integer studentId;
+    @Column (name = "curs_id")
+    private Integer cursId;
     @Column
     private Integer grade;
 
     public Gradebook() {
     }
 
-    public Gradebook(Integer studentId, Integer grade){
+    public Gradebook(Integer studentId, Integer cursId, Integer grade){
         this.studentId = studentId;
+        this.cursId = cursId;
         this.grade = grade;
     }
 
+    public Gradebook(Integer id, Integer studentId, Integer cursId, Integer grade){
+        this.id = id;
+        this.studentId = studentId;
+        this.cursId = cursId;
+        this.grade = grade;
+    }
+
+    public Integer getCursId() {
+        return cursId;
+    }
+
+    public void setCursId(Integer cursId) {
+        this.cursId = cursId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getStudentId() {
         return studentId;
@@ -51,20 +77,14 @@ public class Gradebook {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Gradebook gradebook = (Gradebook) o;
-        return Objects.equals(studentId, gradebook.studentId) &&
+        return Objects.equals(id, gradebook.id) &&
+                Objects.equals(studentId, gradebook.studentId) &&
+                Objects.equals(cursId, gradebook.cursId) &&
                 Objects.equals(grade, gradebook.grade);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentId, grade);
-    }
-
-    @Override
-    public String toString() {
-        return "Gradebook{" +
-                "studentId=" + studentId +
-                ", grade=" + grade +
-                '}';
+        return Objects.hash(id, studentId, cursId, grade);
     }
 }

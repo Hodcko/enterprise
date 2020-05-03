@@ -68,4 +68,9 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     public boolean deleteCurs(int cursId) {
         return daoCurs.deleteCurs(cursId);
     }
+
+    @Override
+    public boolean inviteStudentOnCurs(int studentId, int cursId){
+        return daoCurs.inviteStudentOnCurs(studentId, cursId);
+    }
 }

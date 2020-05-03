@@ -23,4 +23,6 @@ public interface ServiceCurs {
 
     boolean deleteCurs(int cursId);
 
+    boolean inviteStudentOnCurs(int studentId, int cursId);
+
 }

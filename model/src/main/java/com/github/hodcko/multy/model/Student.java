@@ -52,7 +52,7 @@ public class Student extends User{
     @JoinColumn(name = "curs_id", insertable = false, updatable = false)
     private Curs curs;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "student_curs", joinColumns = {@JoinColumn(name = "student_id")},
             inverseJoinColumns = {@JoinColumn(name = "curs_id")}
     )
@@ -82,6 +82,14 @@ public class Student extends User{
 
     public void setCurses(List<Curs> curses) {
         this.curses = curses;
+    }
+
+    public AuthUser getAuthUser() {
+        return authUser;
+    }
+
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
     }
 
     @Override

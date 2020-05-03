@@ -12,22 +12,22 @@
 <form style="text-align: center" action="${pageContext.request.contextPath}/test" method="post">
     <fieldset>
         <legend><c:out value="Вам необходиом ответить на все вопросы"/></legend>
-        <label for="salary">What programming language are you learning ?</label>
+        <label for="salary">PHP is a ... typing programming language</label>
         <input id="salary" type="text" name="first"><br/>
 
-        <label for="fszn">Object oriented ...</label>
+        <label for="fszn">How many scalar data types in PHP?</label>
         <input id="fszn" type="text" name="second"><br/>
 
-        <label for="insurance">What we are implementing?</label>
+        <label for="insurance">What character is used to access variables?</label>
         <input id="insurance" type="text" name="third"><br/>
 
-        <label for="incomeTax">How many access modifiers in Java?</label>
+        <label for="incomeTax">Starting with which version of PHP has full support for object-oriented programming?</label>
         <input id="incomeTax" type="text" name="fourth"><br/>
 
-        <label for="unoinDeductions">What version of JDK is one love?</label>
+        <label for="unoinDeductions">What is «Paamayim Nekudotayim» ?</label>
         <input id="unoinDeductions" type="text" name="fifth"><br/>
 
-        <input type="submit" value="Проверить">
+        <input type="submit" name="test" value="PHP">
     </fieldset>
 </form>
 

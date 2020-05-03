@@ -14,6 +14,7 @@
 </head>
 <body style="background-color: powderblue">
 <h1 style="text-align: center"><c:out value="Вы вошли в личный кабинет"/></h1>
+
 <c:if test="${teacher != null}">
     <c:if test="${curs.end == null}">
     <h3 style="text-align: center"><c:out value="Объявить набор на курс"/></h3>
@@ -118,31 +119,89 @@
 
 
 <c:if test="${student != null}">
-    <c:if test="${curs.end != null && studentOnCurs == false}">
-        <h3 style="text-align: center"><c:out value="Доступные для записи курсы"/></h3>
+    <c:if test="${studentOnCurs == false}">
+
+    <c:if test="${javaCurs.end != null && studentOnCurs == false}">
+        <h3 style="text-align: center"><c:out value="Доступные для записи курсы по Java"/></h3>
         <table style="width: 100%">
     <tr>
     <td><c:out value="Название курса"/></td>
-    <td><c:out value="${curs.name}"/></td>
+    <td><c:out value="${javaCurs.name}"/></td>
     </tr>
     <tr>
     <td><c:out value="Дата начала курса"/></td>
-    <td><c:out value="${curs.start}"/></td>
+    <td><c:out value="${javaCurs.start}"/></td>
     </tr>
     <tr>
     <td><c:out value="Дата окончания курса"/></td>
-    <td><c:out value="${curs.end}"/></td>
+    <td><c:out value="${javaCurs.end}"/></td>
     </tr>
     </table>
+
+
+    </c:if>
+    <c:if test="${phpCurs.end != null && studentOnCurs == false}">
+        <h3 style="text-align: center"><c:out value="Доступные для записи курсы по PHP"/></h3>
+        <table style="width: 100%">
+            <tr>
+                <td><c:out value="Название курса"/></td>
+                <td><c:out value="${phpCurs.name}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Дата начала курса"/></td>
+                <td><c:out value="${phpCurs.start}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Дата окончания курса"/></td>
+                <td><c:out value="${phpCurs.end}"/></td>
+            </tr>
+        </table>
+
+
+    </c:if>
+    <c:if test="${cCurs.end != null && studentOnCurs == false}">
+        <h3 style="text-align: center"><c:out value="Доступные для записи курсы по C++"/></h3>
+        <table style="width: 100%">
+            <tr>
+                <td><c:out value="Название курса"/></td>
+                <td><c:out value="${cCurs.name}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Дата начала курса"/></td>
+                <td><c:out value="${cCurs.start}"/></td>
+            </tr>
+            <tr>
+                <td><c:out value="Дата окончания курса"/></td>
+                <td><c:out value="${cCurs.end}"/></td>
+            </tr>
+        </table>
+
+
+    </c:if>
         <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
             <fieldset>
-                <legend><c:out value="Записаться на курс"/></legend>
-                <br><input type="submit" name="reg" value="Зарегистрироваться">
+                <h2 style="text-align: center"><c:out value="Выберите курсы которые будете посещать"/></h2>
+                <label>
+                    <input type="checkbox" name="javaReg" value="java">
+                </label> Java
+                <label>
+                    <input type="checkbox" name="phpReg" value="php">
+                </label> PHP
+                <label>
+                    <input type="checkbox" name="cReg" value="c++">
+                </label> C++
+                <br><input type="submit" name="userType" value="Записаться">
             </fieldset>
         </form>
     </c:if>
+
+
+
     <c:if test="${studentOnCurs == true}">
-    <h2 style="text-align: center"><c:out value="Список моих одногруппников"/></h2>
+
+        <c:if test="${classmatesJava != null}">
+
+        <h2 style="text-align: center"><c:out value="Список студентов курса по Java"/></h2>
     <table style="width: 100%">
             <tr>
                 <th>Имя</th>
@@ -150,7 +209,7 @@
                 <th>Адрес электронной почты</th>
             </tr>
 
-            <c:forEach var="classmate" items="${classmates}">
+            <c:forEach var="classmate" items="${classmatesJava}">
                 <tr>
                     <td>${classmate.name}</td>
                     <td>${classmate.secondName}</td>
@@ -158,12 +217,61 @@
                 </tr>
             </c:forEach>
         </table>
+        </c:if>
+<hr>
+
+        <c:if test="${classmatesPHP != null}">
+
+            <h2 style="text-align: center"><c:out value="Список студентов курса по PHP"/></h2>
+            <table style="width: 100%">
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Адрес электронной почты</th>
+                </tr>
+
+                <c:forEach var="classmate" items="${classmatesPHP}">
+                    <tr>
+                        <td>${classmate.name}</td>
+                        <td>${classmate.secondName}</td>
+                        <td>${classmate.email}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+<hr>
+        <c:if test="${classmatesC != null}">
+
+            <h2 style="text-align: center"><c:out value="Список студентов курса по C++"/></h2>
+            <table style="width: 100%">
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Адрес электронной почты</th>
+                </tr>
+
+                <c:forEach var="classmate" items="${classmatesC}">
+                    <tr>
+                        <td>${classmate.name}</td>
+                        <td>${classmate.secondName}</td>
+                        <td>${classmate.email}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
     </c:if>
+<hr>
     <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">
         <fieldset>
             <br><label  for="newPassword">Изменить пароль</label>
             <br><input  id="newPassword" type="text" name="newPassword"><br/>
             <br><input  type="submit" value="Изменить">
+        </fieldset>
+    </form>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/StudyPage.jsp">
+        <fieldset>
+            <legend><c:out value="Посмотреть план занятий"/></legend>
+            <br><input type="submit" name="logout" value="Посмотреть">
         </fieldset>
     </form>
     <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">

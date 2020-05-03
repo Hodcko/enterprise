@@ -27,10 +27,14 @@ public class ServiceCursDefaultTest {
     @InjectMocks
     private static ServiceCursDefault iServiceCursDefault;
 
+    final Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
+    final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30, 1);
+    final GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
+
+
 
     @Test
     void createCursTest(){
-        Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         when(daoCurs.createCurs(curs.getName(), curs.getStart(), curs.getEnd())).thenReturn(curs);
         Curs cursTest = iServiceCursDefault.createCurs("Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         assertEquals(curs, cursTest);
@@ -38,9 +42,9 @@ public class ServiceCursDefaultTest {
 
     @Test
     void getCursIdTest(){
-        int cursIdJava = iServiceCursDefault.getCurs_id("java");
-        int cursIdPHP = iServiceCursDefault.getCurs_id("php");
-        int cursIdC = iServiceCursDefault.getCurs_id("c++");
+        int cursIdJava = iServiceCursDefault.getCursId("java");
+        int cursIdPHP = iServiceCursDefault.getCursId("php");
+        int cursIdC = iServiceCursDefault.getCursId("c++");
         assertEquals(cursIdJava, 1);
         assertEquals(cursIdPHP, 2);
         assertEquals(cursIdC, 3);
@@ -48,18 +52,16 @@ public class ServiceCursDefaultTest {
 
     @Test
     void getCursTest(){
-        Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         when(daoCurs.getCurs(1)).thenReturn(curs);
-        Curs cursTest = iServiceCursDefault.getCurs(1);
+        Curs cursTest = iServiceCursDefault.getCurs(curs.getId());
         assertEquals(curs, cursTest);
     }
 
     @Test
     void getMyStudentsTest(){
         List<GroupDTO> list = new ArrayList<>();
-        GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
         list.add(groupDTO);
-        when(daoCurs.getMyStudents(1, 1)).thenReturn(list);
+        when(daoCurs.getMyStudents(curs.getId(), 1)).thenReturn(list);
         List<GroupDTO> groupDTOList = iServiceCursDefault.getMyStudents(1, 1);
         assertEquals(list, groupDTOList);
     }
@@ -67,28 +69,32 @@ public class ServiceCursDefaultTest {
     @Test
     void countOfStudentsTest(){
         List<GroupDTO> list = new ArrayList<>();
-        GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
         list.add(groupDTO);
-        when(daoCurs.countOfStudents(1)).thenReturn(list.size());
-        int count = iServiceCursDefault.countOfStudents(1);
+        when(daoCurs.countOfStudents(curs.getId())).thenReturn(list.size());
+        int count = iServiceCursDefault.countOfStudents(curs.getId());
         assertEquals(list.size(), count);
     }
 
     @Test
     void getClassmatesTest(){
         List<Student> list = new ArrayList<>();
-        Student student = new Student("John", "Snow", "Winter@gmail.com", 30, 1);
         list.add(student);
         when(daoCurs.getClassmates(1)).thenReturn(list);
-        List<Student> listStudents = iServiceCursDefault.getClassmates(1);
+        List<Student> listStudents = iServiceCursDefault.getClassmates(curs.getId());
         assertEquals(list, listStudents);
     }
 
     @Test
     void deleteCursTest(){
-        Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
         when(daoCurs.deleteCurs(curs.getId())).thenReturn(true);
         boolean result = iServiceCursDefault.deleteCurs(curs.getId());
+        assertTrue(result);
+    }
+
+    @Test
+    void inviteStudentOnCursTest(){
+        when(daoCurs.inviteStudentOnCurs(student.getId(), curs.getId())).thenReturn(true);
+        boolean result = iServiceCursDefault.inviteStudentOnCurs(student.getId(), curs.getId());
         assertTrue(result);
     }
 }

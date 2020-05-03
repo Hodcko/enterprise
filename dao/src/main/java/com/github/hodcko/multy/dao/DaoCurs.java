@@ -20,4 +20,6 @@ public interface DaoCurs {
     int countOfStudents(int cursId);
 
     List<Student> getClassmates(int cursId);
+
+    boolean inviteStudentOnCurs(int studentId, int cursId);
 }

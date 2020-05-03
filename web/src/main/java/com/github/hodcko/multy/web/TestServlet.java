@@ -1,7 +1,9 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.service.ServiceCurs;
 import com.github.hodcko.multy.service.ServiceGradebook;
+import com.github.hodcko.multy.service.impl.ServiceCursDefault;
 import com.github.hodcko.multy.service.impl.ServiceGradebookDefault;
 
 import javax.servlet.RequestDispatcher;
@@ -17,11 +19,15 @@ import java.io.IOException;
 public class TestServlet extends HttpServlet {
 
     private ServiceGradebook serviceGradebook = ServiceGradebookDefault.getInstance();
+    private ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         Student student = (Student)session.getAttribute("student");
+        String langType = req.getParameter("test");
+        int cursId = serviceCurs.getCursId(langType);
 
         String firstQ = req.getParameter("first");
         String secondQ = req.getParameter("second");
@@ -29,7 +35,7 @@ public class TestServlet extends HttpServlet {
         String fourthQ = req.getParameter("fourth");
         String fifthQ = req.getParameter("fifth");
 
-        int resultOfTest = serviceGradebook.checkTest(student.getId(), firstQ, secondQ, thirdQ, fourthQ, fifthQ);
+        int resultOfTest = serviceGradebook.checkTest(student.getId(), cursId, firstQ, secondQ, thirdQ, fourthQ, fifthQ);
 
         req.setAttribute("result", resultOfTest);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/ResultOfTest.jsp");

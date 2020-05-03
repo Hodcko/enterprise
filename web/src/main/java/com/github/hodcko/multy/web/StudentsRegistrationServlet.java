@@ -29,14 +29,18 @@ public class StudentsRegistrationServlet extends HttpServlet {
         String email = rq.getParameter("email");
         int age = Integer.parseInt(rq.getParameter("age"));
         UserType userType = UserType.valueOf(rq.getParameter("userType").toUpperCase()) ;
-        String langType = rq.getParameter("langType");
+        String langTypeJava = rq.getParameter("langTypeJava");
 
-        Student student =  serviceStudent.saveStudent(name, secondName, email, age, serviceCurs.getCursId(langType));
+        Student student =  serviceStudent.saveStudent(name, secondName, email, age, serviceCurs.getCursId(langTypeJava));
         HttpSession session = rq.getSession();
 
         session.setAttribute("student", student);
         session.setAttribute("email", student.getEmail());
         session.setAttribute("userType", userType);
+        session.setAttribute("langTypeJava", rq.getParameter("langTypeJava"));
+        session.setAttribute("langTypePHP", rq.getParameter("langTypePHP"));
+        session.setAttribute("langTypeC", rq.getParameter("langTypeC"));
+
 
         RequestDispatcher dispatcher = rq.getRequestDispatcher("/SuccessRegistrationNewUser.jsp");
         dispatcher.forward(rq, rs);

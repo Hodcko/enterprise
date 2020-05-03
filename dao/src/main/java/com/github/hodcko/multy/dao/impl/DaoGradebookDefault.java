@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 
 
 public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGradebook {
@@ -33,79 +34,83 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
     }
 
     @Override
-    public int addGrade(int studetnId) {
+    public int addGrade(int studentId, int cursId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id",
-                    Gradebook.class).setParameter("id", studetnId).getSingleResult();
+            Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id and cursId = :cursId",
+                    Gradebook.class).setParameter("id", studentId).setParameter("cursId", cursId).getSingleResult();
             gradebook.setGrade(gradebook.getGrade() + 1);
             session.getTransaction().commit();
-            log.info("increment grade by student with id {}", studetnId);
-            return studetnId;
+            log.info("increment grade by student with id {} and cursId {}", studentId, cursId);
+            return studentId;
         }catch (HibernateError e){
-            log.error("fail to increment grade by student with id {}", studetnId, e);
+            log.error("fail to increment grade by student with id {} and cursId {}", studentId, cursId, e);
         }
         return 0;
     }
 
     @Override
-    public int addStudentToGradebook(int studetnId){
+    public int addStudentToGradebook(int studentId, int cursId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Gradebook gradebook = new Gradebook(studetnId, 0);
-            session.saveOrUpdate(gradebook);
+            Gradebook gradebook = new Gradebook(studentId, cursId, 0);
+            session.save(gradebook);
             session.getTransaction().commit();
-            log.info("added to gradeBook student with id {}", studetnId);
-            return studetnId;
+            log.info("added to gradeBook student with id {} and cursId {}", studentId, cursId);
+            return studentId;
         }catch (HibernateError e){
-            log.error("fail to add to gradeBook student with id {}", studetnId, e);
+            log.error("fail to add to gradeBook student with id {} and cursId {}", studentId, cursId, e);
         }
         return 0;
     }
 
     @Override
-    public int getGrade(int studetnId){
+    public int getGrade(int studentId, int cursId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            int grade = (int) session.createNativeQuery("select grade from gradebook where student_id = :id")
-                    .setParameter("id", studetnId).getSingleResult();
+            int grade = (int) session.createNativeQuery("select grade from gradebook where student_id = :id" +
+                    " and curs_id = :cursId")
+                    .setParameter("id", studentId).setParameter("cursId", cursId).getSingleResult();
             session.getTransaction().commit();
-            log.info("student with id {} take grade {}", studetnId, grade);
+            log.info("student with id {} and cursId {} take grade {}", studentId, cursId, grade);
             return grade;
         }catch (HibernateError e){
-            log.error("fail to get grade from student with id {}", studetnId, e);
+            log.error("fail to get grade from student with id {} and cursId {}", studentId, cursId, e);
         }
         return 0;
     }
 
     @Override
-    public boolean deleteStudentFromGradebook(int studetnId){
+    public boolean deleteStudentFromGradebook(int studentId, int cursId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id",
-                    Gradebook.class).setParameter("id", studetnId).getSingleResult();
+            Gradebook gradebook = session.createQuery("select g from Gradebook g where studentId = :id and cursId = :cursId",
+                    Gradebook.class).setParameter("id", studentId).setParameter("cursId", cursId).getSingleResult();
             session.delete(gradebook);
             session.getTransaction().commit();
-            log.info("Student with id {} deleted from GradeBook", studetnId);
+            log.info("Student with id {} and cursId {} deleted from GradeBook", studentId, cursId);
             return true;
         }catch (HibernateError e){
-            log.error(" fail to delete Student with id {} from GradeBook", studetnId);
+            log.error(" fail to delete Student with id {} and cursId {} from GradeBook", studentId, cursId, e);
         }
         return false;
     }
 
     @Override
-    public boolean isExist(int studetnId){
+    public boolean isExist(int studentId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             int id = (Integer) session.createNativeQuery("select student_id from gradebook where student_id = :id")
-                    .setParameter("id", studetnId).getSingleResult();
-            if (studetnId == id) {
-                log.info("student with id {} is already existed", studetnId);
+                    .setParameter("id", studentId).getSingleResult();
+            if (studentId == id) {
+                log.info("student with id {} is already existed", studentId);
                 return true;
             }
         }catch (HibernateException | NoResultException e){
-            log.error("fail to check student with id {}", studetnId, e);
+            log.error("fail to check student with id {}", studentId, e);
+            return false;
+        }catch (NonUniqueResultException e){
+            return true;
         }
         return false;
     }

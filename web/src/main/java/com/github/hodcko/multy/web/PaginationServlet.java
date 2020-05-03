@@ -28,7 +28,7 @@ public class PaginationServlet extends HttpServlet {
         int page = Integer.parseInt(req.getParameter("page"));
         int cursId = ((Teacher) session.getAttribute("teacher")).getCursId();
         int noOfRecords = serviceCurs.countOfStudents(cursId);
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 3);
 
         groupDTO = serviceCurs.getMyStudents(cursId, page);
 

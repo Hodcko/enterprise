@@ -18,13 +18,13 @@
 
             <h2 style="text-align: center"><c:out value="Выберите язык программирования для изучения"/></h2>
             <label>
-                <input type="radio" name="langType" value="java">
+                <input type="checkbox" name="langTypeJava" value="java">
             </label> Java
             <label>
-                <input type="radio" name="langType" value="php">
+                <input type="checkbox" name="langTypePHP" value="php">
             </label> PHP
             <label>
-                <input type="radio" name="langType" value="c++">
+                <input type="checkbox" name="langTypeC" value="c++">
             </label> C++
 
             <br><input type="submit" name="userType" value="student">

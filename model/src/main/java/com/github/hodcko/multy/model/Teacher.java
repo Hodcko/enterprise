@@ -33,7 +33,13 @@ public class Teacher extends User{
     @JoinColumn(name = "id")
     private AuthUser authUser;
 
+    public AuthUser getAuthUser() {
+        return authUser;
+    }
 
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
+    }
 
     @Override
     public String toString() {

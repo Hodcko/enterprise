@@ -1,14 +1,8 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.*;
-import com.github.hodcko.multy.service.ServiceAuthUser;
-import com.github.hodcko.multy.service.ServiceCurs;
-import com.github.hodcko.multy.service.ServiceGetIdByEmail;
-import com.github.hodcko.multy.service.ServiceGradebook;
-import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
-import com.github.hodcko.multy.service.impl.ServiceCursDefault;
-import com.github.hodcko.multy.service.impl.ServiceGetIdByEmailDefault;
-import com.github.hodcko.multy.service.impl.ServiceGradebookDefault;
+import com.github.hodcko.multy.service.*;
+import com.github.hodcko.multy.service.impl.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,7 +14,7 @@ import java.util.List;
 
 @WebServlet("/personal")
 public class PersonalAreaEntryServlet extends HttpServlet {
-    private ServiceAuthUser instance = ServiceAuthUserDefault.getInstance();
+    private ServiceAuthUser saveAuthUser = ServiceAuthUserDefault.getInstance();
     private ServiceGetIdByEmail getId = ServiceGetIdByEmailDefault.getInstance();
     private ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
     private ServiceGradebook serviceGradebook = ServiceGradebookDefault.getInstance();
@@ -41,26 +35,42 @@ public class PersonalAreaEntryServlet extends HttpServlet {
         List<GroupDTO> groupDTO;
 
         if (userType.equals(UserType.STUDENT)) {
-            int cursId = ((Student) session.getAttribute("student")).getCursId();
-            authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
-            curs = serviceCurs.getCurs(cursId);
-            List<Student> classmates = serviceCurs.getClassmates(cursId);
+            String langTypeJava = (String) session.getAttribute("langTypeJava");
+            String langTypePHP = (String) session.getAttribute("langTypePHP");
+            String langTypeC = (String) session.getAttribute("langTypeC");
 
+            authUser = saveAuthUser.saveAuthUser(getId.getId(email, userType), login, password, userType);
+
+            if(langTypeJava != null){
+                Curs javaCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypeJava));
+                session.setAttribute("javaCurs", javaCurs);
+                session.setAttribute("classmatesJava", serviceCurs.getClassmates(serviceCurs.getCursId(langTypeJava)));
+            }
+            if(langTypePHP != null){
+                Curs phpCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypePHP));
+                session.setAttribute("phpCurs", phpCurs);
+                session.setAttribute("classmatesPHP", serviceCurs.getClassmates(serviceCurs.getCursId(langTypePHP)));
+            }
+            if(langTypeC != null){
+                Curs cCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypeC));
+                session.setAttribute("cCurs", cCurs);
+                session.setAttribute("classmatesC", serviceCurs.getClassmates(serviceCurs.getCursId(langTypeC)));
+            }
             session.setAttribute("studentOnCurs", serviceGradebook.isExist(((Student) session.getAttribute("student")).getId()));
             session.setAttribute("authUser", authUser);
-            session.setAttribute("curs", curs);
-            session.setAttribute("classmates", classmates);
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
             dispatcher.forward(req, resp);
+
         } else if (userType.equals(UserType.TEACHER)) {
+            Teacher teacher = ((Teacher) session.getAttribute("teacher"));
+            int cursId = teacher.getCursId();
             int page = 1;
-            int cursId = ((Teacher) session.getAttribute("teacher")).getCursId();
             int noOfRecords = serviceCurs.countOfStudents(cursId);
-            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 1);
+            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 3);
 
-
-            authUser = instance.saveAuthUser(getId.getId(email, userType), login, password, userType);
+            authUser = saveAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
+                    saveAuthUser.passwordGenerate(teacher.getEmail(), userType), userType);
             curs = serviceCurs.getCurs(cursId);
             groupDTO = serviceCurs.getMyStudents(cursId, page);
 
