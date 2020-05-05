@@ -66,8 +66,9 @@ public class PersonalAreaEntryServlet extends HttpServlet {
             Teacher teacher = ((Teacher) session.getAttribute("teacher"));
             int cursId = teacher.getCursId();
             int page = 1;
+            int numberOfRecordsOnPage = 3;
             int noOfRecords = serviceCurs.countOfStudents(cursId);
-            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 3);
+            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / numberOfRecordsOnPage);
 
             authUser = saveAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
                     saveAuthUser.passwordGenerate(teacher.getEmail(), userType), userType);

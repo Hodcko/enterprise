@@ -3,3 +3,6 @@
 
 
 4*. Навести порядок в пом
+
+*to one = eager
+*to many = lazy

@@ -181,42 +181,42 @@ public class DaoCursDefault implements DaoCurs {
 //        return 0;
 //    }
 
-    @Override
-    public List<Student> getClassmates(int cursId){
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
-            List<Student> studentList = session.createNativeQuery("select s.id, s.name, s.second_name as secondName , s.email, s.age, g.curs_id as cursId " +
-                    "from Student s join student_curs g on s.id = g.student_id  where g.curs_id = :id")
-                    .setParameter("id", cursId)
-                    .addScalar("id", StandardBasicTypes.INTEGER)
-                    .addScalar("secondName", StandardBasicTypes.STRING)
-                    .addScalar("name", StandardBasicTypes.STRING)
-                    .addScalar("email", StandardBasicTypes.STRING)
-                    .addScalar("cursId", StandardBasicTypes.INTEGER)
-                    .addScalar("age", StandardBasicTypes.INTEGER)
-                    .setResultTransformer(Transformers.aliasToBean(Student.class))
-                    .list();
-            Curs curs = session.get(Curs.class, cursId);
-            session.getTransaction().commit();
-            log.info("get classmates from curs with id {} {}",cursId, curs.getStudentList());
-            return studentList;
-        }catch (HibernateException e){
-            log.error("fail to get classmates from curs id {}", cursId, e);
-        }return null;
-    }
-
 //    @Override
 //    public List<Student> getClassmates(int cursId){
 //        try (Session session = SFUtil.getSession()) {
 //            session.beginTransaction();
+//            List<Student> studentList = session.createNativeQuery("select s.id, s.name, s.second_name as secondName , s.email, s.age, g.curs_id as cursId " +
+//                    "from Student s join student_curs g on s.id = g.student_id  where g.curs_id = :id")
+//                    .setParameter("id", cursId)
+//                    .addScalar("id", StandardBasicTypes.INTEGER)
+//                    .addScalar("secondName", StandardBasicTypes.STRING)
+//                    .addScalar("name", StandardBasicTypes.STRING)
+//                    .addScalar("email", StandardBasicTypes.STRING)
+//                    .addScalar("cursId", StandardBasicTypes.INTEGER)
+//                    .addScalar("age", StandardBasicTypes.INTEGER)
+//                    .setResultTransformer(Transformers.aliasToBean(Student.class))
+//                    .list();
 //            Curs curs = session.get(Curs.class, cursId);
 //            session.getTransaction().commit();
 //            log.info("get classmates from curs with id {} {}",cursId, curs.getStudentList());
-//            return curs.getStudentList();
+//            return studentList;
 //        }catch (HibernateException e){
 //            log.error("fail to get classmates from curs id {}", cursId, e);
 //        }return null;
 //    }
+
+    @Override
+    public List<Student> getClassmates(int cursId){
+        try (Session session = SFUtil.getSession()) {
+            session.beginTransaction();
+            Curs curs = session.get(Curs.class, cursId);
+            session.getTransaction().commit();
+            log.info("get classmates from curs with id {} {}",cursId, curs.getStudentList());
+            return curs.getStudentList();
+        }catch (HibernateException e){
+            log.error("fail to get classmates from curs id {}", cursId, e);
+        }return null;
+    }
 
     @Override
     public boolean inviteStudentOnCurs(int studentId, int cursId){

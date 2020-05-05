@@ -24,11 +24,12 @@ public class PaginationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         List<GroupDTO> groupDTO;
+        int numberOfRecordsOnPage = 3;
 
         int page = Integer.parseInt(req.getParameter("page"));
         int cursId = ((Teacher) session.getAttribute("teacher")).getCursId();
         int noOfRecords = serviceCurs.countOfStudents(cursId);
-        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 3);
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / numberOfRecordsOnPage);
 
         groupDTO = serviceCurs.getMyStudents(cursId, page);
 

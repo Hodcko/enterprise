@@ -36,9 +36,7 @@ public class StudyServlet extends HttpServlet {
         HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("student");
 
-
         session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));
-
 
         if (javaReg != null) {
             serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(javaReg));

@@ -1,7 +1,6 @@
 package com.github.hodcko.multy.web;
 
 import com.github.hodcko.multy.model.AuthUser;
-import org.hibernate.Session;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
