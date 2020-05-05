@@ -59,7 +59,7 @@ public class PersonalAreaEntryServlet extends HttpServlet {
             session.setAttribute("studentOnCurs", serviceGradebook.isExist(((Student) session.getAttribute("student")).getId()));
             session.setAttribute("authUser", authUser);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/StudentPersonalArea.jsp");
             dispatcher.forward(req, resp);
 
         } else if (userType.equals(UserType.TEACHER)) {
@@ -74,14 +74,16 @@ public class PersonalAreaEntryServlet extends HttpServlet {
                     saveAuthUser.passwordGenerate(teacher.getEmail(), userType), userType);
             curs = serviceCurs.getCurs(cursId);
             groupDTO = serviceCurs.getMyStudents(cursId, page);
+            List<Teacher> teachers = serviceCurs.getColleagues(cursId);
 
             req.setAttribute("noOfPages", noOfPages);
             req.setAttribute("currentPage", page);
             session.setAttribute("students", groupDTO);
+            session.setAttribute("teachers", teachers);
             session.setAttribute("authUser", authUser);
             session.setAttribute("curs", curs);
 
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/TeacherPersonalArea.jsp");
             dispatcher.forward(req, resp);
         } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("/InvalidData.jsp");

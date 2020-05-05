@@ -14,7 +14,7 @@ public class DaoStudentTest {
 
     @Test
     void saveStudentTest() {
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Student studentTest = daoStudent.getStudent(student.getId());
         daoStudent.deleteStudent("winter@gmail.com");
         Assertions.assertEquals(student, studentTest);
@@ -22,21 +22,21 @@ public class DaoStudentTest {
 
     @Test
     void getStudentTest(){
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Assertions.assertEquals(student, daoStudent.getStudent(student.getId()));
         daoStudent.deleteStudent("winter@gmail.com");
     }
 
     @Test
     void deleteStudentTest(){
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30, 1);
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         daoStudent.deleteStudent("winter@gmail.com");
         Assertions.assertNull(daoStudent.getStudent(student.getId()));
     }
 
     @Test
     void isExistTest() {
-        daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30, 1);
+        daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30);
         boolean studentResult = daoStudent.isExist("hodckoq@mail.com", UserType.STUDENT);
         daoStudent.deleteStudent("hodckoq@mail.com");
         assertTrue(studentResult);
@@ -44,7 +44,7 @@ public class DaoStudentTest {
 
     @Test
     void DaoGetIdByEmailTest() {
-        Student student = daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30, 1);
+        Student student = daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30);
         int studentId = daoStudent.getId("hodckoq@mail.com", UserType.STUDENT);
         daoStudent.deleteStudent("hodckoq@mail.com");
         assertEquals(student.getId(), studentId);
@@ -52,7 +52,7 @@ public class DaoStudentTest {
 
     @Test
     void passwordGenerateTest(){
-        Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31, 1);
+        Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31);
         Assertions.assertEquals(daoStudent.passwordGenerate(student.getEmail(), UserType.STUDENT), student.getSecondName()+student.getId());
         daoStudent.deleteStudent(student.getEmail());
     }

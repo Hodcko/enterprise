@@ -33,18 +33,18 @@ public class Curs {
     public Curs() {
     }
 
-    public Curs(Integer id, String name, LocalDate start, LocalDate end, List<Student> studentList) {
+    public Curs(Integer id, String name, LocalDate start, LocalDate end, List<Teacher> teachers) {
         this.id = id;
         this.name = name;
         this.start = start;
         this.end = end;
-        this.studentList = studentList;
+        this.teachers = teachers;
     }
 
 
 
     @OneToMany(mappedBy = "curs", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Student> studentList = new ArrayList<>();
+    private List<Teacher> teachers = new ArrayList<>();
 
     @ManyToMany(mappedBy = "curses", cascade = CascadeType.ALL)
     private List<Student> students = new ArrayList<>();
@@ -81,12 +81,12 @@ public class Curs {
         this.end = end;
     }
 
-    public List<Student> getStudentList() {
-        return studentList;
+    public List<Teacher> getTeachers() {
+        return teachers;
     }
 
-    public void setStudentList(List<Student> studentList) {
-        this.studentList = studentList;
+    public void setTeachers(List<Teacher> teachers) {
+        this.teachers = teachers;
     }
 
     public List<Student> getStudents() {

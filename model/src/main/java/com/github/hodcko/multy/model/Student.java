@@ -16,41 +16,30 @@ public class Student extends User{
     @Column
     private Integer age;
 
-   public Student(){
-   }
+    public Student() {
+    }
 
-    public Student(String name, String secondName, String email, Integer age, Integer cursId) {
+    public Student(String name, String secondName, String email, Integer age) {
         this.name = name;
         this.secondName = secondName;
         this.email = email;
         this.age = age;
-        this.cursId = cursId;
     }
 
-    public Student(int id, String name, String secondName, String email, Integer age, Integer cursId) {
+    public Student(int id, String name, String secondName, String email, Integer age) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
         this.email = email;
         this.age = age;
-        this.cursId = cursId;
     }
 
-    public Student(String name, String secondName, String email, Integer age, Curs curs) {
-        this.name = name;
-        this.secondName = secondName;
-        this.email = email;
-        this.age = age;
-        this.curs = curs;
-    }
+
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private AuthUser authUser;
 
-    @ManyToOne
-    @JoinColumn(name = "curs_id", insertable = false, updatable = false)
-    private Curs curs;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "student_curs", joinColumns = {@JoinColumn(name = "student_id")},
@@ -65,14 +54,6 @@ public class Student extends User{
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public Curs getCurs() {
-        return curs;
-    }
-
-    public void setCurs(Curs curs) {
-        this.curs = curs;
     }
 
 
@@ -100,7 +81,7 @@ public class Student extends User{
                 ", secondName='" + secondName + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
-                ", curs_id=" + cursId +
+                ", curs_id=" +
                 '}';
     }
 

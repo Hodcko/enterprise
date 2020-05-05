@@ -31,7 +31,7 @@ public class ServiceRegistrationDefault implements com.github.hodcko.multy.servi
     @Override
     public boolean registration(String name, String secondName, String email, int age, UserType userType, String langType) {
         if(userType.equals(UserType.STUDENT)){
-            serviceStudent.saveStudent(name, secondName, email, age, serviceCurs.getCursId(langType));
+            serviceStudent.saveStudent(name, secondName, email, age);
             return true;
         }else if(userType.equals(UserType.TEACHER)){
             serviceTeacher.saveTeacher(name, secondName, email, serviceCurs.getCursId(langType));

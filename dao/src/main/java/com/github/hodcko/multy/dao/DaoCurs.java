@@ -3,6 +3,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.Teacher;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface DaoCurs {
     List<Student> getClassmates(int cursId);
 
     boolean inviteStudentOnCurs(int studentId, int cursId);
+
+    List<Teacher> getColleagues(int cursId);
 }

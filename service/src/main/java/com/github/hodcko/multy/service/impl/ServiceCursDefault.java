@@ -5,6 +5,7 @@ import com.github.hodcko.multy.dao.impl.DaoCursDefault;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.Teacher;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -72,5 +73,10 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     @Override
     public boolean inviteStudentOnCurs(int studentId, int cursId){
         return daoCurs.inviteStudentOnCurs(studentId, cursId);
+    }
+
+    @Override
+    public List<Teacher> getColleagues(int cursId){
+        return daoCurs.getColleagues(cursId);
     }
 }

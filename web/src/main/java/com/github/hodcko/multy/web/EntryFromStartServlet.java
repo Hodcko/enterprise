@@ -85,7 +85,7 @@ public class EntryFromStartServlet extends HttpServlet {
                     session.setAttribute("cPlusPlus", "cPlusPlus");
                 }
 
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/StudentPersonalArea.jsp");
                 dispatcher.forward(req, resp);
 
             } else if (role.equals(UserType.TEACHER)) {
@@ -97,14 +97,16 @@ public class EntryFromStartServlet extends HttpServlet {
                 int cursId = teacher.getCursId();
                 int noOfRecords = serviceCurs.countOfStudents(cursId);
                 int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / 3);
+                List<Teacher> teachers = serviceCurs.getColleagues(cursId);
 
                 req.setAttribute("noOfPages", noOfPages);
                 req.setAttribute("currentPage", page);
                 session.setAttribute("students", groupDTO);
+                session.setAttribute("teachers", teachers);
                 session.setAttribute("teacher", teacher);
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
-                RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/TeacherPersonalArea.jsp");
                 dispatcher.forward(req, resp);
             }
         }else{

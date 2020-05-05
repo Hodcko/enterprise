@@ -31,7 +31,7 @@ public class StudentsRegistrationServlet extends HttpServlet {
         UserType userType = UserType.valueOf(rq.getParameter("userType").toUpperCase()) ;
         String langTypeJava = rq.getParameter("langTypeJava");
 
-        Student student =  serviceStudent.saveStudent(name, secondName, email, age, serviceCurs.getCursId(langTypeJava));
+        Student student =  serviceStudent.saveStudent(name, secondName, email, age);
         HttpSession session = rq.getSession();
 
         session.setAttribute("student", student);

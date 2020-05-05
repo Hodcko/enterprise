@@ -29,8 +29,8 @@ public class ServiceRegistrationDefaultTest {
 
     @Test
     void registrationTest(){
-        Student student = new Student("John", "Snow", "Winter@gmail.com", 33, 1);
-        when(serviceStudent.saveStudent(student.getName(), student.getSecondName(), student.getEmail(), student.getAge(), student.getCursId())).thenReturn(student);
+        Student student = new Student("John", "Snow", "Winter@gmail.com", 33);
+        when(serviceStudent.saveStudent(student.getName(), student.getSecondName(), student.getEmail(), student.getAge())).thenReturn(student);
         boolean result = serviceRegistrationDefault.registration(student.getName(), student.getSecondName(), student.getEmail(), student.getAge(), UserType.STUDENT, "java");
         assertTrue(result);
     }

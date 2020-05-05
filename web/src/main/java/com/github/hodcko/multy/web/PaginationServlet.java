@@ -37,7 +37,7 @@ public class PaginationServlet extends HttpServlet {
         req.setAttribute("currentPage", page);
         session.setAttribute("students", groupDTO);
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/PersonalArea.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/TeacherPersonalArea.jsp");
         dispatcher.forward(req, resp);
     }
 }

@@ -34,8 +34,8 @@ public class DaoStudentDefault implements DaoStudent {
     }
 
     @Override
-    public Student saveStudent(String name, String second_name, String email, int age, int cursId) {
-        Student student = new Student(name, second_name, email, age, cursId);
+    public Student saveStudent(String name, String second_name, String email, int age) {
+        Student student = new Student(name, second_name, email, age);
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
             session.saveOrUpdate(student);

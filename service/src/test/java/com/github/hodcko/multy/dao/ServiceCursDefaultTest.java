@@ -3,6 +3,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
+import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.service.impl.ServiceCursDefault;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +29,8 @@ public class ServiceCursDefaultTest {
     private static ServiceCursDefault iServiceCursDefault;
 
     final Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
-    final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30, 1);
+    final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
+    final Teacher teacher = new Teacher("John", "Snow", "Winter@gmail1.com", 1);
     final GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
 
 
@@ -85,6 +87,15 @@ public class ServiceCursDefaultTest {
     }
 
     @Test
+    void getColleaguesTest(){
+        List<Teacher> list = new ArrayList<>();
+        list.add(teacher);
+        when(daoCurs.getColleagues(teacher.getCursId())).thenReturn(list);
+        List<Teacher> listTeachers = iServiceCursDefault.getColleagues(curs.getId());
+        assertEquals(list, listTeachers);
+    }
+
+    @Test
     void deleteCursTest(){
         when(daoCurs.deleteCurs(curs.getId())).thenReturn(true);
         boolean result = iServiceCursDefault.deleteCurs(curs.getId());
@@ -97,4 +108,6 @@ public class ServiceCursDefaultTest {
         boolean result = iServiceCursDefault.inviteStudentOnCurs(student.getId(), curs.getId());
         assertTrue(result);
     }
+
+
 }

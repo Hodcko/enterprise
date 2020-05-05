@@ -72,7 +72,7 @@ public class ServiceAuthUserDefaultTest {
 
     @Test
     void passwordGenerateTest() {
-        Student student = new Student("John", "Snow", "Snow@gmail.com", 31, 1);
+        Student student = new Student("John", "Snow", "Snow@gmail.com", 31);
         when(serviceAuthUser.passwordGenerate("Snow@gmail.com", UserType.STUDENT )).thenReturn("Snow1");
         String password = serviceAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT);
         Assertions.assertEquals("Snow1", password);

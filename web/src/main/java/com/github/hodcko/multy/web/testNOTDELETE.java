@@ -11,17 +11,11 @@ import org.hibernate.Session;
 
 public class testNOTDELETE {
     public static void main(String[] args) {
-//
-//        try (Session session = SFUtil.getSession()) {
-//            session.beginTransaction();
-//            Curs curs = session.get(Curs.class, 2);
-//            System.out.println(curs.getStudents().size());
-//            session.getTransaction().commit();
-//        }
-//        SFUtil.closeSessionFactory();
 
         DaoCurs daoCurs = DaoCursDefault.getInstance();
-        System.out.println(daoCurs.getClassmates(1));
+        System.out.println(daoCurs.getMyStudents(1,2));
+
+
 
 
 

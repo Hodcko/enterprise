@@ -11,6 +11,9 @@ import java.util.Objects;
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Teacher extends User{
 
+    @Column (name = "curs_id")
+    protected Integer cursId;
+
     public Teacher(){
     }
 
@@ -32,6 +35,26 @@ public class Teacher extends User{
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private AuthUser authUser;
+
+    @ManyToOne
+    @JoinColumn(name = "curs_id", insertable = false, updatable = false)
+    private Curs curs;
+
+    public Integer getCursId() {
+        return cursId;
+    }
+
+    public void setCursId(Integer cursId) {
+        this.cursId = cursId;
+    }
+
+    public Curs getCurs() {
+        return curs;
+    }
+
+    public void setCurs(Curs curs) {
+        this.curs = curs;
+    }
 
     public AuthUser getAuthUser() {
         return authUser;

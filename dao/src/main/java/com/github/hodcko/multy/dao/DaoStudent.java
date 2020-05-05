@@ -6,7 +6,7 @@ import com.github.hodcko.multy.model.UserType;
 
 public interface DaoStudent {
 
-    Student saveStudent(String name, String second_name, String email, int age, int cursId);
+    Student saveStudent(String name, String second_name, String email, int age);
 
     Student getStudent(int id);
 

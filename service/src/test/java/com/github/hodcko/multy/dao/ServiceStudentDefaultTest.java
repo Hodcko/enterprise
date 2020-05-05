@@ -32,15 +32,15 @@ public class ServiceStudentDefaultTest {
 
     @Test
     void saveStudentTest(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30, 1);
-        when(daoStudent.saveStudent("John", "Snow", "Winter@gmail.com", 30, 1)).thenReturn(student);
-        Student studentTest = serviceStudent.saveStudent("John", "Snow", "Winter@gmail.com", 30, 1);
+        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
+        when(daoStudent.saveStudent("John", "Snow", "Winter@gmail.com", 30)).thenReturn(student);
+        Student studentTest = serviceStudent.saveStudent("John", "Snow", "Winter@gmail.com", 30);
         assertEquals(student, studentTest);
     }
 
     @Test
     void getStudentTest(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30, 1);
+        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
         when(daoStudent.getStudent(1)).thenReturn(student);
         Student studentTest = serviceStudent.getStudent( 1);
         assertEquals(student, studentTest);
@@ -48,7 +48,7 @@ public class ServiceStudentDefaultTest {
 
     @Test
     void deleteStudentTest(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30, 1);
+        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
         when(daoStudent.deleteStudent(student.getEmail())).thenReturn(true);
         boolean result = serviceStudent.deleteStudent( student.getEmail());
         assertTrue(result);
