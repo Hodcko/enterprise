@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
+import java.util.List;
 
 
 public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGradebook {
@@ -68,8 +68,8 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
     public int getGrade(int studentId, int cursId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            int grade = (int) session.createNativeQuery("select grade from gradebook where student_id = :id" +
-                    " and curs_id = :cursId")
+            int grade = (int) session.createQuery("select g.grade from Gradebook g where g.studentId = :id" +
+                    " and g.cursId = :cursId")
                     .setParameter("id", studentId).setParameter("cursId", cursId).getSingleResult();
             session.getTransaction().commit();
             log.info("student with id {} and cursId {} take grade {}", studentId, cursId, grade);
@@ -100,17 +100,15 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
     public boolean isExist(int studentId){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            int id = (Integer) session.createNativeQuery("select student_id from gradebook where student_id = :id")
-                    .setParameter("id", studentId).getSingleResult();
-            if (studentId == id) {
+            List ids = session.createQuery("select g.studentId from Gradebook g where g.studentId = :id")
+                    .setParameter("id", studentId).getResultList();
+            if (ids.size() > 0) {
                 log.info("student with id {} is already existed", studentId);
                 return true;
             }
         }catch (HibernateException | NoResultException e){
             log.error("fail to check student with id {}", studentId, e);
             return false;
-        }catch (NonUniqueResultException e){
-            return true;
         }
         return false;
     }

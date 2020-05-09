@@ -1,9 +1,7 @@
 package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.DaoTeacher;
-import com.github.hodcko.multy.dao.utils.MysqlDataBase;
 import com.github.hodcko.multy.dao.utils.SFUtil;
-import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
@@ -13,11 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.NoResultException;
-import java.sql.*;
+
 
 public class DaoTeacherDefault implements DaoTeacher {
     private static volatile DaoTeacher instance;
-    MysqlDataBase dataBase = new MysqlDataBase();
     private static final Logger log = LoggerFactory.getLogger(DaoTeacherDefault.class);
 
 
@@ -83,7 +80,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     public boolean isExist(String email, UserType userType) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            String teacherEmail = (String) session.createNativeQuery("select email from teacher where email = :mail")
+            String teacherEmail = (String) session.createQuery("select t.email from Teacher t where t.email = :mail")
                     .setParameter("mail", email).getSingleResult();
             session.getTransaction().commit();
             if (email.equalsIgnoreCase(teacherEmail)) {
@@ -98,14 +95,13 @@ public class DaoTeacherDefault implements DaoTeacher {
 
     @Override
     public int getId(String email, UserType userType) {
-        Teacher teacher;
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            teacher = session.createQuery("select s from Teacher s where email = :email", Teacher.class)
+            int id = (int) session.createQuery("select t.id from Teacher t where t.email = :email")
                     .setParameter("email", email).getSingleResult();
             session.getTransaction().commit();
-            log.info("return id {} of teacher with email {}", teacher.getId(), email);
-            return teacher.getId();
+            log.info("return id {} of teacher with email {}", id, email);
+            return id;
         } catch (HibernateError e) {
             log.error("fail to return id of teacher with email {}", email, e);
         }
@@ -116,13 +112,10 @@ public class DaoTeacherDefault implements DaoTeacher {
     public String passwordGenerate(String email, UserType userType) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            String secondName = (String) session.createNativeQuery("select second_name from teacher where email = :mail")
-                    .setParameter("mail", email).getSingleResult();
-            int id = (Integer) session.createNativeQuery("select id from teacher where email = :mail")
-                    .setParameter("mail", email).getSingleResult();
-            session.getTransaction().commit();
-            log.info("teacher with email {} generate password {}{}", email, secondName, id);
-            return secondName + id;
+            Teacher teacher = (Teacher) session.createQuery("from Teacher t where t.email = :email")
+                    .setParameter("email", email).getSingleResult();
+            log.info("teacher with email {} generate password {}", email, teacher.getSecondName() + teacher.getId());
+            return teacher.getSecondName() + teacher.getId();
         } catch (HibernateError e) {
             log.error("fail to generate password for teacher with email {}", email, e);
         }

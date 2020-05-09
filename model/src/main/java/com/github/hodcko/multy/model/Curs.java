@@ -23,14 +23,14 @@ public class Curs {
     @Column (name = "end_date")
     private LocalDate end;
 
+    public Curs() {
+    }
+
     public Curs(Integer id, String name, LocalDate start, LocalDate end) {
         this.id = id;
         this.name = name;
         this.start = start;
         this.end = end;
-    }
-
-    public Curs() {
     }
 
     public Curs(Integer id, String name, LocalDate start, LocalDate end, List<Teacher> teachers) {

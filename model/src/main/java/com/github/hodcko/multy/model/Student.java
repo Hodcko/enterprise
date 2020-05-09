@@ -34,8 +34,6 @@ public class Student extends User{
         this.age = age;
     }
 
-
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private AuthUser authUser;

@@ -57,8 +57,9 @@ public class DaoCursTest {
         List<GroupDTO> list = new ArrayList<>();
         list.add(groupDTO);
         assertEquals(daoCurs.getMyStudents(curs.getId(),1), list);
-        daoStudent.deleteStudent(student.getEmail());
         daoGradebook.deleteStudentFromGradebook(student.getId(), curs.getId());
+        daoStudent.deleteStudent(student.getEmail());
+
     }
 
     @Test
@@ -71,8 +72,9 @@ public class DaoCursTest {
         List<GroupDTO> list = new ArrayList<>();
         list.add(groupDTO);
         assertEquals(daoCurs.countOfStudents(curs.getId()), 1);
-        daoStudent.deleteStudent(student.getEmail());
         daoGradebook.deleteStudentFromGradebook(student.getId(), curs.getId());
+        daoStudent.deleteStudent(student.getEmail());
+
     }
 
     @Test
@@ -87,10 +89,11 @@ public class DaoCursTest {
         daoGradebook.addStudentToGradebook(student.getId(), curs.getId());
         daoGradebook.addStudentToGradebook(student1.getId(), curs.getId());
         assertArrayEquals(daoCurs.getClassmates(curs.getId()).toArray(), list.toArray());
-        daoStudent.deleteStudent(student.getEmail());
-        daoStudent.deleteStudent(student1.getEmail());
         daoGradebook.deleteStudentFromGradebook(student.getId(), curs.getId());
         daoGradebook.deleteStudentFromGradebook(student1.getId(), curs.getId());
+        daoStudent.deleteStudent(student.getEmail());
+        daoStudent.deleteStudent(student1.getEmail());
+
     }
 
     @Test

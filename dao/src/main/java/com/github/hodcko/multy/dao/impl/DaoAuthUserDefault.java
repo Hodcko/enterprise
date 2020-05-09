@@ -34,7 +34,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     public String getByLogin(String password){
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            String login = (String) session.createNativeQuery("select login from auth_user where password = :pass")
+            String login = (String) session.createQuery("select a.login from AuthUser a where a.password = :pass")
                     .setParameter("pass", password).getSingleResult();
             session.getTransaction().commit();
             log.info("get login {} from authUser by password {}", login, password);
@@ -44,6 +44,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         }
         return null;
     }
+
 
     @Override
     public AuthUser saveAuthUser(int userID, String login, String password, UserType role) {
@@ -70,6 +71,9 @@ public class DaoAuthUserDefault implements DaoAuthUser {
                     .setParameter("role", role)
                     .getSingleResult();
             session.delete(authUser);
+            if(role.equals(UserType.STUDENT)){
+                session.createNativeQuery("delete from gradebook where student_id = :id").setParameter("id", id).executeUpdate();
+            }
             session.getTransaction().commit();
             log.info("deleted authUser with id {} role {}", id, role);
             return true;
@@ -81,20 +85,21 @@ public class DaoAuthUserDefault implements DaoAuthUser {
 
     @Override
     public UserType getRole(String login, String password){
-        String role;
+        UserType role;
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            role = (String) session.createNativeQuery("select Role from auth_user where login = :login and password = :pass")
+            role = (UserType) session.createQuery("select a.role from AuthUser a where a.login = :login and a.password = :pass")
                     .setParameter("login", login)
                     .setParameter("pass", password)
                     .getSingleResult();
             session.getTransaction().commit();
-            return UserType.valueOf(role.toUpperCase());
+            return role;
         }catch (HibernateError e){
             log.error("fail to get role from authUser with login {} and password {}", login, password, e);
         }
         return null;
     }
+
 
     @Override
     public AuthUser getAuthUser(String login, String password){
@@ -114,20 +119,21 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     }
 
     @Override
-    public boolean changePassword(String login, String password, String newPassword){
+    public boolean changePassword(String login, String password, String newPassword) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            AuthUser authUser = session.createQuery("select a from AuthUser a where login = :login and password = :pass",
-                    AuthUser.class).setParameter("login", login)
+            session.createQuery("update AuthUser a set a.password = :newPass where a.login = :login and a.password = :pass")
+                    .setParameter("login", login)
                     .setParameter("pass", password)
-                    .getSingleResult();
-            authUser.setPassword(newPassword);
+                    .setParameter("newPass", newPassword)
+                    .executeUpdate();
             session.getTransaction().commit();
             log.info("password changed by user whit login{} password {} new password {}", login, password, newPassword);
             return true;
-        }catch (HibernateError e){
+        } catch (HibernateError e) {
             log.error("fail to changed password by user whit login{} password {} new password {}", login, password, newPassword);
         }
         return false;
     }
+
 }

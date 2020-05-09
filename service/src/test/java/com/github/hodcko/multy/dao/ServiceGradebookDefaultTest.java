@@ -36,8 +36,6 @@ public class ServiceGradebookDefaultTest {
     final int cursIdC = 3;
 
 
-
-
     @Test
     void addStudentToGradebookTest(){
         when(daoGradebook.addStudentToGradebook(studentId, cursIdJava)).thenReturn(studentId);
