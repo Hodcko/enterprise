@@ -35,8 +35,8 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
     }
 
     @Override
-    public String getByLogin(String login){
-        return daoAuthUser.getByLogin(login);
+    public String getLoginByPassword(String password){
+        return daoAuthUser.getLoginByPassword(password);
     }
 
     @Override

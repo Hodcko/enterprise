@@ -9,6 +9,9 @@ import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 
 public class DaoAuthUserDefault implements DaoAuthUser {
@@ -31,19 +34,35 @@ public class DaoAuthUserDefault implements DaoAuthUser {
 
 
     @Override
-    public String getByLogin(String password){
+    public String getLoginByPassword(String password){
         try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
-            String login = (String) session.createQuery("select a.login from AuthUser a where a.password = :pass")
-                    .setParameter("pass", password).getSingleResult();
-            session.getTransaction().commit();
-            log.info("get login {} from authUser by password {}", login, password);
-            return login;
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<AuthUser> criteria = cb.createQuery(AuthUser.class);
+            Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
+            criteria.select(authUserRoot).where(cb.equal(authUserRoot.get("password"), password));
+            AuthUser authUser = session.createQuery(criteria).getSingleResult();
+            log.info("get login {} from authUser by password {}", authUser.getLogin(), password);
+            return authUser.getLogin();
         }catch (HibernateError e){
             log.error("fail to get login from authUser by password {}", password, e);
         }
         return null;
     }
+
+//    @Override
+//    public String getLoginByPassword(String password){
+//        try (Session session = SFUtil.getSession()) {
+//            session.beginTransaction();
+//            String login = (String) session.createQuery("select a.login from AuthUser a where a.password = :pass")
+//                    .setParameter("pass", password).getSingleResult();
+//            session.getTransaction().commit();
+//            log.info("get login {} from authUser by password {}", login, password);
+//            return login;
+//        }catch (HibernateError e){
+//            log.error("fail to get login from authUser by password {}", password, e);
+//        }
+//        return null;
+//    }
 
 
     @Override
@@ -100,16 +119,16 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         return null;
     }
 
-
     @Override
     public AuthUser getAuthUser(String login, String password){
         try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
-            AuthUser authUser = session.createQuery("select a from AuthUser a where login = :login and password = :pass",
-                    AuthUser.class).setParameter("login", login)
-                    .setParameter("pass", password)
-                    .getSingleResult();
-            session.getTransaction().commit();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<AuthUser> criteria = cb.createQuery(AuthUser.class);
+            Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
+            criteria.select(authUserRoot)
+                    .where(cb.equal(authUserRoot.get("password"), password))
+                    .where(cb.equal(authUserRoot.get("login"), login));
+            AuthUser authUser = session.createQuery(criteria).getSingleResult();
             log.info("Get authUser with login {} password{}", login, password);
             return authUser;
         }catch (HibernateError e){
@@ -117,6 +136,25 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         }
         return null;
     }
+
+
+
+//    @Override
+//    public AuthUser getAuthUser(String login, String password){
+//        try (Session session = SFUtil.getSession()) {
+//            session.beginTransaction();
+//            AuthUser authUser = session.createQuery("select a from AuthUser a where login = :login and password = :pass",
+//                    AuthUser.class).setParameter("login", login)
+//                    .setParameter("pass", password)
+//                    .getSingleResult();
+//            session.getTransaction().commit();
+//            log.info("Get authUser with login {} password{}", login, password);
+//            return authUser;
+//        }catch (HibernateError e){
+//            log.error("fail to get authUser with login {} password{}", login, password);
+//        }
+//        return null;
+//    }
 
     @Override
     public boolean changePassword(String login, String password, String newPassword) {

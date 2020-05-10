@@ -45,15 +45,15 @@ public class ServiceAuthUserDefaultLoginTest {
 
     @Test
     void loginTest(){
-        when(daoAuthUser.getByLogin("mockLogin")).thenReturn("mockLogin");
+        when(daoAuthUser.getLoginByPassword("mockLogin")).thenReturn("mockLogin");
         String login = securityService.login("mockLogin", "mockLogin");
         assertEquals("mockLogin", login);
     }
 
     @Test
     void loginTestNull(){
-        when(daoAuthUser.getByLogin("mockLogin")).thenReturn(null);
-        String login = serviceAuthUser.getByLogin("mockLogin");
+        when(daoAuthUser.getLoginByPassword("mockLogin")).thenReturn(null);
+        String login = serviceAuthUser.getLoginByPassword("mockLogin");
         assertNull(login);
     }
 

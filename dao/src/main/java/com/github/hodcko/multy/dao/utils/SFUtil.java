@@ -22,7 +22,6 @@ public class SFUtil {
 
     static {
         StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
-        // Hibernate settings equivalent to hibernate.cfg.xml's properties
         Map<String, String> settings = new HashMap<>();
         settings.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         settings.put(Environment.URL, url);
@@ -35,14 +34,13 @@ public class SFUtil {
         settings.put(Environment.ISOLATION, "2");
         settings.put(Environment.CACHE_REGION_FACTORY, "org.hibernate.cache.ehcache.EhCacheRegionFactory");
         settings.put(Environment.USE_SECOND_LEVEL_CACHE, "true");
+        settings.put(Environment.USE_QUERY_CACHE, "true");
+        settings.put(Environment.AUTO_EVICT_COLLECTION_CACHE, "true");
 
 
         // settings.put(Environment.STORAGE_ENGINE, "innodb");
-        // Apply settings
         serviceRegistryBuilder.applySettings(settings);
-        // Create registry
         ServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
-        // Create MetadataSources
         MetadataSources sources = new MetadataSources(serviceRegistry);
         sources.addAnnotatedClass(Student.class);
         sources.addAnnotatedClass(Teacher.class);
@@ -50,9 +48,7 @@ public class SFUtil {
         sources.addAnnotatedClass(Curs.class);
         sources.addAnnotatedClass(GroupDTO.class);
         sources.addAnnotatedClass(Gradebook.class);
-        // Create Metadata
         Metadata metadata = sources.getMetadataBuilder().build();
-        // Create SessionFactory
         sessionFactory = metadata.getSessionFactoryBuilder().build();
     }
 

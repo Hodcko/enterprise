@@ -2,11 +2,7 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
-import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
-import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 import com.github.hodcko.multy.model.AuthUser;
-import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -51,14 +47,14 @@ public class DaoAuthUserUserTest {
     void changePasswordTest() {
         AuthUser studentTest = daoAuthUser.saveAuthUser(6,"John", "Snow", UserType.STUDENT);
         daoAuthUser.changePassword(studentTest.getLogin(), studentTest.getPassword(), "qwerty");
-        Assertions.assertEquals(daoAuthUser.getByLogin("qwerty"), studentTest.getLogin());
+        Assertions.assertEquals(daoAuthUser.getLoginByPassword("qwerty"), studentTest.getLogin());
         daoAuthUser.deleteAuthUser(6, UserType.STUDENT);
     }
 
     @Test
-    void getByLoginTest(){
+    void getLoginByPasswordTest(){
         AuthUser studentTest = daoAuthUser.saveAuthUser(6,"John", "Snow", UserType.STUDENT);
-        Assertions.assertEquals(daoAuthUser.getByLogin("Snow"), studentTest.getLogin());
+        Assertions.assertEquals(daoAuthUser.getLoginByPassword("Snow"), studentTest.getLogin());
         daoAuthUser.deleteAuthUser(6, UserType.STUDENT);
     }
 }

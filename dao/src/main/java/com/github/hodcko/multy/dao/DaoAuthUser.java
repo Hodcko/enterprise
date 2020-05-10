@@ -5,7 +5,7 @@ import com.github.hodcko.multy.model.UserType;
 
 public interface DaoAuthUser {
 
-    String getByLogin(String login);
+    String getLoginByPassword(String password);
 
     AuthUser saveAuthUser(int userId, String login, String password, UserType role);
 

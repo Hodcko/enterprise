@@ -1,9 +1,6 @@
 
 
 
-1. Переделать методы на hql
-2. Добавить метод на criteria
-3. getByLogin -> getByPassword
 4*. Навести порядок в пом
 
 *to one = eager

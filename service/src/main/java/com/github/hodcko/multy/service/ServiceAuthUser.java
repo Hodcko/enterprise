@@ -7,7 +7,7 @@ import com.github.hodcko.multy.model.UserType;
 public interface ServiceAuthUser {
     AuthUser saveAuthUser(int userId, String login, String password, UserType role) ;
 
-    String getByLogin(String login);
+    String getLoginByPassword(String password);
 
     boolean deleteAuthUser(int id, UserType role);
 

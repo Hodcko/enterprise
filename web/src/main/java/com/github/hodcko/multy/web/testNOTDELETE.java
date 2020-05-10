@@ -17,8 +17,8 @@ import org.hibernate.Session;
 public class testNOTDELETE {
     public static void main(String[] args) {
 
-        DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
-        System.out.println(daoGradebook.isExist(219));
+        DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
+        System.out.println(daoAuthUser.getLoginByPassword("Hodsdsddcko36"));
 
 
 
