@@ -7,7 +7,8 @@ import java.util.Objects;
 
 @Entity
 @Table (name = "auth_user")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy. READ_WRITE)
 public class AuthUser {
     @Id
     @Column (name = "id")

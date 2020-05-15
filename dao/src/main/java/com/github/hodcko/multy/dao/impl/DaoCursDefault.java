@@ -63,7 +63,7 @@ public class DaoCursDefault implements DaoCurs {
             log.info("curs with id {} deleted", cursId);
             return true;
         }catch (HibernateError e){
-            log.error("fail to delete curs with id {}", cursId);
+            log.error("fail to delete curs with id {}", cursId, e);
         }
         return false;
     }
@@ -72,13 +72,14 @@ public class DaoCursDefault implements DaoCurs {
     public Curs getCurs(int cursId) {
         try (Session session = SFUtil.getSession()) {
             session.beginTransaction();
-            Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
-                    .setParameter("id", cursId).getSingleResult();
+//            Curs curs = session.createQuery("select c from Curs c where id = :id", Curs.class)
+//                    .setParameter("id", cursId).getSingleResult();
+            Curs curs = session.get(Curs.class, cursId);
             session.getTransaction().commit();
             log.info("curs get with id {}", cursId);
             return curs;
         }catch (HibernateError e){
-            log.error("fail to curs get with id {}", cursId);
+            log.error("fail to curs get with id {}", cursId, e);
         }
         return null;
     }
@@ -91,7 +92,7 @@ public class DaoCursDefault implements DaoCurs {
             session.getTransaction().begin();
             List<GroupDTO> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
                     "from Student s join Gradebook g on s.id = g.student_id  where g.curs_id = :id ")
-                    .setParameter("id", cursId)//.setParameter("limit", limit)
+                    .setParameter("id", cursId)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("name", StandardBasicTypes.STRING)
                     .addScalar("email", StandardBasicTypes.STRING)
@@ -104,7 +105,7 @@ public class DaoCursDefault implements DaoCurs {
             log.info("get all students of curs with id {}", cursId);
             return groupDtos;
         }catch (HibernateException e){
-            log.error("fail to get all students of curs with id {}", cursId);
+            log.error("fail to get all students of curs with id {}", cursId, e);
         }
         return null;
     }
@@ -122,7 +123,7 @@ public class DaoCursDefault implements DaoCurs {
             log.info("get count of students with curs id {}", cursId);
             return count.intValue();
         }catch (HibernateException e){
-            log.error("fail to get count of students with curs id {}", cursId);
+            log.error("fail to get count of students with curs id {}", cursId, e);
         }
         return 0;
     }
@@ -149,11 +150,10 @@ public class DaoCursDefault implements DaoCurs {
             student.getCurses().add(session.get(Curs.class, cursId));
             session.saveOrUpdate(student);
             session.getTransaction().commit();
-            session.close();
             log.info("student with id {} invited on curs {}",studentId, cursId);
             return true;
         }catch (HibernateException e){
-            log.error("fail to invite student with id {} on curs {}",studentId, cursId);
+            log.error("fail to invite student with id {} on curs {}",studentId, cursId, e);
         }return false;
     }
 

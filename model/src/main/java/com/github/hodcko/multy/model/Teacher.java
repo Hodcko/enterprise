@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table (name = "teacher")
+@Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Teacher extends User{
 

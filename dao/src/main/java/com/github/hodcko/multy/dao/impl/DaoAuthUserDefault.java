@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 
@@ -37,12 +38,13 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     public String getLoginByPassword(String password){
         try (Session session = SFUtil.getSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<AuthUser> criteria = cb.createQuery(AuthUser.class);
+            CriteriaQuery<String> criteria = cb.createQuery(String.class);
             Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
-            criteria.select(authUserRoot).where(cb.equal(authUserRoot.get("password"), password));
-            AuthUser authUser = session.createQuery(criteria).getSingleResult();
-            log.info("get login {} from authUser by password {}", authUser.getLogin(), password);
-            return authUser.getLogin();
+            criteria.select(authUserRoot.get("login"))
+                    .where(cb.equal(authUserRoot.get("password"), password));
+            String login = session.createQuery(criteria).getSingleResult();
+            log.info("get login {} from authUser by password {}", login, password);
+            return login;
         }catch (HibernateError e){
             log.error("fail to get login from authUser by password {}", password, e);
         }
@@ -125,10 +127,11 @@ public class DaoAuthUserDefault implements DaoAuthUser {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<AuthUser> criteria = cb.createQuery(AuthUser.class);
             Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
-            criteria.select(authUserRoot)
-                    .where(cb.equal(authUserRoot.get("password"), password))
-                    .where(cb.equal(authUserRoot.get("login"), login));
-            AuthUser authUser = session.createQuery(criteria).getSingleResult();
+            Predicate predicate = cb.and(
+                    cb.equal(authUserRoot.get("password"), password),
+                    cb.equal(authUserRoot.get("login"), login));
+            criteria.select(authUserRoot).where(predicate);
+            AuthUser authUser = session.createQuery(criteria).setCacheable(true).getSingleResult();
             log.info("Get authUser with login {} password{}", login, password);
             return authUser;
         }catch (HibernateError e){
