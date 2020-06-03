@@ -5,36 +5,30 @@ import com.github.hodcko.multy.model.UserType;
 import com.github.hodcko.multy.service.ServiceCurs;
 import com.github.hodcko.multy.service.ServiceStudent;
 import com.github.hodcko.multy.service.ServiceTeacher;
+import org.springframework.transaction.annotation.Transactional;
 
 
 public class ServiceRegistrationDefault implements com.github.hodcko.multy.service.ServiceRegistration {
 
-    private static volatile com.github.hodcko.multy.service.ServiceRegistration instance;
+    private final  ServiceStudent serviceStudent;
+    private final  ServiceTeacher serviceTeacher;
+    private final  ServiceCurs serviceCurs;
 
-    ServiceStudent serviceStudent = ServiceStudentDefault.getInstance();
-    ServiceTeacher serviceTeacher = ServiceTeacherDefault.getInstance();
-    ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
-
-    public static com.github.hodcko.multy.service.ServiceRegistration getInstance(){
-        com.github.hodcko.multy.service.ServiceRegistration localInstance = instance;
-        if(localInstance == null){
-            synchronized (com.github.hodcko.multy.service.ServiceRegistration.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new ServiceRegistrationDefault();
-                }
-            }
-        }
-        return localInstance;
+    public ServiceRegistrationDefault(ServiceStudent serviceStudent, ServiceTeacher serviceTeacher, ServiceCurs serviceCurs) {
+        this.serviceStudent = serviceStudent;
+        this.serviceTeacher = serviceTeacher;
+        this.serviceCurs = serviceCurs;
     }
 
+
+    @Transactional
     @Override
     public boolean registration(String name, String secondName, String email, int age, UserType userType, String langType) {
-        if(userType.equals(UserType.STUDENT)){
-            serviceStudent.saveStudent(name, secondName, email, age);
-            return true;
-        }else if(userType.equals(UserType.TEACHER)){
+        if(userType.equals(UserType.TEACHER)){
             serviceTeacher.saveTeacher(name, secondName, email, serviceCurs.getCursId(langType));
+            return true;
+        }else if(userType.equals(UserType.STUDENT)){
+            serviceStudent.saveStudent(name, secondName, email, age);
             return true;
         }else{
             return false;

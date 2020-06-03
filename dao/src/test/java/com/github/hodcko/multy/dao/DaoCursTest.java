@@ -1,14 +1,18 @@
 package com.github.hodcko.multy.dao;
 
-import com.github.hodcko.multy.dao.impl.DaoCursDefault;
-import com.github.hodcko.multy.dao.impl.DaoGradebookDefault;
-import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
-import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
+import com.github.hodcko.multy.dao.config.DaoConfig;
+
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,14 +20,25 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = DaoConfig.class)
+@Transactional
+
 public class DaoCursTest {
 
-    final DaoCurs daoCurs = DaoCursDefault.getInstance();
-    final DaoStudent daoStudent = DaoStudentDefault.getInstance();
-    final DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
-    final DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
-    final Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
+    @Autowired
+    private DaoCurs daoCurs;
+    @Autowired
+    private DaoStudent daoStudent;
+    @Autowired
+    private DaoTeacher daoTeacher;
+    @Autowired
+    private DaoGradebook daoGradebook;
+    @Autowired
+    private SessionFactory sessionFactory;
 
+
+    final Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
 
 
     @Test
@@ -44,6 +59,7 @@ public class DaoCursTest {
     void deleteCurs(){
         Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
         daoCurs.deleteCurs(testCurs.getId());
+        sessionFactory.getCurrentSession().evict(testCurs);
         assertNull(daoCurs.getCurs(testCurs.getId()).getEnd());
     }
 
@@ -79,21 +95,24 @@ public class DaoCursTest {
 
     @Test
     void getClassmatesTest(){
+
         Student student = daoStudent.saveStudent("Jogn", "Snow", "snow@gmail.com", 31);
-        Student student1 = daoStudent.saveStudent("Jogn", "Snow", "snow@qgmail.com", 31);
+        sessionFactory.getCurrentSession().flush();
+        Student student1 = daoStudent.saveStudent("John", "Snow", "snow@qgmail.com", 31);
+        sessionFactory.getCurrentSession().flush();
         List<Student> list = new ArrayList<>();
         list.add(student);
         list.add(student1);
         daoCurs.inviteStudentOnCurs(student.getId(), curs.getId());
+        sessionFactory.getCurrentSession().flush();
         daoCurs.inviteStudentOnCurs(student1.getId(), curs.getId());
+        sessionFactory.getCurrentSession().flush();
         daoGradebook.addStudentToGradebook(student.getId(), curs.getId());
+        sessionFactory.getCurrentSession().flush();
         daoGradebook.addStudentToGradebook(student1.getId(), curs.getId());
-        assertArrayEquals(daoCurs.getClassmates(curs.getId()).toArray(), list.toArray());
-        daoGradebook.deleteStudentFromGradebook(student.getId(), curs.getId());
-        daoGradebook.deleteStudentFromGradebook(student1.getId(), curs.getId());
-        daoStudent.deleteStudent(student.getEmail());
-        daoStudent.deleteStudent(student1.getEmail());
-
+        sessionFactory.getCurrentSession().flush();
+        List<Student> classmates = daoCurs.getClassmates(curs.getId());
+        assertArrayEquals(classmates.toArray(), list.toArray());
     }
 
     @Test
@@ -104,8 +123,6 @@ public class DaoCursTest {
         teachers.add(teacher);
         teachers.add(teacher1);
         assertArrayEquals(daoCurs.getColleagues(teacher.getCursId()).toArray(), teachers.toArray());
-        daoTeacher.deleteTeacher(teacher.getEmail());
-        daoTeacher.deleteTeacher(teacher1.getEmail());
     }
 
 

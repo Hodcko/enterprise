@@ -1,12 +1,12 @@
 package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.DaoTeacher;
-import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,44 +14,34 @@ import javax.persistence.NoResultException;
 
 
 public class DaoTeacherDefault implements DaoTeacher {
-    private static volatile DaoTeacher instance;
+
     private static final Logger log = LoggerFactory.getLogger(DaoTeacherDefault.class);
+    private final SessionFactory factory;
 
-
-    public static DaoTeacher getInstance(){
-        DaoTeacher localInstance = instance;
-        if(localInstance == null){
-            synchronized (DaoTeacher.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new DaoTeacherDefault();
-                }
-            }
-        }
-        return localInstance;
+    public DaoTeacherDefault(SessionFactory factory) {
+        this.factory = factory;
     }
 
+
     @Override
-    public Teacher saveTeacher(String name, String second_name, String email,  int cursId) {
-        Teacher teacher = new Teacher(name, second_name, email, cursId);
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+    public Teacher saveTeacher(String name, String secondName, String email,  int cursId) {
+        Teacher teacher = new Teacher(name, secondName, email, cursId);
+        try {
+            Session session =  factory.getCurrentSession();
             session.saveOrUpdate(teacher);
-            session.getTransaction().commit();
-            log.info("create teacher: name {} second name  {} email {}", name, second_name, email);
+            log.info("create teacher: name {} second name  {} email {}", name, secondName, email);
             return teacher;
         }catch (HibernateError e){
-            log.error("fail to create teacher: name {} second name  {} email {}", name, second_name, email, e);
+            log.error("fail to create teacher: name {} second name  {} email {}", name, secondName, email, e);
         }
         return null;
     }
 
     @Override
     public Teacher getTeacher(int id){
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             Teacher teacher = session.get(Teacher.class, id);
-            session.getTransaction().commit();
             log.info("get teacher: name {} second name  {} email {}", teacher.getName(), teacher.getSecondName(), teacher.getEmail());
             return teacher;
         }catch (HibernateError | NullPointerException e){
@@ -62,12 +52,11 @@ public class DaoTeacherDefault implements DaoTeacher {
 
     @Override
     public boolean deleteTeacher(String email){
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             Teacher teacher = session.createQuery("select s from Teacher s where email = :mail", Teacher.class)
                     .setParameter("mail", email).getSingleResult();
             session.delete(teacher);
-            session.getTransaction().commit();
             log.info("deleted teacher with email {}", email);
             return true;
         }catch (HibernateError e){
@@ -78,11 +67,10 @@ public class DaoTeacherDefault implements DaoTeacher {
 
     @Override
     public boolean isExist(String email, UserType userType) {
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             String teacherEmail = (String) session.createQuery("select t.email from Teacher t where t.email = :mail")
                     .setParameter("mail", email).getSingleResult();
-            session.getTransaction().commit();
             if (email.equalsIgnoreCase(teacherEmail)) {
                 log.info("teacher with email {} is already existed", email);
                 return true;
@@ -95,11 +83,10 @@ public class DaoTeacherDefault implements DaoTeacher {
 
     @Override
     public int getId(String email, UserType userType) {
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             int id = (int) session.createQuery("select t.id from Teacher t where t.email = :email")
                     .setParameter("email", email).getSingleResult();
-            session.getTransaction().commit();
             log.info("return id {} of teacher with email {}", id, email);
             return id;
         } catch (HibernateError e) {
@@ -110,8 +97,8 @@ public class DaoTeacherDefault implements DaoTeacher {
 
     @Override
     public String passwordGenerate(String email, UserType userType) {
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             Teacher teacher = (Teacher) session.createQuery("from Teacher t where t.email = :email")
                     .setParameter("email", email).getSingleResult();
             log.info("teacher with email {} generate password {}", email, teacher.getSecondName() + teacher.getId());

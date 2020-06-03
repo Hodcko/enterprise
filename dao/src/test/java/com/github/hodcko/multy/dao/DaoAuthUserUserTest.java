@@ -1,15 +1,28 @@
 package com.github.hodcko.multy.dao;
 
 
-import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
+import com.github.hodcko.multy.dao.config.DaoConfig;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.model.UserType;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = DaoConfig.class)
+@Transactional
 public class DaoAuthUserUserTest {
 
-    final DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
+    @Autowired
+    private DaoAuthUser daoAuthUser;
+    @Autowired
+    private SessionFactory sessionFactory;
+
 
 
 

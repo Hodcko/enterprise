@@ -1,16 +1,30 @@
 package com.github.hodcko.multy.dao;
 
+import com.github.hodcko.multy.dao.config.DaoConfig;
 import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = DaoConfig.class)
+@Transactional
 public class DaoStudentTest {
-    DaoStudent daoStudent = DaoStudentDefault.getInstance();
+
+    @Autowired
+    private DaoStudent daoStudent;
+    @Autowired
+    SessionFactory sessionFactory;
+
 
     @Test
     void saveStudentTest() {

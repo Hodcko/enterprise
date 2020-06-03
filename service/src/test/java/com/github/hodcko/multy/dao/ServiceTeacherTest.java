@@ -2,9 +2,7 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.model.Teacher;
-import com.github.hodcko.multy.service.ServiceTeacher;
 import com.github.hodcko.multy.service.impl.ServiceTeacherDefault;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,20 +17,16 @@ import static org.mockito.Mockito.when;
 public class ServiceTeacherTest {
 
     @Mock
-    private static DaoTeacher daoTeacher;
+    private DaoTeacher daoTeacher;
 
 
     @InjectMocks
-    private static ServiceTeacher serviceTeacher;
+    private ServiceTeacherDefault serviceTeacher;
 
 
-    @BeforeAll
-    public static void createInstance() {
-        serviceTeacher = ServiceTeacherDefault.getInstance();
-    }
 
     @Test
-    void saveStudentTest(){
+    void saveTeacherTest(){
         Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
         when(daoTeacher.saveTeacher("John", "Snow", "Winter@gmail.com", 1)).thenReturn(teacher);
         Teacher teacherTest = serviceTeacher.saveTeacher("John", "Snow", "Winter@gmail.com",  1);
@@ -40,7 +34,7 @@ public class ServiceTeacherTest {
     }
 
     @Test
-    void getStudentTest(){
+    void getTeacherTest(){
         Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
         when(daoTeacher.getTeacher(1)).thenReturn(teacher);
         Teacher teacherTest = serviceTeacher.getTeacher( 1);

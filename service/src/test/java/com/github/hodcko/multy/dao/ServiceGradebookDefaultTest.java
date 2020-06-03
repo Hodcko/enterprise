@@ -1,9 +1,8 @@
 package com.github.hodcko.multy.dao;
 
 
-import com.github.hodcko.multy.service.ServiceGradebook;
+
 import com.github.hodcko.multy.service.impl.ServiceGradebookDefault;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,17 +17,11 @@ import static org.mockito.Mockito.when;
 public class ServiceGradebookDefaultTest {
 
     @Mock
-    private static DaoGradebook daoGradebook;
+    private DaoGradebook daoGradebook;
 
     @InjectMocks
-    private static ServiceGradebook serviceGradebook;
+    private ServiceGradebookDefault serviceGradebook;
 
-
-
-    @BeforeAll
-    public static void createInstance() {
-        serviceGradebook = ServiceGradebookDefault.getInstance();
-    }
 
     final int studentId = 1;
     final int cursIdJava = 1;

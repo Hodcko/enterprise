@@ -4,8 +4,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
-import com.github.hodcko.multy.service.SecurityService;
-import com.github.hodcko.multy.service.ServiceAuthUser;
+import com.github.hodcko.multy.service.config.ServiceConfig;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
 import com.github.hodcko.multy.service.impl.SecurityServiceDefault;
 import org.junit.jupiter.api.*;
@@ -13,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ContextConfiguration;
 
 import static org.mockito.Mockito.when;
 
@@ -20,22 +20,17 @@ import static org.mockito.Mockito.when;
 public class ServiceAuthUserDefaultTest {
 
     @Mock
-    private static DaoAuthUser daoAuthUser;
+    private DaoAuthUser daoAuthUser;
 
     @Mock
-    private static DaoStudent daoStudent;
+    private DaoStudent daoStudent;
 
     @InjectMocks
-    private static ServiceAuthUser serviceAuthUser;
+    private ServiceAuthUserDefault serviceAuthUser;
 
     @InjectMocks
-    private static SecurityService securityService;
+    private SecurityServiceDefault securityService;
 
-    @BeforeAll
-    public static void createInstance() {
-        securityService = SecurityServiceDefault.getInstance();
-        serviceAuthUser = ServiceAuthUserDefault.getInstance();
-    }
 
     @Test
     void saveAuthUserTest() {

@@ -1,11 +1,11 @@
 package com.github.hodcko.multy.dao.impl;
 
-import com.github.hodcko.multy.dao.utils.SFUtil;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.dao.DaoAuthUser;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,26 +17,18 @@ import javax.persistence.criteria.Root;
 
 public class DaoAuthUserDefault implements DaoAuthUser {
     private static final Logger log = LoggerFactory.getLogger(DaoAuthUserDefault.class);
-    private static volatile DaoAuthUser instance;
+    private final SessionFactory factory;
 
-    public static DaoAuthUser getInstance() {
-        DaoAuthUser localInstance = instance;
-        if (localInstance == null) {
-            synchronized (DaoAuthUser.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new DaoAuthUserDefault();
-                }
-            }
-        }
-        return localInstance;
+
+
+    public DaoAuthUserDefault(SessionFactory factory) {
+        this.factory = factory;
     }
-
-
 
     @Override
     public String getLoginByPassword(String password){
-        try (Session session = SFUtil.getSession()) {
+        try {
+            Session session =  factory.getCurrentSession();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<String> criteria = cb.createQuery(String.class);
             Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
@@ -70,10 +62,9 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     @Override
     public AuthUser saveAuthUser(int userID, String login, String password, UserType role) {
         AuthUser authUser = new AuthUser(login, password, role, userID);
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             session.saveOrUpdate(authUser);
-            session.getTransaction().commit();
             log.info("create authUser with login  {} password {} role {} id {}", login, password, role, userID);
             return authUser;
         } catch (HibernateError e) {
@@ -85,8 +76,8 @@ public class DaoAuthUserDefault implements DaoAuthUser {
 
     @Override
     public boolean deleteAuthUser (int id, UserType role) {
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             AuthUser authUser = session.createQuery("select a from AuthUser a where userId = :user_id and role = :role", AuthUser.class)
                     .setParameter("user_id", id)
                     .setParameter("role", role)
@@ -95,7 +86,6 @@ public class DaoAuthUserDefault implements DaoAuthUser {
             if(role.equals(UserType.STUDENT)){
                 session.createNativeQuery("delete from gradebook where student_id = :id").setParameter("id", id).executeUpdate();
             }
-            session.getTransaction().commit();
             log.info("deleted authUser with id {} role {}", id, role);
             return true;
         }catch (HibernateError e){
@@ -107,13 +97,12 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     @Override
     public UserType getRole(String login, String password){
         UserType role;
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             role = (UserType) session.createQuery("select a.role from AuthUser a where a.login = :login and a.password = :pass")
                     .setParameter("login", login)
                     .setParameter("pass", password)
                     .getSingleResult();
-            session.getTransaction().commit();
             return role;
         }catch (HibernateError e){
             log.error("fail to get role from authUser with login {} and password {}", login, password, e);
@@ -123,7 +112,8 @@ public class DaoAuthUserDefault implements DaoAuthUser {
 
     @Override
     public AuthUser getAuthUser(String login, String password){
-        try (Session session = SFUtil.getSession()) {
+        try {
+            Session session =  factory.getCurrentSession();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<AuthUser> criteria = cb.createQuery(AuthUser.class);
             Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
@@ -161,14 +151,13 @@ public class DaoAuthUserDefault implements DaoAuthUser {
 
     @Override
     public boolean changePassword(String login, String password, String newPassword) {
-        try (Session session = SFUtil.getSession()) {
-            session.beginTransaction();
+        try {
+            Session session =  factory.getCurrentSession();
             session.createQuery("update AuthUser a set a.password = :newPass where a.login = :login and a.password = :pass")
                     .setParameter("login", login)
                     .setParameter("pass", password)
                     .setParameter("newPass", newPassword)
                     .executeUpdate();
-            session.getTransaction().commit();
             log.info("password changed by user whit login{} password {} new password {}", login, password, newPassword);
             return true;
         } catch (HibernateError e) {

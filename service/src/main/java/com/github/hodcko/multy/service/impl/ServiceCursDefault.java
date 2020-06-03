@@ -1,38 +1,29 @@
 package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoCurs;
-import com.github.hodcko.multy.dao.impl.DaoCursDefault;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public class ServiceCursDefault implements com.github.hodcko.multy.service.ServiceCurs {
-    private DaoCurs daoCurs = DaoCursDefault.getInstance();
+    private final DaoCurs daoCurs;
 
-    private static volatile com.github.hodcko.multy.service.ServiceCurs instance;
-
-    public static com.github.hodcko.multy.service.ServiceCurs getInstance(){
-        com.github.hodcko.multy.service.ServiceCurs localInstance = instance;
-        if(localInstance == null){
-            synchronized (com.github.hodcko.multy.service.ServiceCurs.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new ServiceCursDefault();
-                }
-            }
-        }
-        return localInstance;
+    public ServiceCursDefault(DaoCurs daoCurs) {
+        this.daoCurs = daoCurs;
     }
 
+    @Transactional
     @Override
     public Curs createCurs(String name, LocalDate start, LocalDate end){
         return daoCurs.createCurs(name, start, end);
     }
 
+    @Transactional
     @Override
     public int getCursId(String langType) {
         if (langType.equalsIgnoreCase("java")){
@@ -45,36 +36,43 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
         return 0;
     }
 
+    @Transactional
     @Override
     public Curs getCurs(int cursId){
         return daoCurs.getCurs(cursId);
     }
 
+    @Transactional
     @Override
     public List<GroupDTO> getMyStudents(int cursId, int numPage) {
         return daoCurs.getMyStudents(cursId, numPage);
     }
 
+    @Transactional
     @Override
     public int countOfStudents(int cursId){
         return daoCurs.countOfStudents(cursId);
     }
 
+    @Transactional
     @Override
     public List<Student> getClassmates(int cursId){
         return daoCurs.getClassmates(cursId);
     }
 
+    @Transactional
     @Override
     public boolean deleteCurs(int cursId) {
         return daoCurs.deleteCurs(cursId);
     }
 
+    @Transactional
     @Override
     public boolean inviteStudentOnCurs(int studentId, int cursId){
         return daoCurs.inviteStudentOnCurs(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public List<Teacher> getColleagues(int cursId){
         return daoCurs.getColleagues(cursId);

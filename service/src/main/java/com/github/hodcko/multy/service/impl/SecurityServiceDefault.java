@@ -2,43 +2,36 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoAuthUser;
 import com.github.hodcko.multy.service.SecurityService;
-import com.github.hodcko.multy.dao.impl.DaoAuthUserDefault;
+import org.springframework.transaction.annotation.Transactional;
 
 public class SecurityServiceDefault implements SecurityService {
 
-    private DaoAuthUser daoAuthUser = DaoAuthUserDefault.getInstance();
-    private static volatile SecurityService instance;
+    private final DaoAuthUser daoAuthUser;
 
-    public static SecurityService getInstance() {
-        SecurityService localInstance = instance;
-        if (localInstance == null) {
-            synchronized (SecurityService.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new SecurityServiceDefault();
-                }
-            }
-        }
-        return localInstance;
+    public SecurityServiceDefault(DaoAuthUser daoAuthUser) {
+        this.daoAuthUser = daoAuthUser;
     }
 
+    @Transactional
     @Override
     public String login(String login, String password){
-        String user_login = daoAuthUser.getLoginByPassword(password);
-        if (user_login == null) {
+        String userLogin = daoAuthUser.getLoginByPassword(password);
+        if (userLogin == null) {
             return null;
         }
-        if (user_login.equals(login)) {
+        if (userLogin.equals(login)) {
             return login;
         }
         return null;
     }
 
+    @Transactional
     @Override
     public boolean changePassword(String login, String password, String newPassword){
         return daoAuthUser.changePassword(login, password , newPassword);
     }
 
+    @Transactional
     @Override
     public String findPassword(String password, String anotherPassword){
         if(password == null){

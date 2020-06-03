@@ -1,9 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.service.ServiceStudent;
 import com.github.hodcko.multy.service.impl.ServiceStudentDefault;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,17 +16,11 @@ import static org.mockito.Mockito.when;
 public class ServiceStudentDefaultTest {
 
     @Mock
-    private static DaoStudent daoStudent;
+    DaoStudent daoStudent;
 
 
     @InjectMocks
-    private static ServiceStudent serviceStudent;
-
-
-    @BeforeAll
-    public static void createInstance() {
-        serviceStudent = ServiceStudentDefault.getInstance();
-    }
+    ServiceStudentDefault serviceStudent;
 
     @Test
     void saveStudentTest(){

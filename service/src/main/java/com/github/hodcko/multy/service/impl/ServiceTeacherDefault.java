@@ -2,37 +2,30 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoTeacher;
 import com.github.hodcko.multy.service.ServiceTeacher;
-import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 import com.github.hodcko.multy.model.Teacher;
+import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceTeacherDefault implements ServiceTeacher {
 
-    private DaoTeacher daoTeacher = DaoTeacherDefault.getInstance();
-    private static volatile ServiceTeacher instance;
+    private final DaoTeacher daoTeacher;
 
-    public static ServiceTeacher getInstance(){
-        ServiceTeacher localInstance = instance;
-        if(localInstance == null){
-            synchronized (ServiceTeacher.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new ServiceTeacherDefault();
-                }
-            }
-        }
-        return localInstance;
+    public ServiceTeacherDefault(DaoTeacher daoTeacher) {
+        this.daoTeacher = daoTeacher;
     }
 
+    @Transactional
     @Override
-    public Teacher saveTeacher(String name, String second_name, String email, int cursId){
-        return daoTeacher.saveTeacher(name, second_name, email, cursId);
+    public Teacher saveTeacher(String name, String secondName, String email, int cursId){
+        return daoTeacher.saveTeacher(name, secondName, email, cursId);
     }
 
+    @Transactional
     @Override
     public Teacher getTeacher(int id){
         return daoTeacher.getTeacher(id);
     }
 
+    @Transactional
     @Override
     public boolean deleteTeacher(String email) {
         return daoTeacher.deleteTeacher(email);

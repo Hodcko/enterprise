@@ -17,18 +17,14 @@ import static org.mockito.Mockito.when;
 public class ServiceGetIdTest {
 
     @Mock
-    private static DaoStudent daoStudent;
+    DaoStudent daoStudent;
 
     @Mock
-    private static DaoTeacher daoTeacher;
+    DaoTeacher daoTeacher;
 
     @InjectMocks
-    private static ServiceGetIdByEmail serviceGetIdByEmail;
+    ServiceGetIdByEmailDefault serviceGetIdByEmail;
 
-    @BeforeAll
-    public static void createInstance() {
-        serviceGetIdByEmail = ServiceGetIdByEmailDefault.getInstance();
-    }
 
     @Test
     void getIdTest(){

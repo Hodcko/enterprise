@@ -23,10 +23,10 @@ import static org.mockito.Mockito.when;
 public class ServiceCursDefaultTest {
 
     @Mock
-    private static DaoCurs daoCurs;
+    private DaoCurs daoCurs;
 
     @InjectMocks
-    private static ServiceCursDefault iServiceCursDefault;
+    private ServiceCursDefault iServiceCursDefault;
 
     final Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
     final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);

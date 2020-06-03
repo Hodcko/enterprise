@@ -2,38 +2,30 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoStudent;
 import com.github.hodcko.multy.service.ServiceStudent;
-import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.model.Student;
+import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceStudentDefault implements ServiceStudent {
 
-    private DaoStudent daoStudent = DaoStudentDefault.getInstance();
+    private final  DaoStudent daoStudent;
 
-    private static volatile ServiceStudent instance;
-
-    public static ServiceStudent getInstance(){
-        ServiceStudent localInstance = instance;
-        if(localInstance == null){
-            synchronized (ServiceStudent.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new ServiceStudentDefault();
-                }
-            }
-        }
-        return localInstance;
+    public ServiceStudentDefault(DaoStudent daoStudent) {
+        this.daoStudent = daoStudent;
     }
 
+    @Transactional
     @Override
     public Student saveStudent(String name, String second_name, String email, int age){
        return daoStudent.saveStudent(name, second_name, email, age);
     }
 
+    @Transactional
     @Override
     public Student getStudent(int id){
         return  daoStudent.getStudent(id);
     }
 
+    @Transactional
     @Override
     public boolean deleteStudent(String email) {
         return daoStudent.deleteStudent(email);

@@ -1,56 +1,47 @@
 package com.github.hodcko.multy.service.impl;
 
-import com.github.hodcko.multy.dao.DaoCurs;
+
 import com.github.hodcko.multy.dao.DaoGradebook;
-import com.github.hodcko.multy.dao.impl.DaoCursDefault;
-import com.github.hodcko.multy.dao.impl.DaoGradebookDefault;
-import com.github.hodcko.multy.service.ServiceCurs;
+import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceGradebookDefault implements com.github.hodcko.multy.service.ServiceGradebook {
-    private DaoGradebook daoGradebook = DaoGradebookDefault.getInstance();
-    private ServiceCurs serviceCurs = ServiceCursDefault.getInstance();
+    private final DaoGradebook daoGradebook;
 
-
-    private static volatile com.github.hodcko.multy.service.ServiceGradebook instance;
-
-    public static com.github.hodcko.multy.service.ServiceGradebook getInstance(){
-        com.github.hodcko.multy.service.ServiceGradebook localInstance = instance;
-        if(localInstance == null){
-            synchronized (com.github.hodcko.multy.service.ServiceGradebook.class){
-                localInstance = instance;
-                if(localInstance == null){
-                    instance = localInstance = new ServiceGradebookDefault();
-                }
-            }
-        }
-        return localInstance;
+    public ServiceGradebookDefault(DaoGradebook daoGradebook) {
+        this.daoGradebook = daoGradebook;
     }
 
+    @Transactional
     @Override
     public int addStudentToGradebook(int studentId, int cursId){
         return daoGradebook.addStudentToGradebook(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public int addGrade(int studentId, int cursId){
         return daoGradebook.addGrade(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public int getGrade(int studentId, int cursId){
         return daoGradebook.getGrade(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public boolean isExist(int studentId){
         return daoGradebook.isExist(studentId);
     }
 
+    @Transactional
     @Override
     public boolean deleteStudentFromGradebook(int studentId, int cursId) {
         return daoGradebook.deleteStudentFromGradebook(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public int checkTest(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
         if(cursId == 1){
@@ -65,6 +56,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         return 0;
     }
 
+    @Transactional
     @Override
     public int checkTestJava(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
         if(first.equalsIgnoreCase("java")){
@@ -85,6 +77,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         return getGrade(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public int checkTestCPlusPlus(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
         if(first.equalsIgnoreCase("C")){
@@ -105,6 +98,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         return getGrade(studentId, cursId);
     }
 
+    @Transactional
     @Override
     public int checkTestPHP(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
         if(first.equalsIgnoreCase("dynamic")){

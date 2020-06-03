@@ -1,14 +1,23 @@
 package com.github.hodcko.multy.dao;
 
+
+import com.github.hodcko.multy.dao.config.ServiceValidationConfigTest;
 import com.github.hodcko.multy.service.ServiceValidation;
-import com.github.hodcko.multy.service.impl.ServiceValidationDefault;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = ServiceValidationConfigTest.class)
 public class ServiceValidationDefaultTest {
 
-    ServiceValidation serviceValidation = ServiceValidationDefault.getInstance();
+
+    @Autowired
+    private ServiceValidation serviceValidation;
 
     final boolean result = true;
 
