@@ -1,6 +1,8 @@
 package com.github.hodcko.multy.dao.impl;
 
 import com.github.hodcko.multy.dao.DaoTeacher;
+import com.github.hodcko.multy.dao.converter.TeacherConverter;
+import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
@@ -25,12 +27,12 @@ public class DaoTeacherDefault implements DaoTeacher {
 
     @Override
     public Teacher saveTeacher(String name, String secondName, String email,  int cursId) {
-        Teacher teacher = new Teacher(name, secondName, email, cursId);
+        TeacherEntity teacher = new TeacherEntity(name, secondName, email, cursId);
         try {
             Session session =  factory.getCurrentSession();
             session.saveOrUpdate(teacher);
             log.info("create teacher: name {} second name  {} email {}", name, secondName, email);
-            return teacher;
+            return TeacherConverter.fromEntity(teacher);
         }catch (HibernateError e){
             log.error("fail to create teacher: name {} second name  {} email {}", name, secondName, email, e);
         }
@@ -41,9 +43,9 @@ public class DaoTeacherDefault implements DaoTeacher {
     public Teacher getTeacher(int id){
         try {
             Session session =  factory.getCurrentSession();
-            Teacher teacher = session.get(Teacher.class, id);
+            TeacherEntity teacher = session.get(TeacherEntity.class, id);
             log.info("get teacher: name {} second name  {} email {}", teacher.getName(), teacher.getSecondName(), teacher.getEmail());
-            return teacher;
+            return TeacherConverter.fromEntity(teacher);
         }catch (HibernateError | NullPointerException e){
             log.error("fail to get teacher with id{}", id, e);
         }
@@ -54,7 +56,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     public boolean deleteTeacher(String email){
         try {
             Session session =  factory.getCurrentSession();
-            Teacher teacher = session.createQuery("select s from Teacher s where email = :mail", Teacher.class)
+            TeacherEntity teacher = session.createQuery("select s from TeacherEntity s where email = :mail", TeacherEntity.class)
                     .setParameter("mail", email).getSingleResult();
             session.delete(teacher);
             log.info("deleted teacher with email {}", email);
@@ -69,7 +71,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     public boolean isExist(String email, UserType userType) {
         try {
             Session session =  factory.getCurrentSession();
-            String teacherEmail = (String) session.createQuery("select t.email from Teacher t where t.email = :mail")
+            String teacherEmail = (String) session.createQuery("select t.email from TeacherEntity t where t.email = :mail")
                     .setParameter("mail", email).getSingleResult();
             if (email.equalsIgnoreCase(teacherEmail)) {
                 log.info("teacher with email {} is already existed", email);
@@ -85,7 +87,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     public int getId(String email, UserType userType) {
         try {
             Session session =  factory.getCurrentSession();
-            int id = (int) session.createQuery("select t.id from Teacher t where t.email = :email")
+            int id = (int) session.createQuery("select t.id from TeacherEntity t where t.email = :email")
                     .setParameter("email", email).getSingleResult();
             log.info("return id {} of teacher with email {}", id, email);
             return id;
@@ -99,7 +101,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     public String passwordGenerate(String email, UserType userType) {
         try {
             Session session =  factory.getCurrentSession();
-            Teacher teacher = (Teacher) session.createQuery("from Teacher t where t.email = :email")
+            TeacherEntity teacher = (TeacherEntity) session.createQuery("from TeacherEntity t where t.email = :email")
                     .setParameter("email", email).getSingleResult();
             log.info("teacher with email {} generate password {}", email, teacher.getSecondName() + teacher.getId());
             return teacher.getSecondName() + teacher.getId();

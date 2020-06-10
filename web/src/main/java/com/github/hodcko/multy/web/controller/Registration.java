@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -38,7 +39,7 @@ public class Registration {
     }
 
     @PostMapping("/validation")
-    public String doPost(HttpServletRequest req) {
+    public String doPost(HttpServletRequest req, HttpSession session) {
         String name = req.getParameter("name");
         String secondName = req.getParameter("secondName");
         String email = req.getParameter("email");
@@ -57,8 +58,8 @@ public class Registration {
             }
         }else {
             authUser = serviceAuthUser.getAuthUser(name, serviceAuthUser.passwordGenerate(email, userType));
-            req.getSession().setAttribute("login", authUser.getLogin());
-            req.getSession().setAttribute("password", authUser.getPassword());
+            session.setAttribute("login", authUser.getLogin());
+            session.setAttribute("password", authUser.getPassword());
             log.info("created authUser with login {} and password {}", authUser.getLogin(), authUser.getPassword());
             return "forward:/AuthUserFalseRegistration.jsp";
         }

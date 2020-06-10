@@ -1,26 +1,16 @@
 package com.github.hodcko.multy.model;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "curs")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+
 public class Curs {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
+
     private String name;
-    @Column (name = "start_date")
+
     private LocalDate start;
-    @Column (name = "end_date")
+
     private LocalDate end;
 
     public Curs() {
@@ -33,21 +23,7 @@ public class Curs {
         this.end = end;
     }
 
-    public Curs(Integer id, String name, LocalDate start, LocalDate end, List<Teacher> teachers) {
-        this.id = id;
-        this.name = name;
-        this.start = start;
-        this.end = end;
-        this.teachers = teachers;
-    }
 
-
-
-    @OneToMany(mappedBy = "curs", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Teacher> teachers = new ArrayList<>();
-
-    @ManyToMany(mappedBy = "curses", cascade = CascadeType.ALL)
-    private List<Student> students = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -81,21 +57,7 @@ public class Curs {
         this.end = end;
     }
 
-    public List<Teacher> getTeachers() {
-        return teachers;
-    }
 
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
-    }
-
-    public List<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
 
     @Override
     public String toString() {

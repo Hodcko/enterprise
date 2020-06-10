@@ -29,7 +29,7 @@ public class TeacherRegistration {
     }
 
     @PostMapping("/teacher")
-    public String doPost(HttpServletRequest req) {
+    public String doPost(HttpServletRequest req, HttpSession session) {
         String name =  req.getParameter("name");
         String secondName =  req.getParameter("secondName");
         String email = req.getParameter("email");
@@ -37,7 +37,6 @@ public class TeacherRegistration {
         String langType = req.getParameter("langType");
 
         Teacher teacher =  serviceTeacher.saveTeacher(name, secondName, email, serviceCurs.getCursId(langType));
-        HttpSession session = req.getSession();
 
         session.setAttribute("teacher", teacher);
         session.setAttribute("email", teacher.getEmail());

@@ -1,7 +1,7 @@
 package com.github.hodcko.multy.service;
 
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 

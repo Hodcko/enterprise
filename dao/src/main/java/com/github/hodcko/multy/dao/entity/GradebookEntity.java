@@ -1,23 +1,36 @@
-package com.github.hodcko.multy.model;
-
-import java.util.*;
+package com.github.hodcko.multy.dao.entity;
 
 
-public class Gradebook {
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "gradebook")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class GradebookEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
-
+    @Column (name = "student_id")
     private Integer studentId;
-
+    @Column (name = "curs_id")
     private Integer cursId;
-
+    @Column
     private Integer grade;
 
-    public Gradebook() {
+    public GradebookEntity() {
     }
 
+    public GradebookEntity(Integer studentId, Integer cursId, Integer grade){
+        this.studentId = studentId;
+        this.cursId = cursId;
+        this.grade = grade;
+    }
 
-    public Gradebook(Integer id, Integer studentId, Integer cursId, Integer grade){
+    public GradebookEntity(Integer id, Integer studentId, Integer cursId, Integer grade){
         this.id = id;
         this.studentId = studentId;
         this.cursId = cursId;
@@ -60,7 +73,7 @@ public class Gradebook {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Gradebook gradebook = (Gradebook) o;
+        GradebookEntity gradebook = (GradebookEntity) o;
         return Objects.equals(id, gradebook.id) &&
                 Objects.equals(studentId, gradebook.studentId) &&
                 Objects.equals(cursId, gradebook.cursId) &&
@@ -71,4 +84,5 @@ public class Gradebook {
     public int hashCode() {
         return Objects.hash(id, studentId, cursId, grade);
     }
+
 }

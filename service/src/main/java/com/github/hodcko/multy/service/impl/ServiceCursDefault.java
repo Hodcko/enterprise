@@ -1,8 +1,8 @@
 package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoCurs;
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import org.springframework.transaction.annotation.Transactional;

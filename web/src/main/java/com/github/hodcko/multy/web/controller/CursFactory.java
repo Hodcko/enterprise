@@ -44,8 +44,7 @@ public class CursFactory {
 
 
     @GetMapping("/escape")
-    public String doGet(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String doGet(HttpServletRequest req, HttpSession session) {
 
         if(req.getParameter("escape").equalsIgnoreCase("escape")){
             if(session.getAttribute("student") != null){

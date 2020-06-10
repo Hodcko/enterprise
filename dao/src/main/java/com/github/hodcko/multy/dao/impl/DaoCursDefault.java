@@ -1,9 +1,15 @@
 package com.github.hodcko.multy.dao.impl;
 
 
+import com.github.hodcko.multy.dao.converter.CursConverter;
+import com.github.hodcko.multy.dao.converter.StudentConverter;
+import com.github.hodcko.multy.dao.converter.TeacherConverter;
+import com.github.hodcko.multy.dao.entity.CursEntity;
+import com.github.hodcko.multy.dao.entity.StudentEntity;
+import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.dao.DaoCurs;
-import com.github.hodcko.multy.model.GroupDTO;
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import org.hibernate.HibernateError;
@@ -17,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoCursDefault implements DaoCurs {
@@ -34,12 +41,12 @@ public class DaoCursDefault implements DaoCurs {
     public Curs createCurs(String names, LocalDate start, LocalDate end) {
         try {
             Session session =  factory.getCurrentSession();
-            Curs curs = session.createQuery("select c from Curs c where name = :name", Curs.class)
+            CursEntity curs = session.createQuery("select c from CursEntity c where name = :name", CursEntity.class)
                     .setParameter("name", names).getSingleResult();
             curs.setStart(start);
             curs.setEnd(end);
             log.info("create curs {}, start {}, end {}", names, start, end);
-            return curs;
+            return CursConverter.fromEntity(curs);
         }catch (HibernateError e){
             log.error("fail to create curs {}, start {}, end {}", names, start, end, e);
         }
@@ -50,7 +57,7 @@ public class DaoCursDefault implements DaoCurs {
     public boolean deleteCurs(int cursId) {
         try {
             Session session =  factory.getCurrentSession();
-            session.createQuery("update Curs c set c.start = null, c.end = null where c.id = :id")
+            session.createQuery("update CursEntity c set c.start = null, c.end = null where c.id = :id")
                     .setParameter("id", cursId).executeUpdate();
             log.info("curs with id {} deleted", cursId);
             return true;
@@ -64,9 +71,9 @@ public class DaoCursDefault implements DaoCurs {
     public Curs getCurs(int cursId) {
         try {
             Session session =  factory.getCurrentSession();
-            Curs curs = session.get(Curs.class, cursId);
+            CursEntity curs = session.get(CursEntity.class, cursId);
             log.info("curs get with id {}", cursId);
-            return curs;
+            return CursConverter.fromEntity(curs);
         }catch (HibernateError e){
             log.error("fail to curs get with id {}", cursId, e);
         }
@@ -80,7 +87,7 @@ public class DaoCursDefault implements DaoCurs {
         try {
             Session session =  factory.getCurrentSession();
             List<GroupDTO> groupDtos = session.createNativeQuery("select s.name, s.second_name as secondName , s.email, g.grade " +
-                    "from Student s join Gradebook g on s.id = g.student_id  where g.curs_id = :id ")
+                    "from student s join gradebook g on s.id = g.student_id  where g.curs_id = :id ")
                     .setParameter("id", cursId)
                     .addScalar("secondName", StandardBasicTypes.STRING)
                     .addScalar("name", StandardBasicTypes.STRING)
@@ -105,7 +112,7 @@ public class DaoCursDefault implements DaoCurs {
         try {
             Session session =  factory.getCurrentSession();
             Long count = (Long) session.createQuery("select count(s.name) " +
-                    "from Student s join Gradebook g on s.id = g.studentId  where g.cursId = :id")
+                    "from StudentEntity s join GradebookEntity g on s.id = g.studentId  where g.cursId = :id")
                     .setParameter("id", cursId).getSingleResult();
             log.info("get count of students with curs id {}", cursId);
             return count.intValue();
@@ -120,8 +127,8 @@ public class DaoCursDefault implements DaoCurs {
     public boolean inviteStudentOnCurs(int studentId, int cursId){
         try {
             Session session =  factory.getCurrentSession();
-            Student student = session.get(Student.class, studentId);
-            student.getCurses().add(session.get(Curs.class, cursId));
+            StudentEntity student = session.get(StudentEntity.class, studentId);
+            student.getCurses().add(session.get(CursEntity.class, cursId));
             session.saveOrUpdate(student);
             log.info("student with id {} invited on curs {}",studentId, cursId);
             return true;
@@ -134,9 +141,16 @@ public class DaoCursDefault implements DaoCurs {
     public List<Teacher> getColleagues(int cursId){
         try {
             Session session = factory.getCurrentSession();;
-            Curs curs = session.get(Curs.class, cursId);
+            CursEntity curs = session.get(CursEntity.class, cursId);
+            List<TeacherEntity> teacherEntities = curs.getTeachers();
+            List<Teacher> teacherList = new ArrayList<>();
+            if(!teacherEntities.isEmpty()){
+                for (TeacherEntity teacherEntity : teacherEntities) {
+                    teacherList.add(TeacherConverter.fromEntity(teacherEntity));
+                }
+            }
             log.info("get colleagues from curs with id {} {}",cursId, curs.getTeachers());
-            return curs.getTeachers();
+            return teacherList;
         }catch (HibernateException e){
             log.error("fail to get colleagues from curs with id {} {}", cursId, e);
             return null;
@@ -148,9 +162,16 @@ public class DaoCursDefault implements DaoCurs {
     public List<Student> getClassmates(int cursId){
         try {
             Session session = factory.getCurrentSession();
-            Curs curs = session.get(Curs.class, cursId);
+            CursEntity curs = session.get(CursEntity.class, cursId);
+            List<StudentEntity> studentEntities = curs.getStudents();
+            List<Student> studentList = new ArrayList<>();
+            if(!studentEntities.isEmpty()){
+                for (StudentEntity studentEntity : studentEntities) {
+                    studentList.add(StudentConverter.fromEntity(studentEntity));
+                }
+            }
             log.info("get classmates from curs with id {} {}",cursId, curs.getStudents());
-            return curs.getStudents();
+            return studentList;
         }catch (HibernateException e) {
             log.error("fail to get classmates from curs id {}", cursId, e);
             return null;

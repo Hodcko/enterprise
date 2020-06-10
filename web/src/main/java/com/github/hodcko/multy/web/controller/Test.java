@@ -29,8 +29,7 @@ public class Test {
 
 
     @PostMapping("/test")
-    public String doPost(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String doPost(HttpServletRequest req, HttpSession session) {
         Student student = (Student)session.getAttribute("student");
         String langType = req.getParameter("test");
         int cursId = serviceCurs.getCursId(langType);

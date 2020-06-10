@@ -1,9 +1,6 @@
+return student - jsp
+return redirect student - controller
 
 
-
-4*. Навести порядок в пом
-
-*to one = eager
-*to many = lazy
-
-mapped by главный
+2. Spring Data JPA
+3. doGet/doPost

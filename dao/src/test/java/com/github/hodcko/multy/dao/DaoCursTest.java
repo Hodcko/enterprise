@@ -2,8 +2,14 @@ package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.dao.config.DaoConfig;
 
+import com.github.hodcko.multy.dao.converter.CursConverter;
+import com.github.hodcko.multy.dao.converter.StudentConverter;
+import com.github.hodcko.multy.dao.converter.TeacherConverter;
+import com.github.hodcko.multy.dao.entity.CursEntity;
+import com.github.hodcko.multy.dao.entity.GroupDTO;
+import com.github.hodcko.multy.dao.entity.StudentEntity;
+import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import org.hibernate.SessionFactory;
@@ -59,7 +65,7 @@ public class DaoCursTest {
     void deleteCurs(){
         Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
         daoCurs.deleteCurs(testCurs.getId());
-        sessionFactory.getCurrentSession().evict(testCurs);
+        sessionFactory.getCurrentSession().clear();
         assertNull(daoCurs.getCurs(testCurs.getId()).getEnd());
     }
 
@@ -95,7 +101,6 @@ public class DaoCursTest {
 
     @Test
     void getClassmatesTest(){
-
         Student student = daoStudent.saveStudent("Jogn", "Snow", "snow@gmail.com", 31);
         sessionFactory.getCurrentSession().flush();
         Student student1 = daoStudent.saveStudent("John", "Snow", "snow@qgmail.com", 31);
@@ -124,6 +129,16 @@ public class DaoCursTest {
         teachers.add(teacher1);
         assertArrayEquals(daoCurs.getColleagues(teacher.getCursId()).toArray(), teachers.toArray());
     }
+
+    @Test
+    void cursConverterTest(){
+        Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
+        CursEntity cursEntity = CursConverter.toEntity(testCurs);
+        Curs curs = CursConverter.fromEntity(cursEntity);
+        assertNotNull(cursEntity);
+        assertNotNull(curs);
+    }
+
 
 
 

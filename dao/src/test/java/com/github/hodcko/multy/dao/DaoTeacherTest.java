@@ -2,8 +2,9 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.dao.config.DaoConfig;
-import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 
+import com.github.hodcko.multy.dao.converter.TeacherConverter;
+import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.SessionFactory;
@@ -15,8 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
@@ -72,5 +72,14 @@ public class DaoTeacherTest {
         Teacher teacher = daoTeacher.saveTeacher("Jonh", "Snow", "snow@gmail.com",  1);
         Assertions.assertEquals(daoTeacher.passwordGenerate(teacher.getEmail(), UserType.TEACHER), teacher.getSecondName()+teacher.getId());
         daoTeacher.deleteTeacher(teacher.getEmail());
+    }
+
+    @Test
+    void teacherConverterTest(){
+        Teacher teacher = daoTeacher.saveTeacher("Jonh", "Snow", "snow@gmail.com",  1);
+        TeacherEntity teacherEntity = TeacherConverter.toEntity(teacher);
+        Teacher teacher1 = TeacherConverter.fromEntity(teacherEntity);
+        assertNotNull(teacher1);
+        assertNotNull(teacherEntity);
     }
 }

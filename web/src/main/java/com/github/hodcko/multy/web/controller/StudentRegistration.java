@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -25,22 +26,21 @@ public class StudentRegistration {
     }
 
     @PostMapping("/student")
-    public String doPost(HttpServletRequest req) {
+    public String doPost(HttpServletRequest req, HttpSession session) {
         String name =  req.getParameter("name");
         String secondName =  req.getParameter("secondName");
         String email = req.getParameter("email");
         int age = Integer.parseInt(req.getParameter("age"));
         UserType userType = UserType.valueOf(req.getParameter("userType").toUpperCase()) ;
-//        String langTypeJava = req.getParameter("langTypeJava");
 
         Student student =  serviceStudent.saveStudent(name, secondName, email, age);
 
-        req.getSession().setAttribute("student", student);
-        req.getSession().setAttribute("email", student.getEmail());
-        req.getSession().setAttribute("userType", userType);
-        req.getSession().setAttribute("langTypeJava", req.getParameter("langTypeJava"));
-        req.getSession().setAttribute("langTypePHP", req.getParameter("langTypePHP"));
-        req.getSession().setAttribute("langTypeC", req.getParameter("langTypeC"));
+        session.setAttribute("student", student);
+        session.setAttribute("email", student.getEmail());
+        session.setAttribute("userType", userType);
+        session.setAttribute("langTypeJava", req.getParameter("langTypeJava"));
+        session.setAttribute("langTypePHP", req.getParameter("langTypePHP"));
+        session.setAttribute("langTypeC", req.getParameter("langTypeC"));
         log.info("created student with email {} ", student.getEmail());
 
         return "forward:/SuccessRegistrationNewUser.jsp";

@@ -33,7 +33,7 @@ public class ServiceRegistrationDefaultTest {
 
     @Test
     void registrationTest2(){
-        Student student = new Student("John", "Snow", "Winter@gmail.com", 33);
+        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 33);
         when(serviceStudent.saveStudent(student.getName(), student.getSecondName(), student.getEmail(), student.getAge())).thenReturn(student);
         boolean result = serviceRegistrationDefault.registration(student.getName(), student.getSecondName(), student.getEmail(), student.getAge(), UserType.STUDENT, "java");
         assertTrue(result);
@@ -41,7 +41,7 @@ public class ServiceRegistrationDefaultTest {
 
     @Test
     void registrationTest(){
-        Teacher teacher = new Teacher("John", "Snow", "Winter@gmail.com",  1);
+        Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
         when(serviceCurs.getCursId("java")).thenReturn(1);
         when(serviceTeacher.saveTeacher(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId())).thenReturn(teacher);
         boolean result = serviceRegistrationDefault.registration(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId(), UserType.TEACHER, "java");

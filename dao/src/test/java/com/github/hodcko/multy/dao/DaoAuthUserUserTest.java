@@ -2,6 +2,8 @@ package com.github.hodcko.multy.dao;
 
 
 import com.github.hodcko.multy.dao.config.DaoConfig;
+import com.github.hodcko.multy.dao.converter.AuthUserConverter;
+import com.github.hodcko.multy.dao.entity.AuthUserEntity;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.SessionFactory;
@@ -12,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
@@ -69,5 +73,14 @@ public class DaoAuthUserUserTest {
         AuthUser studentTest = daoAuthUser.saveAuthUser(6,"John", "Snow", UserType.STUDENT);
         Assertions.assertEquals(daoAuthUser.getLoginByPassword("Snow"), studentTest.getLogin());
         daoAuthUser.deleteAuthUser(6, UserType.STUDENT);
+    }
+
+    @Test
+    void authUserConverterTest(){
+        AuthUser studentTest = daoAuthUser.saveAuthUser(6,"John", "Snow", UserType.STUDENT);
+        AuthUserEntity authUserEntity = AuthUserConverter.toEntity(studentTest);
+        AuthUser authUser = AuthUserConverter.fromEntity(authUserEntity);
+        assertNotNull(authUserEntity);
+        assertNotNull(authUser);
     }
 }

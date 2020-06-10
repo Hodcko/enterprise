@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
 public class Cleaner {
 
     @PostMapping("/clean")
-    public String doPost(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String doPost(HttpServletRequest req, HttpSession session) {
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");
         session.invalidate();
         req.setAttribute("login", authUser.getLogin());

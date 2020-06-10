@@ -1,5 +1,6 @@
 package com.github.hodcko.multy.web.controller;
 
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.*;
 import com.github.hodcko.multy.service.ServiceAuthUser;
 import com.github.hodcko.multy.service.ServiceCurs;
@@ -35,8 +36,7 @@ public class PersonalAreaEntry {
     }
 
     @PostMapping("/personal")
-    public String doPost(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String doPost(HttpServletRequest req,  HttpSession session) {
         String email = (String) session.getAttribute("email");
         UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
         String login = req.getParameter("login");

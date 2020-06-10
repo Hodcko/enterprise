@@ -1,17 +1,20 @@
-package com.github.hodcko.multy.model;
+package com.github.hodcko.multy.dao.entity;
 
+import com.github.hodcko.multy.model.User;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-
-public abstract class User {
-
+@MappedSuperclass
+public abstract class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
-
+    @Column
     protected String name;
-
+    @Column (name = "second_name")
     protected String secondName;
-
+    @Column
     protected String email;
 
 
@@ -65,7 +68,7 @@ public abstract class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(email, user.email);
     }

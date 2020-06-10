@@ -27,12 +27,11 @@ public class Study {
 
 
     @PostMapping("/study")
-    public String doPost(HttpServletRequest req) {
+    public String doPost(HttpServletRequest req, HttpSession session) {
         String javaReg = (req.getParameter("javaReg"));
         String phpReg = (req.getParameter("phpReg"));
         String cReg = (req.getParameter("cReg"));
 
-        HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("student");
 
         session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));

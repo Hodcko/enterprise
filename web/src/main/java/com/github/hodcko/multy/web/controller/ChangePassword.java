@@ -21,8 +21,7 @@ public class ChangePassword {
     }
 
     @PostMapping("/change")
-    public String doPost(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String doPost(HttpServletRequest req, HttpSession session) {
 
         AuthUser authUser = (AuthUser) session.getAttribute("authUser");
         String newPassword = req.getParameter("newPassword");

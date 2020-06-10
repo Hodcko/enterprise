@@ -1,6 +1,8 @@
 package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.dao.config.DaoConfig;
+import com.github.hodcko.multy.dao.converter.StudentConverter;
+import com.github.hodcko.multy.dao.entity.StudentEntity;
 import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
@@ -12,8 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
@@ -44,8 +45,9 @@ public class DaoStudentTest {
     @Test
     void deleteStudentTest(){
         Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
-        daoStudent.deleteStudent("winter@gmail.com");
-        Assertions.assertNull(daoStudent.getStudent(student.getId()));
+        Student student1 = daoStudent.getStudent(student.getId());
+        daoStudent.deleteStudent(student1.getEmail());
+        Assertions.assertNull(daoStudent.getStudent(student1.getId()));
     }
 
     @Test
@@ -69,5 +71,14 @@ public class DaoStudentTest {
         Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31);
         Assertions.assertEquals(daoStudent.passwordGenerate(student.getEmail(), UserType.STUDENT), student.getSecondName()+student.getId());
         daoStudent.deleteStudent(student.getEmail());
+    }
+
+    @Test
+    void studentConvertorTest(){
+        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
+        StudentEntity studentEntity = StudentConverter.toEntity(student);
+        Student student1 = StudentConverter.fromEntity(studentEntity);
+        assertNotNull(student1);
+        assertNotNull(studentEntity);
     }
 }

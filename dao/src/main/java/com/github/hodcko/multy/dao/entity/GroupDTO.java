@@ -1,8 +1,6 @@
-package com.github.hodcko.multy.model;
-
+package com.github.hodcko.multy.dao.entity;
 
 import java.util.Objects;
-
 
 public class GroupDTO {
 

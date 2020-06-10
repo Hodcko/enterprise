@@ -1,8 +1,6 @@
 package com.github.hodcko.multy.dao;
 
 
-import com.github.hodcko.multy.dao.config.DaoConfig;
-import com.github.hodcko.multy.service.config.ServiceConfig;
 import com.github.hodcko.multy.service.impl.ServiceAuthUserDefault;
 import com.github.hodcko.multy.service.impl.SecurityServiceDefault;
 import org.junit.jupiter.api.Test;

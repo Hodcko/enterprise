@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.web.controller;
 
 
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.*;
 import com.github.hodcko.multy.service.*;
 import org.slf4j.Logger;
@@ -36,9 +37,8 @@ public class EntryFromStartPage {
     }
 
     @PostMapping("/personalStart")
-    public String doPost(HttpServletRequest req) {
+    public String doPost(HttpServletRequest req, HttpSession session) {
 
-        HttpSession session = req.getSession();
         String login = req.getParameter("login");
         if(login == null){
             login = (String)req.getAttribute("login");

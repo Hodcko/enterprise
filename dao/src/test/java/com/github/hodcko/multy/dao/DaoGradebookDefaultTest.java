@@ -1,8 +1,11 @@
 package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.dao.config.DaoConfig;
+import com.github.hodcko.multy.dao.converter.GradebookConverter;
+import com.github.hodcko.multy.dao.entity.GradebookEntity;
 import com.github.hodcko.multy.dao.impl.DaoGradebookDefault;
 import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
+import com.github.hodcko.multy.model.Gradebook;
 import com.github.hodcko.multy.model.Student;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -80,6 +83,15 @@ public class DaoGradebookDefaultTest {
         assertTrue(daoGradebook.isExist(student.getId()));
         daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
         daoStudent.deleteStudent("Winter@mail.ru");
+    }
+
+    @Test
+    void gradebookConverterTest(){
+        Gradebook gradebook = new Gradebook(1, 1, 1, 5);
+        GradebookEntity gradebookEntity = GradebookConverter.toEntity(gradebook);
+        Gradebook testGradebook = GradebookConverter.fromEntity(gradebookEntity);
+        assertNotNull(gradebookEntity);
+        assertNotNull(testGradebook);
 
     }
 }

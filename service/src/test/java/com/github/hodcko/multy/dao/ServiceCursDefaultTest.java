@@ -1,7 +1,7 @@
 package com.github.hodcko.multy.dao;
 
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.GroupDTO;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.service.impl.ServiceCursDefault;
@@ -30,7 +30,7 @@ public class ServiceCursDefaultTest {
 
     final Curs curs = new Curs(1, "Java", LocalDate.of(2020, 10,11), LocalDate.of(2020, 10,11));
     final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
-    final Teacher teacher = new Teacher("John", "Snow", "Winter@gmail1.com", 1);
+    final Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail1.com", 1);
     final GroupDTO groupDTO = new GroupDTO("Jonh", "Snow", "snow@gmail.com", 5);
 
 

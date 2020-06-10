@@ -1,5 +1,7 @@
 package com.github.hodcko.multy.dao.impl;
 
+import com.github.hodcko.multy.dao.converter.AuthUserConverter;
+import com.github.hodcko.multy.dao.entity.AuthUserEntity;
 import com.github.hodcko.multy.model.AuthUser;
 import com.github.hodcko.multy.dao.DaoAuthUser;
 import com.github.hodcko.multy.model.UserType;
@@ -31,7 +33,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
             Session session =  factory.getCurrentSession();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<String> criteria = cb.createQuery(String.class);
-            Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
+            Root<AuthUserEntity> authUserRoot = criteria.from(AuthUserEntity.class);
             criteria.select(authUserRoot.get("login"))
                     .where(cb.equal(authUserRoot.get("password"), password));
             String login = session.createQuery(criteria).getSingleResult();
@@ -61,12 +63,12 @@ public class DaoAuthUserDefault implements DaoAuthUser {
 
     @Override
     public AuthUser saveAuthUser(int userID, String login, String password, UserType role) {
-        AuthUser authUser = new AuthUser(login, password, role, userID);
+        AuthUserEntity authUser = new AuthUserEntity(login, password, role, userID);
         try {
             Session session =  factory.getCurrentSession();
             session.saveOrUpdate(authUser);
             log.info("create authUser with login  {} password {} role {} id {}", login, password, role, userID);
-            return authUser;
+            return AuthUserConverter.fromEntity(authUser);
         } catch (HibernateError e) {
             log.error(" fail to create authUser with login  {} password {} role {} id {}", login, password, role, userID, e);
         }
@@ -78,7 +80,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     public boolean deleteAuthUser (int id, UserType role) {
         try {
             Session session =  factory.getCurrentSession();
-            AuthUser authUser = session.createQuery("select a from AuthUser a where userId = :user_id and role = :role", AuthUser.class)
+            AuthUserEntity authUser = session.createQuery("select a from AuthUserEntity a where userId = :user_id and role = :role", AuthUserEntity.class)
                     .setParameter("user_id", id)
                     .setParameter("role", role)
                     .getSingleResult();
@@ -99,7 +101,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         UserType role;
         try {
             Session session =  factory.getCurrentSession();
-            role = (UserType) session.createQuery("select a.role from AuthUser a where a.login = :login and a.password = :pass")
+            role = (UserType) session.createQuery("select a.role from AuthUserEntity a where a.login = :login and a.password = :pass")
                     .setParameter("login", login)
                     .setParameter("pass", password)
                     .getSingleResult();
@@ -115,15 +117,15 @@ public class DaoAuthUserDefault implements DaoAuthUser {
         try {
             Session session =  factory.getCurrentSession();
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<AuthUser> criteria = cb.createQuery(AuthUser.class);
-            Root<AuthUser> authUserRoot = criteria.from(AuthUser.class);
+            CriteriaQuery<AuthUserEntity> criteria = cb.createQuery(AuthUserEntity.class);
+            Root<AuthUserEntity> authUserRoot = criteria.from(AuthUserEntity.class);
             Predicate predicate = cb.and(
                     cb.equal(authUserRoot.get("password"), password),
                     cb.equal(authUserRoot.get("login"), login));
             criteria.select(authUserRoot).where(predicate);
-            AuthUser authUser = session.createQuery(criteria).setCacheable(true).getSingleResult();
+            AuthUserEntity authUser = session.createQuery(criteria).setCacheable(true).getSingleResult();
             log.info("Get authUser with login {} password{}", login, password);
-            return authUser;
+            return AuthUserConverter.fromEntity(authUser);
         }catch (HibernateError e){
             log.error("fail to get authUser with login {} password{}", login, password);
         }
@@ -153,7 +155,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     public boolean changePassword(String login, String password, String newPassword) {
         try {
             Session session =  factory.getCurrentSession();
-            session.createQuery("update AuthUser a set a.password = :newPass where a.login = :login and a.password = :pass")
+            session.createQuery("update AuthUserEntity a set a.password = :newPass where a.login = :login and a.password = :pass")
                     .setParameter("login", login)
                     .setParameter("pass", password)
                     .setParameter("newPass", newPassword)

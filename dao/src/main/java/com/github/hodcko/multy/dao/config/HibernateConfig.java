@@ -4,12 +4,14 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableJpaRepositories(basePackages = "com.github.hodcko.multy.dao.repository")
 @Import(SettingsConfig.class)
 public class HibernateConfig {
 
@@ -35,7 +37,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean entityManagerFactory() {
         final LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setPackagesToScan("com.github.hodcko.multy.model");
+        sessionFactoryBean.setPackagesToScan("com.github.hodcko.multy.dao.entity");
         sessionFactoryBean.setHibernateProperties(settingsConfig.hibernateProperties());
         return sessionFactoryBean;
     }

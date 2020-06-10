@@ -1,6 +1,6 @@
 package com.github.hodcko.multy.web.controller;
 
-import com.github.hodcko.multy.model.GroupDTO;
+import com.github.hodcko.multy.dao.entity.GroupDTO;
 import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.service.ServiceCurs;
 import org.springframework.stereotype.Controller;
@@ -20,8 +20,7 @@ public class Pagination {
     }
 
     @GetMapping("/pagination")
-    public String doGet(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    public String doGet(HttpServletRequest req, HttpSession session) {
         List<GroupDTO> groupDTO;
         int numberOfRecordsOnPage = 3;
 

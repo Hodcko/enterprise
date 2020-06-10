@@ -39,7 +39,7 @@ public class DaoConfig {
 
     @Bean
     public DaoStudent daoStudent() {
-        return new DaoStudentDefault(sessionFactory);
+        return new DaoStudentDefault();
     }
 
     @Bean
