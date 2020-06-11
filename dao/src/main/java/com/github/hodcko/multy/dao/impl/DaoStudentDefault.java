@@ -7,15 +7,13 @@ import com.github.hodcko.multy.dao.entity.StudentEntity;
 import com.github.hodcko.multy.dao.repository.StudentRepository;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.UserType;
-import org.hibernate.HibernateError;
-import org.hibernate.HibernateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 
 
-import javax.persistence.NoResultException;
+
 
 
 public class DaoStudentDefault implements DaoStudent {
@@ -27,9 +25,14 @@ public class DaoStudentDefault implements DaoStudent {
 
     @Override
     public Student saveStudent(String name, String secondName, String email, int age) {
-        StudentEntity studentEntity = studentRepository.save(new StudentEntity(name, secondName, email, age));
-        log.info("create student: name {} second name  {} email {}", name, secondName, email);
-        return StudentConverter.fromEntity(studentEntity);
+        try {
+            StudentEntity studentEntity = studentRepository.save(new StudentEntity(name, secondName, email, age));
+            log.info("create student: name {} second name  {} email {}", name, secondName, email);
+            return StudentConverter.fromEntity(studentEntity);
+        }catch (Exception e){
+            log.error("fail to create student: name {} second name  {} email {}", name, secondName, email);
+            return null;
+        }
     }
 
     @Override
@@ -47,12 +50,10 @@ public class DaoStudentDefault implements DaoStudent {
     @Override
     public boolean deleteStudent(String email){
         try {
-            int id = studentRepository.getId(email);
-            StudentEntity studentEntity = studentRepository.getOne(id);
-            studentRepository.delete(studentEntity);
+            long id = studentRepository.deleteByEmail(email);
             log.info("deleted student with email {}", email);
-            return true;
-        }catch (HibernateError e){
+            return id == 1;
+        }catch (Exception e){
             log.error("fail to deleted student with email {}", email);
         }
         return false;
@@ -61,12 +62,15 @@ public class DaoStudentDefault implements DaoStudent {
     @Override
     public boolean isExist(String email, UserType userType) {
         try {
-            String studentEmail = studentRepository.isExist(email);
-            if (email.equalsIgnoreCase(studentEmail)) {
+            int id = studentRepository.getId(email);
+            boolean result = studentRepository.existsById(id);
+            if (result) {
                 log.info("student with email {} is already exist", email);
                 return true;
+            } else {
+                return false;
             }
-        } catch (HibernateException | NoResultException e) {
+        } catch (Exception e) {
             log.error("fail to check student with email {}", email, e);
         }
         return false;
@@ -78,7 +82,7 @@ public class DaoStudentDefault implements DaoStudent {
             int id = studentRepository.getId(email);
             log.info("return id {} of student with email {}", id, email);
             return id;
-        } catch (HibernateError e) {
+        } catch (Exception e) {
             log.error("fail to return id of student with email {}", email, e);
         }
         return 0;
@@ -87,10 +91,10 @@ public class DaoStudentDefault implements DaoStudent {
     @Override
     public String passwordGenerate(String email, UserType userType) {
         try {
-            StudentEntity studentEntity = studentRepository.passwordGenerate(email);
+            StudentEntity studentEntity = studentRepository.findByEmail(email);
             log.info("student with email {} generate password {}", email, studentEntity.getSecondName() + studentEntity.getId());
             return studentEntity.getSecondName() + studentEntity.getId();
-        } catch (HibernateError e) {
+        } catch (Exception e) {
             log.error("fail to generate password for student with email {}", email, e);
         }
         return null;
