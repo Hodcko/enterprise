@@ -24,7 +24,7 @@ public class DaoConfig {
 
     @Bean
     public DaoAuthUser daoAuthUser() {
-        return new DaoAuthUserDefault(sessionFactory);
+        return new DaoAuthUserDefault();
     }
 
     @Bean
