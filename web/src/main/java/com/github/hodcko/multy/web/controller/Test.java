@@ -6,6 +6,7 @@ import com.github.hodcko.multy.service.ServiceGradebook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,9 +28,24 @@ public class Test {
         this.serviceCurs = serviceCurs;
     }
 
+    @GetMapping("/javaTest")
+    public String javaTest() {
+        return "JavaTestPage";
+    }
+
+    @GetMapping("/phpTest")
+    public String phpTest() {
+        return "PHPTestPage";
+    }
+
+    @GetMapping("/cTest")
+    public String cTest() {
+        return "CTestPage";
+    }
+
 
     @PostMapping("/test")
-    public String doPost(HttpServletRequest req, HttpSession session) {
+    public String testChecker(HttpServletRequest req, HttpSession session) {
         Student student = (Student)session.getAttribute("student");
         String langType = req.getParameter("test");
         int cursId = serviceCurs.getCursId(langType);
@@ -42,11 +58,12 @@ public class Test {
 
         int resultOfTest = serviceGradebook.checkTest(student.getId(), cursId, firstQ, secondQ, thirdQ, fourthQ, fifthQ);
 
-        req.setAttribute("result", resultOfTest);
+        session.setAttribute("result", resultOfTest);
+
         log.info("student with email {} got a grade {} for the test {} ", student.getEmail(), resultOfTest, langType);
 
+        return "ResultOfTest";
 
-        return "forward:/ResultOfTest.jsp";
     }
 
 }

@@ -35,9 +35,9 @@ public class ServiceAuthUserDefault implements com.github.hodcko.multy.service.S
     @Override
     public String passwordGenerate(String email, UserType userType){
         if(userType.equals(UserType.STUDENT)){
-            return daoStudent.passwordGenerate(email, userType);
+            return daoStudent.passwordGenerate(email);
         }else {
-            return daoTeacher.passwordGenerate(email, userType);
+            return daoTeacher.passwordGenerate(email);
         }
     }
 

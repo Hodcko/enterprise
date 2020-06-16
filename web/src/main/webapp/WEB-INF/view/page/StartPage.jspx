@@ -1,0 +1,35 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:spring="http://www.springframework.org/tags">
+
+<html>
+<head><title>StartPage</title></head>
+<body style="background-color: powderblue">
+
+<h1 style="text-align: center"><spring:message code="page.main"/></h1>
+
+<form action="${pageContext.request.contextPath}/EnterFromStartPage" method="get">
+    <h3><spring:message code="page.entry"/></h3>
+    <input type="submit" value="Войти"/>
+</form>
+<hr/>
+<form action="${pageContext.request.contextPath}/studentReg" method="get">
+    <h3><spring:message code="page.student"/></h3>
+    <input type="submit" value="Зарегистрироваться"/>
+</form>
+
+<hr/>
+<form action="${pageContext.request.contextPath}/teacherReg" method="get">
+    <h3><spring:message code="page.teacher"/></h3>
+    <input type="submit" value="Зарегистрироваться"/>
+</form>
+<hr/>
+    <form action="${pageContext.request.contextPath}/study" method="post">
+        <h3><spring:message code="page.lesson"/></h3>
+        <input type="submit" value="Просмотреть"/>
+    </form>
+</body>
+
+</html>
+</jsp:root>

@@ -11,10 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 public class Logout {
 
     @GetMapping("/logout")
-    public String doGet(HttpServletRequest req) {
+    public String logout(HttpServletRequest req) {
         req.getSession().invalidate();
-        return "forward:/startPage.jsp";
+        return "StartPage";
     }
-
-
 }

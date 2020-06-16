@@ -50,10 +50,11 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     @Override
     public boolean deleteAuthUser (int id, UserType role) {
         try {
-            AuthUserEntity authUserEntity = authUserRepository.getByIdAndUserType(id, role);
-            authUserRepository.delete(authUserEntity);
-            log.info("deleted authUser with id {} role {}", id, role);
-            return true;
+            int result = authUserRepository.deleteByUserIdAndRole(id, role);
+            if(result == 1) {
+                log.info("deleted authUser with id {} role {}", id, role);
+                return true;
+            }return false;
         }catch (Exception e){
             log.error("fail to deleted authUser with id {} role {}", id, role);
         }
@@ -66,7 +67,7 @@ public class DaoAuthUserDefault implements DaoAuthUser {
     public UserType getRole(String login, String password){
         try {
             AuthUserEntity authUserEntity = authUserRepository.findByLoginAndPassword(login, password);
-            return authUserEntity.getRole();
+            return AuthUserConverter.fromEntity(authUserEntity).getRole();
         }catch (Exception e){
             log.error("fail to get role from authUser with login {} and password {}", login, password, e);
         }

@@ -31,7 +31,6 @@ public class DaoStudentTest {
     void saveStudentTest() {
         Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Student studentTest = daoStudent.getStudent(student.getId());
-        daoStudent.deleteStudent("winter@gmail.com");
         Assertions.assertEquals(student, studentTest);
     }
 
@@ -39,7 +38,6 @@ public class DaoStudentTest {
     void getStudentTest(){
         Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Assertions.assertEquals(student, daoStudent.getStudent(student.getId()));
-        daoStudent.deleteStudent("winter@gmail.com");
     }
 
     @Test
@@ -53,32 +51,34 @@ public class DaoStudentTest {
     @Test
     void isExistTest() {
         daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30);
-        boolean studentResult = daoStudent.isExist("hodckoq@mail.com", UserType.STUDENT);
-        daoStudent.deleteStudent("hodckoq@mail.com");
+        boolean studentResult = daoStudent.isExist("hodckoq@mail.com");
         assertTrue(studentResult);
     }
 
     @Test
     void DaoGetIdByEmailTest() {
         Student student = daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30);
-        int studentId = daoStudent.getId("hodckoq@mail.com", UserType.STUDENT);
-        daoStudent.deleteStudent("hodckoq@mail.com");
+        int studentId = daoStudent.getId("hodckoq@mail.com");
         assertEquals(student.getId(), studentId);
     }
 
     @Test
     void passwordGenerateTest(){
         Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31);
-        Assertions.assertEquals(daoStudent.passwordGenerate(student.getEmail(), UserType.STUDENT), student.getSecondName()+student.getId());
-        daoStudent.deleteStudent(student.getEmail());
+        Assertions.assertEquals(daoStudent.passwordGenerate(student.getEmail()), student.getSecondName()+student.getId());
     }
 
     @Test
-    void studentConvertorTest(){
+    void studentConvertorToEntityTest(){
         Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         StudentEntity studentEntity = StudentConverter.toEntity(student);
+        assertNotNull(studentEntity);
+    }
+
+    @Test
+    void studentConvertorFromEntityTest(){
+        StudentEntity studentEntity = new StudentEntity(1, "John", "Snow", "winter@gmail.com", 30);
         Student student1 = StudentConverter.fromEntity(studentEntity);
         assertNotNull(student1);
-        assertNotNull(studentEntity);
     }
 }

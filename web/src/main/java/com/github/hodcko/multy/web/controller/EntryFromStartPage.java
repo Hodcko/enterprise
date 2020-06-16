@@ -37,7 +37,7 @@ public class EntryFromStartPage {
     }
 
     @PostMapping("/personalStart")
-    public String doPost(HttpServletRequest req, HttpSession session) {
+    public String entryFromStartPage(HttpServletRequest req, HttpSession session) {
 
         String login = req.getParameter("login");
         if(login == null){
@@ -59,7 +59,6 @@ public class EntryFromStartPage {
         List<GroupDTO> groupDTO;
         Student student;
         Teacher teacher;
-
 
         if(login.equalsIgnoreCase(securityService.login(login, password))) {
             if (role.equals(UserType.STUDENT)) {
@@ -96,9 +95,7 @@ public class EntryFromStartPage {
                     session.setAttribute("cPlusPlus", "cPlusPlus");
                 }
                 log.info("student with email {} entry his personal area from start page", student.getEmail());
-
-                return "forward:/StudentPersonalArea.jsp";
-
+                return "StudentPersonalArea";
 
             } else if (role.equals(UserType.TEACHER)) {
 
@@ -119,15 +116,11 @@ public class EntryFromStartPage {
                 session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
                 log.info("teacher with email {} entry his personal area from start page", teacher.getEmail());
-
-                return "forward:/TeacherPersonalArea.jsp";
+                return "TeacherPersonalArea";
             }
         }else{
-            return "forward:/InvalidData.jsp";
+            return "InvalidData";
         }
-        return "forward:/SuccessRegistrationNewUser.jsp";
+        return "StartPage";
     }
-
-
-
 }

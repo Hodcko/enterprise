@@ -23,9 +23,9 @@ public class ServiceIsExistDefault implements com.github.hodcko.multy.service.Se
     @Transactional
     public boolean isExist(String email, UserType userType){
         if(userType.equals(UserType.STUDENT)){
-            return daoStudent.isExist(email, userType);
+            return daoStudent.isExist(email);
         }else {
-            return daoTeacher.isExist(email, userType);
+            return daoTeacher.isExist(email);
         }
     }
 

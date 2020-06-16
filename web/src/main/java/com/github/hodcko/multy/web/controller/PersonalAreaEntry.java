@@ -22,7 +22,6 @@ import java.util.List;
 public class PersonalAreaEntry {
     private static final Logger log = LoggerFactory.getLogger(PersonalAreaEntry.class);
 
-
     private final ServiceAuthUser saveAuthUser;
     private final ServiceGetIdByEmail getId;
     private final ServiceCurs serviceCurs;
@@ -36,12 +35,11 @@ public class PersonalAreaEntry {
     }
 
     @PostMapping("/personal")
-    public String doPost(HttpServletRequest req,  HttpSession session) {
+    public String enterAfterRegistration(HttpServletRequest req,  HttpSession session) {
         String email = (String) session.getAttribute("email");
         UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-
 
         AuthUser authUser;
         Curs curs;
@@ -75,8 +73,7 @@ public class PersonalAreaEntry {
             session.setAttribute("authUser", authUser);
             log.info("student with email {} entry his personal after registration", student.getEmail());
 
-            return "forward:/StudentPersonalArea.jsp";
-
+            return "StudentPersonalArea";
 
         } else if (userType.equals(UserType.TEACHER)) {
             Teacher teacher = ((Teacher) session.getAttribute("teacher"));
@@ -100,11 +97,10 @@ public class PersonalAreaEntry {
             session.setAttribute("curs", curs);
             log.info("teacher with email {} entry his personal after registration", teacher.getEmail());
 
-            return "forward:/TeacherPersonalArea.jsp";
+            return "TeacherPersonalArea";
+
         } else {
-            return "forward:/TInvalidData.jsp";
+            return "InvalidData";
         }
     }
-
-
 }

@@ -7,6 +7,7 @@ import com.github.hodcko.multy.service.ServiceStudent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,12 +26,17 @@ public class StudentRegistration {
         this.serviceStudent = serviceStudent;
     }
 
+    @GetMapping("/studentReg")
+    public String studentRegistration() {
+        return "StudentRegistration";
+    }
+
     @PostMapping("/student")
-    public String doPost(HttpServletRequest req, HttpSession session) {
+    public String createStudent(HttpServletRequest req, HttpSession session) {
         String name =  req.getParameter("name");
         String secondName =  req.getParameter("secondName");
         String email = req.getParameter("email");
-        int age = Integer.parseInt(req.getParameter("age"));
+        Integer age = Integer.parseInt(req.getParameter("age"));
         UserType userType = UserType.valueOf(req.getParameter("userType").toUpperCase()) ;
 
         Student student =  serviceStudent.saveStudent(name, secondName, email, age);
@@ -43,7 +49,8 @@ public class StudentRegistration {
         session.setAttribute("langTypeC", req.getParameter("langTypeC"));
         log.info("created student with email {} ", student.getEmail());
 
-        return "forward:/SuccessRegistrationNewUser.jsp";
+        return "SuccessRegistrationNewUser";
+
     }
 
 

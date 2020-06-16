@@ -29,9 +29,11 @@ public class ChangePassword {
         String rightPassword = securityService.findPassword(newPassword, newPasswords);
         if(securityService.changePassword(authUser.getLogin(), authUser.getPassword(), rightPassword )){
             log.info("user {} changed password to {}", authUser.getLogin(), newPassword);
-            return "forward:/LoginFromStartPage.jsp";
+            return "LoginFromStartPage";
+
         }else {
-            return "forward:/InvalidData.jsp";
+            return "InvalidData";
+
         }
     }
 

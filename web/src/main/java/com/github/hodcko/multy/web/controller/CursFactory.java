@@ -31,21 +31,19 @@ public class CursFactory {
     }
 
     @PostMapping("/curs")
-    public String doPost(HttpServletRequest req) {
+    public String createCurs(HttpServletRequest req) {
         String cursName = req.getParameter("name");
         LocalDate startDate = Date.valueOf(req.getParameter("startDate")).toLocalDate();
         LocalDate endDate = Date.valueOf(req.getParameter("endDate")).toLocalDate();
-
         serviceCurs.createCurs(cursName, startDate, endDate);
         log.info("created curs {} with start date {} and end date {}", cursName, startDate, endDate);
+        return "redirect:/personal";
 
-        return "forward:/personal";
     }
 
 
     @GetMapping("/escape")
-    public String doGet(HttpServletRequest req, HttpSession session) {
-
+    public String endStudy(HttpServletRequest req, HttpSession session) {
         if(req.getParameter("escape").equalsIgnoreCase("escape")){
             if(session.getAttribute("student") != null){
                 Student student = (Student) session.getAttribute("student");
@@ -58,10 +56,9 @@ public class CursFactory {
                 log.info("teacher with email {} escaped curs", teacher.getEmail());
             }
             req.getSession().invalidate();
-
-            return "forward:/StartPage.jsp";
+            return "StartPage";
         }
-        return "forward:/personal";
+        return "StartPage";
     }
 
 

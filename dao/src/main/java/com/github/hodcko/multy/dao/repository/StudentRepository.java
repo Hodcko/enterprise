@@ -8,12 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface StudentRepository extends JpaRepository<StudentEntity, Integer> {
 
-    @Query("select s.id from StudentEntity s where s.email = :email")
-    int getId(@Param("email") String email);
-
     StudentEntity findByEmail(String email);
 
     long deleteByEmail(String email);
+
+    @Query("select s.id from StudentEntity s where s.email = :email")
+    int getId(@Param("email") String email);
 
     @Override
     boolean existsById(Integer integer);

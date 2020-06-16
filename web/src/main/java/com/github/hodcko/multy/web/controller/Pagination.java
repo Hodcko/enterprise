@@ -20,7 +20,7 @@ public class Pagination {
     }
 
     @GetMapping("/pagination")
-    public String doGet(HttpServletRequest req, HttpSession session) {
+    public String pagination(HttpServletRequest req, HttpSession session) {
         List<GroupDTO> groupDTO;
         int numberOfRecordsOnPage = 3;
 
@@ -31,13 +31,11 @@ public class Pagination {
 
         groupDTO = serviceCurs.getMyStudents(cursId, page);
 
-        req.setAttribute("noOfPages", noOfPages);
-        req.setAttribute("currentPage", page);
+        session.setAttribute("noOfPages", noOfPages);
+        session.setAttribute("currentPage", page);
         session.setAttribute("students", groupDTO);
 
+        return "TeacherPersonalArea";
 
-        return "forward:/TeacherPersonalArea.jsp";
     }
-
-
 }

@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping
-public class Registration {
-    private static final Logger log = LoggerFactory.getLogger(Registration.class);
+public class LoginAndValidation {
+    private static final Logger log = LoggerFactory.getLogger(LoginAndValidation.class);
 
     AuthUser authUser;
 
@@ -27,7 +27,7 @@ public class Registration {
     private final ServiceValidation serviceValidation;
     private final ServiceAuthUser serviceAuthUser;
 
-    public Registration(ServiceIsExist serviceIsExist, ServiceValidation serviceValidation, ServiceAuthUser serviceAuthUser) {
+    public LoginAndValidation(ServiceIsExist serviceIsExist, ServiceValidation serviceValidation, ServiceAuthUser serviceAuthUser) {
         this.serviceIsExist = serviceIsExist;
         this.serviceValidation = serviceValidation;
         this.serviceAuthUser = serviceAuthUser;
@@ -35,11 +35,21 @@ public class Registration {
 
     @GetMapping("/")
     public String doGet() {
-        return "forward:/StartPage.jsp";
+        return "StartPage";
+    }
+
+    @GetMapping("/EnterFromStartPage")
+    public String startPageLogin() {
+        return "LoginFromStartPage";
+    }
+
+    @GetMapping("/loginAfterRegistration")
+    public String loginAfterRegistration() {
+        return "LoginAfterRegistration";
     }
 
     @PostMapping("/validation")
-    public String doPost(HttpServletRequest req, HttpSession session) {
+    public String validation(HttpServletRequest req, HttpSession session) {
         String name = req.getParameter("name");
         String secondName = req.getParameter("secondName");
         String email = req.getParameter("email");
@@ -61,8 +71,8 @@ public class Registration {
             session.setAttribute("login", authUser.getLogin());
             session.setAttribute("password", authUser.getPassword());
             log.info("created authUser with login {} and password {}", authUser.getLogin(), authUser.getPassword());
-            return "forward:/AuthUserFalseRegistration.jsp";
+            return "AuthUserFalseRegistration";
         }
-        return null;
+        return "InvalidData";
     }
 }

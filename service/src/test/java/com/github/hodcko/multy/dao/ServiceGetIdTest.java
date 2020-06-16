@@ -29,7 +29,7 @@ public class ServiceGetIdTest {
     @Test
     void getIdTest(){
         String email = "hodckoq@gmail.com";
-        when(daoStudent.getId(email,UserType.STUDENT)).thenReturn(2);
+        when(daoStudent.getId(email)).thenReturn(2);
         int testResult =  serviceGetIdByEmail.getId(email, UserType.STUDENT);
         assertEquals(2, testResult);
     }
@@ -37,7 +37,7 @@ public class ServiceGetIdTest {
     @Test
     void getIdTest2(){
         String email = "hodckoq@gmail.com";
-        when(daoTeacher.getId(email,UserType.TEACHER)).thenReturn(2);
+        when(daoTeacher.getId(email)).thenReturn(2);
         int testResult =  serviceGetIdByEmail.getId(email, UserType.TEACHER);
         assertEquals(2, testResult);
     }

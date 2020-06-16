@@ -7,6 +7,7 @@ import com.github.hodcko.multy.service.ServiceTeacher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -28,8 +29,13 @@ public class TeacherRegistration {
         this.serviceCurs = serviceCurs;
     }
 
+    @GetMapping("/teacherReg")
+    public String teacherRegistration() {
+        return "TeacherRegistration";
+    }
+
     @PostMapping("/teacher")
-    public String doPost(HttpServletRequest req, HttpSession session) {
+    public String createTeacher(HttpServletRequest req, HttpSession session) {
         String name =  req.getParameter("name");
         String secondName =  req.getParameter("secondName");
         String email = req.getParameter("email");
@@ -43,10 +49,6 @@ public class TeacherRegistration {
         session.setAttribute("userType", userType);
         log.info("created teacher with email {} ", teacher.getEmail());
 
-        return "forward:/SuccessRegistrationNewUser.jsp";
+        return "SuccessRegistrationNewUser";
     }
-
-
-
-
 }

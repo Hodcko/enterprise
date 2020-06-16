@@ -33,7 +33,6 @@ public class DaoTeacherTest {
     void saveTeacherTest() {
         Teacher teacherTest = daoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
         Teacher teacher = daoTeacher.getTeacher(teacherTest.getId());
-        daoTeacher.deleteTeacher("winter@gmail.com");
         Assertions.assertEquals(teacher, teacherTest);
     }
 
@@ -41,7 +40,6 @@ public class DaoTeacherTest {
     void getTeacherTest() {
         Teacher teacherTest = daoTeacher.saveTeacher("John", "Snow", "winter@gmail.com", 1);
         Assertions.assertEquals(daoTeacher.getTeacher(teacherTest.getId()), teacherTest);
-        daoTeacher.deleteTeacher("winter@gmail.com");
     }
 
     @Test
@@ -54,32 +52,38 @@ public class DaoTeacherTest {
     @Test
     void isExistTest() {
         daoTeacher.saveTeacher("test", "test", "hodckoq@mail.com",  1);
-        boolean teacherResult =  daoTeacher.isExist("hodckoq@mail.com", UserType.TEACHER);
-        daoTeacher.deleteTeacher("hodckoq@mail.com");
+        boolean teacherResult =  daoTeacher.isExist("hodckoq@mail.com");
         assertTrue(teacherResult);
     }
 
     @Test
     void DaoGetIdByEmailTest() {
         Teacher teacher = daoTeacher.saveTeacher("test", "test", "hodckoq@mail.com",  1);
-        int teacherId = daoTeacher.getId("hodckoq@mail.com", UserType.TEACHER);
-        daoTeacher.deleteTeacher("hodckoq@mail.com");
+        int teacherId = daoTeacher.getId("hodckoq@mail.com");
         assertEquals(teacher.getId(), teacherId);
     }
 
     @Test
     void passwordGenerateTest(){
         Teacher teacher = daoTeacher.saveTeacher("Jonh", "Snow", "snow@gmail.com",  1);
-        Assertions.assertEquals(daoTeacher.passwordGenerate(teacher.getEmail(), UserType.TEACHER), teacher.getSecondName()+teacher.getId());
-        daoTeacher.deleteTeacher(teacher.getEmail());
+        Assertions.assertEquals(daoTeacher.passwordGenerate(teacher.getEmail()), teacher.getSecondName()+teacher.getId());
     }
 
+
     @Test
-    void teacherConverterTest(){
+    void teacherConverterToEntityTest(){
         Teacher teacher = daoTeacher.saveTeacher("Jonh", "Snow", "snow@gmail.com",  1);
         TeacherEntity teacherEntity = TeacherConverter.toEntity(teacher);
         Teacher teacher1 = TeacherConverter.fromEntity(teacherEntity);
         assertNotNull(teacher1);
         assertNotNull(teacherEntity);
+    }
+
+
+    @Test
+    void teacherConverterFromEntityTest(){
+        TeacherEntity teacherEntity = new TeacherEntity(1, "John", "Snow", "winter@mail.com", 1);
+        Teacher teacher = TeacherConverter.fromEntity(teacherEntity);
+        assertNotNull(teacher);
     }
 }

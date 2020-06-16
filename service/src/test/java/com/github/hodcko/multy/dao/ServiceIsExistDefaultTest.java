@@ -30,7 +30,7 @@ public class ServiceIsExistDefaultTest {
     @Test
      void isExistTest(){
         String email = "hodckoq@gmail.com";
-        when(daoStudent.isExist(email, UserType.STUDENT)).thenReturn(true);
+        when(daoStudent.isExist(email)).thenReturn(true);
         boolean result = serviceIsExist.isExist(email, UserType.STUDENT);
         assertTrue(result);
     }
@@ -38,7 +38,7 @@ public class ServiceIsExistDefaultTest {
     @Test
     void isExistTest2(){
         String email = "hodckoq@gmail.com";
-        when(daoTeacher.isExist(email, UserType.TEACHER)).thenReturn(true);
+        when(daoTeacher.isExist(email)).thenReturn(true);
         boolean result = serviceIsExist.isExist(email, UserType.TEACHER);
         assertTrue(result);
     }

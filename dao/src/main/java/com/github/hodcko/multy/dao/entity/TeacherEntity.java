@@ -24,12 +24,12 @@ public class TeacherEntity extends UserEntity{
         this.cursId = cursId;
     }
 
-    public TeacherEntity(Integer id, String name, String secondName, String email, Integer curs_id) {
+    public TeacherEntity(Integer id, String name, String secondName, String email, Integer cursId) {
         this.id = id;
         this.name = name;
         this.secondName = secondName;
         this.email = email;
-        this.cursId = curs_id;
+        this.cursId = cursId;
     }
 
     @OneToOne(fetch = FetchType.LAZY)

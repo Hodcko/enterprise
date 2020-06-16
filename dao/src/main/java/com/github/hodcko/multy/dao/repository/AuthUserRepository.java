@@ -14,11 +14,11 @@ public interface AuthUserRepository extends JpaRepository<AuthUserEntity, Intege
 
     AuthUserEntity findByLoginAndPassword(String login, String password);
 
+    int deleteByUserIdAndRole(int userId, UserType role);
+
     @Transactional
     @Modifying
     @Query(value = "update AuthUserEntity a set a.password = :newPassword where a.login = :login and a.password = :password")
     int changePassword(@Param("login") String login, @Param("password") String password, @Param("newPassword") String newPassword);
 
-    @Query(value = "select a from AuthUserEntity a where a.userId = :userId and a.role = :role")
-    AuthUserEntity getByIdAndUserType(@Param("userId") int id, @Param("role") UserType role);
 }

@@ -38,9 +38,7 @@ public class DaoGradebookDefaultTest {
     void addStudentToGradebookTest() {
         Student student =  daoStudent.saveStudent("John", "Snow", "Winter@mail.ru", 31);
         int result = daoGradebook.addStudentToGradebook(student.getId(), cursId);
-        daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
         assertEquals(student.getId(), result);
-        daoStudent.deleteStudent("Winter@mail.ru");
     }
 
     @Test
@@ -48,10 +46,7 @@ public class DaoGradebookDefaultTest {
         Student student =  daoStudent.saveStudent("John", "Snow", "Winter@mail.ru", 31);
         daoGradebook.addStudentToGradebook(student.getId(), cursId);
         int result = daoGradebook.addGrade(student.getId(), cursId);
-        daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
         assertEquals(student.getId(), result);
-        daoStudent.deleteStudent("Winter@mail.ru");
-
     }
 
     @Test
@@ -61,9 +56,6 @@ public class DaoGradebookDefaultTest {
         daoGradebook.addGrade(student.getId(), cursId);
         int result = daoGradebook.getGrade(student.getId(), cursId);
         assertEquals(1, result);
-        daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
-        daoStudent.deleteStudent("Winter@mail.ru");
-
     }
 
     @Test
@@ -72,8 +64,6 @@ public class DaoGradebookDefaultTest {
         daoGradebook.addStudentToGradebook(student.getId(), cursId);
         daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
         assertFalse(daoGradebook.isExist(student.getId()));
-        daoStudent.deleteStudent("Winter@mail.ru");
-
     }
 
     @Test
@@ -81,17 +71,21 @@ public class DaoGradebookDefaultTest {
         Student student =  daoStudent.saveStudent("John", "Snow", "Winter@mail.ru", 31);
         daoGradebook.addStudentToGradebook(student.getId(), cursId);
         assertTrue(daoGradebook.isExist(student.getId()));
-        daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
-        daoStudent.deleteStudent("Winter@mail.ru");
     }
 
     @Test
-    void gradebookConverterTest(){
+    void gradebookConverterToEntityTest(){
         Gradebook gradebook = new Gradebook(1, 1, 1, 5);
         GradebookEntity gradebookEntity = GradebookConverter.toEntity(gradebook);
-        Gradebook testGradebook = GradebookConverter.fromEntity(gradebookEntity);
         assertNotNull(gradebookEntity);
-        assertNotNull(testGradebook);
-
     }
+
+    @Test
+    void gradebookConverterTFromEntityTest(){
+        GradebookEntity gradebookEntity = new GradebookEntity(1, 1, 1, 5);
+        Gradebook testGradebook = GradebookConverter.fromEntity(gradebookEntity);
+        assertNotNull(testGradebook);
+    }
+
+
 }

@@ -60,7 +60,7 @@ public class DaoStudentDefault implements DaoStudent {
     }
 
     @Override
-    public boolean isExist(String email, UserType userType) {
+    public boolean isExist(String email) {
         try {
             int id = studentRepository.getId(email);
             boolean result = studentRepository.existsById(id);
@@ -77,7 +77,7 @@ public class DaoStudentDefault implements DaoStudent {
     }
 
     @Override
-    public int getId(String email, UserType userType) {
+    public int getId(String email) {
         try {
             int id = studentRepository.getId(email);
             log.info("return id {} of student with email {}", id, email);
@@ -89,7 +89,7 @@ public class DaoStudentDefault implements DaoStudent {
     }
 
     @Override
-    public String passwordGenerate(String email, UserType userType) {
+    public String passwordGenerate(String email) {
         try {
             StudentEntity studentEntity = studentRepository.findByEmail(email);
             log.info("student with email {} generate password {}", email, studentEntity.getSecondName() + studentEntity.getId());

@@ -68,7 +68,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     }
 
     @Override
-    public boolean isExist(String email, UserType userType) {
+    public boolean isExist(String email) {
         try {
             Session session =  factory.getCurrentSession();
             String teacherEmail = (String) session.createQuery("select t.email from TeacherEntity t where t.email = :mail")
@@ -84,7 +84,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     }
 
     @Override
-    public int getId(String email, UserType userType) {
+    public int getId(String email) {
         try {
             Session session =  factory.getCurrentSession();
             int id = (int) session.createQuery("select t.id from TeacherEntity t where t.email = :email")
@@ -98,7 +98,7 @@ public class DaoTeacherDefault implements DaoTeacher {
     }
 
     @Override
-    public String passwordGenerate(String email, UserType userType) {
+    public String passwordGenerate(String email) {
         try {
             Session session =  factory.getCurrentSession();
             TeacherEntity teacher = (TeacherEntity) session.createQuery("from TeacherEntity t where t.email = :email")

@@ -1,17 +1,18 @@
 package com.github.hodcko.multy.web.spring;
 
-import com.github.hodcko.multy.service.ServiceAuthUser;
-import com.github.hodcko.multy.service.ServiceIsExist;
-import com.github.hodcko.multy.service.ServiceValidation;
 import com.github.hodcko.multy.service.config.ServiceConfig;
 
 import com.github.hodcko.multy.web.controller.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.parameters.P;
-import org.springframework.web.servlet.ViewResolver;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
+import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
+import org.springframework.web.servlet.view.tiles3.TilesView;
+
+import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
@@ -24,8 +25,8 @@ public class WebConfig {
     }
 
     @Bean
-    public Registration registration(){
-        return new Registration(serviceConfig.serviceIsExist(), serviceConfig.serviceValidation(), serviceConfig.serviceAuthUser());
+    public LoginAndValidation registration(){
+        return new LoginAndValidation(serviceConfig.serviceIsExist(), serviceConfig.serviceValidation(), serviceConfig.serviceAuthUser());
     }
 
     @Bean
@@ -86,10 +87,36 @@ public class WebConfig {
     }
 
 
+
     @Bean
-    public ViewResolver viewResolver(){
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setSuffix(".jsp");
+    public UrlBasedViewResolver tilesViewResolver(){
+        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+        resolver.setViewClass(TilesView.class);
+        return resolver;
+    }
+
+    @Bean
+    public TilesConfigurer tilesConfigurer(){
+        final TilesConfigurer tilesConfigurer = new TilesConfigurer();
+        tilesConfigurer.setDefinitions("/WEB-INF/tiles.xml");
+        return tilesConfigurer;
+    }
+
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource(){
+        ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+        source.setBasename("classpath:i18n/messages");
+        source.setDefaultEncoding("UTF-8");
+
+        return source;
+    }
+
+    @Bean
+    public CookieLocaleResolver localeResolver(){
+        CookieLocaleResolver resolver = new CookieLocaleResolver();
+        resolver.setDefaultLocale(Locale.forLanguageTag("ru"));
+        resolver.setCookieName("LocaleCookie");
+        resolver.setCookieMaxAge(-1);
         return resolver;
     }
 }

@@ -1,7 +1,7 @@
 package com.github.hodcko.multy.dao;
 
 import com.github.hodcko.multy.model.Teacher;
-import com.github.hodcko.multy.model.UserType;
+
 
 public interface DaoTeacher {
 
@@ -11,10 +11,10 @@ public interface DaoTeacher {
 
     boolean deleteTeacher(String email);
 
-    boolean isExist(String email, UserType userType);
+    boolean isExist(String email);
 
-    int getId(String email, UserType userType);
+    int getId(String email);
 
-    String passwordGenerate(String email, UserType userType);
+    String passwordGenerate(String email);
 
 }

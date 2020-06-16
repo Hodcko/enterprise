@@ -3,12 +3,8 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.dao.config.DaoConfig;
 
 import com.github.hodcko.multy.dao.converter.CursConverter;
-import com.github.hodcko.multy.dao.converter.StudentConverter;
-import com.github.hodcko.multy.dao.converter.TeacherConverter;
 import com.github.hodcko.multy.dao.entity.CursEntity;
 import com.github.hodcko.multy.dao.entity.GroupDTO;
-import com.github.hodcko.multy.dao.entity.StudentEntity;
-import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.Curs;
 import com.github.hodcko.multy.model.Student;
 import com.github.hodcko.multy.model.Teacher;
@@ -29,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = DaoConfig.class)
 @Transactional
-
 public class DaoCursTest {
 
     @Autowired
@@ -50,15 +45,13 @@ public class DaoCursTest {
     @Test
     void createCursTest() {
         Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
-        daoCurs.deleteCurs(testCurs.getId());
         assertEquals(curs, testCurs);
     }
 
     @Test
     void getCursTest() {
         Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
-        assertEquals(curs, daoCurs.getCurs(curs.getId()));
-        daoCurs.deleteCurs(testCurs.getId());
+        assertEquals(testCurs, daoCurs.getCurs(testCurs.getId()));
     }
 
     @Test
@@ -79,9 +72,6 @@ public class DaoCursTest {
         List<GroupDTO> list = new ArrayList<>();
         list.add(groupDTO);
         assertEquals(daoCurs.getMyStudents(curs.getId(),1), list);
-        daoGradebook.deleteStudentFromGradebook(student.getId(), curs.getId());
-        daoStudent.deleteStudent(student.getEmail());
-
     }
 
     @Test
@@ -94,9 +84,6 @@ public class DaoCursTest {
         List<GroupDTO> list = new ArrayList<>();
         list.add(groupDTO);
         assertEquals(daoCurs.countOfStudents(curs.getId()), 1);
-        daoGradebook.deleteStudentFromGradebook(student.getId(), curs.getId());
-        daoStudent.deleteStudent(student.getEmail());
-
     }
 
     @Test
@@ -131,13 +118,19 @@ public class DaoCursTest {
     }
 
     @Test
-    void cursConverterTest(){
+    void cursConverterToEntityTest(){
         Curs testCurs = daoCurs.createCurs("Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
         CursEntity cursEntity = CursConverter.toEntity(testCurs);
-        Curs curs = CursConverter.fromEntity(cursEntity);
         assertNotNull(cursEntity);
+    }
+
+    @Test
+    void cursConverterFromEntityTest(){
+        CursEntity cursEntity = new CursEntity(1,"Java", LocalDate.of(2020, 10, 10), LocalDate.of(2020, 12, 12));
+        Curs curs = CursConverter.fromEntity(cursEntity);
         assertNotNull(curs);
     }
+
 
 
 

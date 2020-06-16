@@ -2,5 +2,6 @@ return student - jsp
 return redirect student - controller
 
 
-2. Spring Data JPA
-3. doGet/doPost
+
+7. Локализация
+6*. Добавить картинку в header

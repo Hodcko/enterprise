@@ -19,9 +19,9 @@ public class ServiceGetIdByEmailDefault implements com.github.hodcko.multy.servi
     @Transactional
     public int getId(String email, UserType userType){
        if(userType.equals(UserType.STUDENT)){
-           return daoStudent.getId(email, userType);
+           return daoStudent.getId(email);
        }else{
-           return daoTeacher.getId(email, userType);
+           return daoTeacher.getId(email);
        }
     }
 
