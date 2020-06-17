@@ -5,21 +5,21 @@
     <html>
     <head><title>StudentRegistration</title></head>
     <body style="background-color: powderblue">
-    <h2 style="text-align: center"><c:out value="Регистрация студента"/></h2>
+    <h2 style="text-align: center"><spring:message code="StudentRegistration.reg"/></h2>
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/validation" method="post">
         <fieldset>
-            <legend><c:out value="Регистрационные данные"/></legend>
-            <br/><label for="name"><spring:message code="page.name"/></label>
+            <legend><spring:message code="StudentRegistration.data"/></legend>
+            <br/><label for="name"><spring:message code="StudentRegistration.name"/></label>
             <br/><input id="name" type="text" name="name"/><br/>
-            <br/><label for="secondName">Фамилия</label>
+            <br/><label for="secondName"><spring:message code="StudentRegistration.secondName"/></label>
             <br/><input id="secondName" type="text" name="secondName"/><br/>
-            <br/><label for="email">Адрес электронной почты</label>
+            <br/><label for="email"><spring:message code="StudentRegistration.email"/></label>
             <br/><input id="email" type="text" name="email"/><br/>
-            <br/><label for="age">Ваш возраст</label>
+            <br/><label for="age"><spring:message code="StudentRegistration.age"/></label>
             <br/><input id="age" type="text" name="age"/><br/>
 
-            <h2 style="text-align: center"><c:out value="Выберите язык программирования для изучения"/></h2>
+            <h2 style="text-align: center"><spring:message code="StudentRegistration.lang"/></h2>
             <label>
                 <input type="checkbox" name="langTypeJava" value="java"/>
             </label> Java

@@ -10,20 +10,20 @@
     <body style="background-color: powderblue">
 
 
-    <h1 style="text-align: center"><c:out value="Не удалось войти в личный кабинет"/></h1>
+    <h1 style="text-align: center"><spring:message code="InvalidData.invalid"/></h1>
 
-    <h2 style="text-align: center"><c:out value="Логин или пароль неверный"/></h2>
+    <h2 style="text-align: center"><spring:message code="InvalidData.incorrect"/></h2>
 
     </body>
     </html>
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/personalStart" method="post">
-        <h3><c:out value="Войти"/></h3>
+        <h3><spring:message code="InvalidData.enter"/></h3>
         <input type="submit"/>
     </form>
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/" method="get">
-        <h3><c:out value="Зарегистрироваться"/></h3>
+        <h3><spring:message code="InvalidData.manePage"/></h3>
         <input type="submit"/>
     </form>
 </jsp:root>

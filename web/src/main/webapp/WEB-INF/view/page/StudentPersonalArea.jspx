@@ -17,59 +17,59 @@
         <c:if test="${studentOnCurs == false}">
 
             <c:if test="${javaCurs.end != null and studentOnCurs == false}">
-                    <h3 style="text-align: center"><c:out value="Доступные для записи курсы по Java"/></h3>
+                    <h3 style="text-align: center"><spring:message code="StudentPersonalArea.avJava"/></h3>
                     <table style="width: 100%">
                         <tr>
-                            <td><c:out value="Название курса"/></td>
+                            <td><spring:message code="StudentPersonalArea.courseName"/></td>
                             <td><c:out value="${javaCurs.name}"/></td>
                         </tr>
                         <tr>
-                            <td><c:out value="Дата начала курса"/></td>
+                            <td><spring:message code="StudentPersonalArea.startDate"/></td>
                             <td><c:out value="${javaCurs.start}"/></td>
                         </tr>
                         <tr>
-                            <td><c:out value="Дата окончания курса"/></td>
+                            <td><spring:message code="StudentPersonalArea.endDate"/></td>
                             <td><c:out value="${javaCurs.end}"/></td>
                         </tr>
                     </table>
             </c:if>
             <c:if test="${phpCurs.end != null and studentOnCurs == false}">
-                    <h3 style="text-align: center"><c:out value="Доступные для записи курсы по PHP"/></h3>
+                    <h3 style="text-align: center"><spring:message code="StudentPersonalArea.avPHP"/></h3>
                     <table style="width: 100%">
                         <tr>
-                            <td><c:out value="Название курса"/></td>
+                            <td><spring:message code="StudentPersonalArea.courseName"/></td>
                             <td><c:out value="${phpCurs.name}"/></td>
                         </tr>
                         <tr>
-                            <td><c:out value="Дата начала курса"/></td>
+                            <td><spring:message code="StudentPersonalArea.startDate"/></td>
                             <td><c:out value="${phpCurs.start}"/></td>
                         </tr>
                         <tr>
-                            <td><c:out value="Дата окончания курса"/></td>
+                            <td><spring:message code="StudentPersonalArea.endDate"/></td>
                             <td><c:out value="${phpCurs.end}"/></td>
                         </tr>
                     </table>
             </c:if>
             <c:if test="${cCurs.end != null and studentOnCurs == false}">
-                <h3 style="text-align: center"><c:out value="Доступные для записи курсы по C++"/></h3>
+                <h3 style="text-align: center"><spring:message code="StudentPersonalArea.avC"/></h3>
                 <table style="width: 100%">
                     <tr>
-                        <td><c:out value="Название курса"/></td>
+                        <td><spring:message code="StudentPersonalArea.courseName"/></td>
                         <td><c:out value="${cCurs.name}"/></td>
                     </tr>
                     <tr>
-                        <td><c:out value="Дата начала курса"/></td>
+                        <td><spring:message code="StudentPersonalArea.startDate"/></td>
                         <td><c:out value="${cCurs.start}"/></td>
                     </tr>
                     <tr>
-                        <td><c:out value="Дата окончания курса"/></td>
+                        <td><spring:message code="StudentPersonalArea.endDate"/></td>
                         <td><c:out value="${cCurs.end}"/></td>
                     </tr>
                 </table>
             </c:if>
             <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
                 <fieldset>
-                    <h2 style="text-align: center"><c:out value="Выберите курсы которые будете посещать"/></h2>
+                    <h2 style="text-align: center"><spring:message code="StudentPersonalArea.choise"/></h2>
                     <label>
                         <input type="checkbox" name="javaReg" value="java"/>
                     </label> Java
@@ -89,12 +89,12 @@
 
             <c:if test="${classmatesJava != null}">
 
-                <h2 style="text-align: center"><c:out value="Список студентов курса по Java"/></h2>
+                <h2 style="text-align: center"><spring:message code="StudentPersonalArea.javaStudents"/></h2>
                 <table style="width: 100%">
                     <tr>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Адрес электронной почты</th>
+                        <th><spring:message code="StudentPersonalArea.name"/></th>
+                        <th><spring:message code="StudentPersonalArea.secondName"/></th>
+                        <th><spring:message code="StudentPersonalArea.email"/></th>
                     </tr>
 
                     <c:forEach var="classmate" items="${classmatesJava}">
@@ -110,12 +110,12 @@
 
             <c:if test="${classmatesPHP != null}">
 
-                <h2 style="text-align: center"><c:out value="Список студентов курса по PHP"/></h2>
+                <h2 style="text-align: center"><spring:message code="StudentPersonalArea.phpStudents"/></h2>
                 <table style="width: 100%">
                     <tr>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Адрес электронной почты</th>
+                        <th><spring:message code="StudentPersonalArea.name"/></th>
+                        <th><spring:message code="StudentPersonalArea.secondName"/></th>
+                        <th><spring:message code="StudentPersonalArea.email"/></th>
                     </tr>
 
                     <c:forEach var="classmate" items="${classmatesPHP}">
@@ -130,12 +130,12 @@
             <hr/>
             <c:if test="${classmatesC != null}">
 
-                <h2 style="text-align: center"><c:out value="Список студентов курса по C++"/></h2>
+                <h2 style="text-align: center"><spring:message code="StudentPersonalArea.cStudents"/></h2>
                 <table style="width: 100%">
                     <tr>
-                        <th>Имя</th>
-                        <th>Фамилия</th>
-                        <th>Адрес электронной почты</th>
+                        <th><spring:message code="StudentPersonalArea.name"/></th>
+                        <th><spring:message code="StudentPersonalArea.secondName"/></th>
+                        <th><spring:message code="StudentPersonalArea.email"/></th>
                     </tr>
 
                     <c:forEach var="classmate" items="${classmatesC}">
@@ -151,33 +151,33 @@
         <hr/>
         <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">
             <fieldset>
-                <br/><label for="newPassword">Изменить пароль</label>
+                <br/><label for="newPassword"><spring:message code="StudentPersonalArea.changePassword"/></label>
                 <br/><input id="newPassword" type="text" name="newPassword"/><br/>
                 <br/><input type="submit" value="Изменить"/>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
             <fieldset>
-                <legend><c:out value="Посмотреть план занятий"/></legend>
+                <legend><spring:message code="StudentPersonalArea.lessonPlan"/></legend>
                 <br/><input type="submit" name="logout" value="Посмотреть"/>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">
             <fieldset>
-                <legend><c:out value="Выйти из личного кабинета"/></legend>
+                <legend><spring:message code="StudentPersonalArea.logout"/></legend>
                 <br/><input type="submit" name="logout" value="logout"/>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/escape" method="get">
             <fieldset>
-                <legend><c:out value="Закончить обучение"/></legend>
+                <legend><spring:message code="StudentPersonalArea.finish"/></legend>
                 <br/><input type="submit" name="escape" value="escape"/>
             </fieldset>
         </form>
     </c:if>
     <hr/>
     <form action="${pageContext.request.contextPath}/" method="get">
-        <h3><c:out value="Перейти на главную страницу"/></h3>
+        <h3><spring:message code="StudentPersonalArea.manePage"/></h3>
         <input type="submit" value="Перейти"/>
     </form>
 

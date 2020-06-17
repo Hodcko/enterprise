@@ -11,7 +11,7 @@
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/test" method="post">
         <fieldset>
-            <legend><c:out value="Вам необходиом ответить на все вопросы"/></legend>
+            <legend><spring:message code="CTestPage.answer"/></legend>
             <label for="salary">What programming language does c++ inherit from ?</label>
             <input id="salary" type="text" name="first"/><br/>
 

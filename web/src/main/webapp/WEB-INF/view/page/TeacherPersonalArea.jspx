@@ -12,48 +12,48 @@
         <title>Personal area</title>
     </head>
     <body style="background-color: powderblue">
-    <h1 style="text-align: center"><c:out value="Вы вошли в личный кабинет"/></h1>
+    <h1 style="text-align: center"><spring:message code="TeacherPersonalArea.logged"/></h1>
 
     <c:if test="${teacher != null}">
         <c:if test="${curs.end == null}">
-            <h3 style="text-align: center"><c:out value="Объявить набор на курс"/></h3>
+            <h3 style="text-align: center"><spring:message code="TeacherPersonalArea.announce"/></h3>
 
             <form style="text-align: center" action="${pageContext.request.contextPath}/curs" method="post">
                 <fieldset>
-                    <legend><c:out value="Регистрационные данные"/></legend>
-                    <br/><label for="name">Название курса</label>
+                    <legend><spring:message code="TeacherPersonalArea.regData"/></legend>
+                    <br/><label for="name"><spring:message code="TeacherPersonalArea.courseName"/></label>
                     <br/><input id="name" type="text" name="name"/><br/>
-                    <br/><label for="startDate">Дата начала курса</label>
+                    <br/><label for="startDate"><spring:message code="TeacherPersonalArea.start"/></label>
                     <br/><input id="startDate" type="date" name="startDate"/><br/>
-                    <br/><label for="endDate">Дата окончания курса</label>
+                    <br/><label for="endDate"><spring:message code="TeacherPersonalArea.end"/></label>
                     <br/><input id="endDate" type="date" name="endDate"/><br/>
                     <br/><input type="submit" value="Объявить"/>
                 </fieldset>
             </form>
         </c:if>
         <c:if test="${curs.end != null}">
-            <h2 style="text-align: center"><c:out value="Мой курс"/></h2>
+            <h2 style="text-align: center"><spring:message code="TeacherPersonalArea.myCourse"/></h2>
             <table style="width: 100%">
                 <tr>
-                    <td><c:out value="Название курса"/></td>
+                    <td><spring:message code="TeacherPersonalArea.courseName"/></td>
                     <td><c:out value="${curs.name}"/></td>
                 </tr>
                 <tr>
-                    <td><c:out value="Дата начала курса"/></td>
+                    <td><spring:message code="TeacherPersonalArea.start"/></td>
                     <td><c:out value="${curs.start}"/></td>
                 </tr>
                 <tr>
-                    <td><c:out value="Дата окончания курса"/></td>
+                    <td><spring:message code="TeacherPersonalArea.end"/></td>
                     <td><c:out value="${curs.end}"/></td>
                 </tr>
             </table>
             <hr/>
-            <h2 style="text-align: center"><c:out value="Список преподавателей данного курса"/></h2>
+            <h2 style="text-align: center"><spring:message code="TeacherPersonalArea.teachersList"/></h2>
             <table style="width: 100%">
                 <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Адрес электронной почты</th>
+                    <th><spring:message code="TeacherPersonalArea.name"/></th>
+                    <th><spring:message code="TeacherPersonalArea.secondName"/></th>
+                    <th><spring:message code="TeacherPersonalArea.email"/></th>
                 </tr>
                 <c:forEach var="teachers" items="${teachers}">
                     <tr>
@@ -64,13 +64,13 @@
                 </c:forEach>
             </table>
             <hr/>
-            <h2 style="text-align: center"><c:out value="Список моих студентов"/></h2>
+            <h2 style="text-align: center"><spring:message code="TeacherPersonalArea.studentsList"/></h2>
             <table style="width: 100%">
                 <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Адрес электронной почты</th>
-                    <th>Итоговый балл</th>
+                    <th><spring:message code="TeacherPersonalArea.name"/></th>
+                    <th><spring:message code="TeacherPersonalArea.secondName"/></th>
+                    <th><spring:message code="TeacherPersonalArea.email"/></th>
+                    <th><spring:message code="TeacherPersonalArea.score"/></th>
                 </tr>
 
                 <c:forEach var="student" items="${students}">
@@ -110,27 +110,27 @@
         </c:if>
         <form style="text-align: center" action="${pageContext.request.contextPath}/change" method="post">
             <fieldset>
-                <br/><label  for="newPasswords">Изменить пароль</label>
+                <br/><label  for="newPasswords"><spring:message code="TeacherPersonalArea.changePassword"/></label>
                 <br/><input  id="newPasswords" type="text" name="newPasswords"/><br/>
                 <br/><input  type="submit" value="Изменить"/>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">
             <fieldset>
-                <legend><c:out value="Выйти из личного кабинета"/></legend>
+                <legend><spring:message code="TeacherPersonalArea.logout"/></legend>
                 <br/><input type="submit" name="logout" value="logout"/>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/escape" method="get">
             <fieldset>
-                <legend><c:out value="Закончить преподавание"/></legend>
+                <legend><spring:message code="TeacherPersonalArea.finish"/></legend>
                 <br/><input type="submit" name="escape" value="escape"/>
             </fieldset>
         </form>
     </c:if>
     <hr/>
     <form action="${pageContext.request.contextPath}/" method="get">
-        <h3><c:out value="Перейти на главную страницу"/></h3>
+        <h3><spring:message code="TeacherPersonalArea.manePage"/></h3>
         <input type="submit" value="Перейти"/>
     </form>
 

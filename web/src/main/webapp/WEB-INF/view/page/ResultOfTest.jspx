@@ -7,17 +7,17 @@
         <title>Result</title>
     </head>
     <body style="background-color: powderblue">
-    <h1 style="text-align: center"><c:out value="Ваш результат"/></h1>
+    <h1 style="text-align: center"><spring:message code="ResultOfTest.result"/></h1>
     <h2 style="text-align: center"><c:out value="${result}/5"/></h2>
     <c:if test="${result eq 5}">
-        <h2 style="text-align: center"><c:out value="Поздравляю, вы получаете сертификат"/></h2>
+        <h2 style="text-align: center"><spring:message code="ResultOfTest.certificate"/></h2>
     </c:if>
     <c:if test="${result lt 5}">
-        <h2 style="text-align: center"><c:out value="Вы получаете справку государственного образца"/></h2>
+        <h2 style="text-align: center"><spring:message code="ResultOfTest.stateCertificate"/></h2>
     </c:if>
     <hr/>
     <form action="${pageContext.request.contextPath}/" method="get">
-        <h3><c:out value="Перейти на главную страницу"/></h3>
+        <h3><spring:message code="ResultOfTest.manePage"/></h3>
         <input type="submit" value="Перейти"/>
     </form>
     </body>

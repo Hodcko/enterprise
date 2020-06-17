@@ -2,6 +2,4 @@ return student - jsp
 return redirect student - controller
 
 
-
-7. Локализация
 6*. Добавить картинку в header

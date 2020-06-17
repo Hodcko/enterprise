@@ -4,7 +4,7 @@
     <head><title>Title</title></head>
     <body>
     <header class="clearfix">
-        <h2>Вы находитесь на сайте лучшего образовательного центра</h2>
+        <h2><spring:message code="header"/></h2>
         <a href="${requestScope['javax.servlet.forward.request_uri']}?locale=ru" style="padding: 5px">RU</a>
         <a href="${requestScope['javax.servlet.forward.request_uri']}?locale=en" style="padding: 5px">EN</a>
     </header>

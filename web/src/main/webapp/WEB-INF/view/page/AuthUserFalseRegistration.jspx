@@ -6,21 +6,21 @@
         <title>Personal area</title>
     </head>
     <body style="background-color: powderblue">
-    <h2 style="text-align: center"><c:out value="Вы уже были зарегистрированы"/></h2>
+    <h2 style="text-align: center"><spring:message code="AuthUserFalseRegistration.alreadyRegistration"/></h2>
     <p style="align-content: center"/>
     <form style="text-align: center">
         <fieldset>
-            <legend><c:out value="Ваши данные для входа в личный кабинет"/></legend>
-            <h3><c:out value="Ваш логин"/></h3>
+            <legend><spring:message code="AuthUserFalseRegistration.enter"/></legend>
+            <h3><spring:message code="AuthUserFalseRegistration.login"/></h3>
             <h2><c:out value="${login}"/></h2>
-            <br/><h3><c:out value="Ваш пароль"/></h3>
+            <br/><h3><spring:message code="AuthUserFalseRegistration.password"/></h3>
             <h2><c:out value="${password}"/></h2>
         </fieldset>
     </form>
 
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/personalStart" method="post">
-        <h3><c:out value="Войти в личный кабинет"/></h3>
+        <h3><spring:message code="AuthUserFalseRegistration.account"/></h3>
         <input type="submit" value="Войти"/>
     </form>
     </body>

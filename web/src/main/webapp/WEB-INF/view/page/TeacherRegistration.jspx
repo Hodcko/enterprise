@@ -4,19 +4,19 @@
           version="2.0" xmlns:spring="http://www.springframework.org/tags">
     <html>
     <body style="background-color: powderblue">
-    <h2 style="text-align: center"><c:out value="Регистрация преподавателя"/></h2>
+    <h2 style="text-align: center"><spring:message code="TeacherRegistration.reg"/></h2>
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/validation" method="post">
         <fieldset>
-            <legend><c:out value="Регистрационные данные"/></legend>
-            <br/><label for="name">Имя</label>
+            <legend><spring:message code="TeacherRegistration.data"/></legend>
+            <br/><label for="name"><spring:message code="TeacherRegistration.name"/></label>
             <br/><input id="name" type="text" name="name"/><br/>
-            <br/><label for="secondName">Фамилия</label>
+            <br/><label for="secondName"><spring:message code="TeacherRegistration.secondName"/></label>
             <br/><input id="secondName" type="text" name="secondName"/><br/>
-            <br/><label for="email">Адрес электронной почты</label>
+            <br/><label for="email"><spring:message code="TeacherRegistration.email"/></label>
             <br/><input id="email" type="text" name="email"/><br/>
 
-            <h2 style="text-align: center"><c:out value="Выберите язык программирования для преподавания"/></h2>
+            <h2 style="text-align: center"><spring:message code="TeacherRegistration.lang"/></h2>
             <label>
                 <input type="radio" name="langType" value="java"/>
             </label> Java
