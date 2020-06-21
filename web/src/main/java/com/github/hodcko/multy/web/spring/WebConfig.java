@@ -6,6 +6,7 @@ import com.github.hodcko.multy.web.controller.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
@@ -86,6 +87,23 @@ public class WebConfig {
         return new Test(serviceConfig.serviceGradebook(), serviceConfig.serviceCurs());
     }
 
+    @Bean
+    public FileManager fileManager(){
+        return new FileManager();
+    }
+
+    @Bean
+    public LoginController loginController(){
+        return new LoginController(serviceConfig.serviceAuthUser());
+    }
+
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(100000);
+        return new CommonsMultipartResolver();
+    }
+
 
 
     @Bean
@@ -107,7 +125,6 @@ public class WebConfig {
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
         source.setBasename("classpath:i18n/messages");
         source.setDefaultEncoding("UTF-8");
-
         return source;
     }
 

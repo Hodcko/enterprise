@@ -16,9 +16,10 @@
         <h2 style="text-align: center"><spring:message code="ResultOfTest.stateCertificate"/></h2>
     </c:if>
     <hr/>
-    <form action="${pageContext.request.contextPath}/" method="get">
+    <form action="${pageContext.request.contextPath}/">
         <h3><spring:message code="ResultOfTest.manePage"/></h3>
-        <input type="submit" value="Перейти"/>
+<!--        <input type="submit" value="Перейти"/>-->
+        <button><spring:message code="button.return"/></button>
     </form>
     </body>
     </html>

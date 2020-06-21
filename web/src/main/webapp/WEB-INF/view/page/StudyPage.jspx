@@ -16,10 +16,12 @@
         <a href="https://www.jetbrains.com/ru-ru/idea/download/#section=mac">Писать код</a>
         <h3><c:out value="4. While(true) goto п.1"/></h3>
         <hr/>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/javaTest" method="get">
+        <form style="text-align: center" action="${pageContext.request.contextPath}/javaTest">
             <fieldset>
                 <legend><spring:message code="StudyPage.javaTest"/></legend>
-                <br/><input type="submit" name="test" value="Пройти"/>
+                <button><spring:message code="button.test"/></button>
+<!--                <br/><input type="submit" name="test" value="Пройти"/>-->
+
             </fieldset>
         </form>
     </c:if>
@@ -38,10 +40,11 @@
         <a href="https://www.jetbrains.com/phpstorm/promo/?gclid=EAIaIQobChMI7cT0jPW_6AIVw0QYCh0qWAwHEAAYASAAEgKvrPD_BwE">Писать код</a>
         <h3><c:out value="4. While(true) goto п.1"/></h3>
         <hr/>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/phpTest" method="get">
+        <form style="text-align: center" action="${pageContext.request.contextPath}/phpTest">
             <fieldset>
                 <legend><spring:message code="StudyPage.phpTest"/></legend>
-                <br/><input type="submit" name="test" value="Пройти"/>
+                <button><spring:message code="button.test"/></button>
+<!--                <br/><input type="submit" name="test" value="Пройти"/>-->
             </fieldset>
         </form>
     </c:if>
@@ -58,10 +61,10 @@
         <a href="https://flatassembler.net/">Писать код</a>
         <h3><c:out value="4. While(true) goto п.1"/></h3>
         <hr/>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/cTest" method="get">
+        <form style="text-align: center" action="${pageContext.request.contextPath}/cTest">
             <fieldset>
                 <legend><spring:message code="StudyPage.cTest"/></legend>
-                <br/><input type="submit" name="test" value="Пройти"/>
+                <button><spring:message code="button.test"/></button>
             </fieldset>
         </form>
     </c:if>
@@ -69,7 +72,7 @@
 
     <form action="${pageContext.request.contextPath}/clean" method="post">
         <h3><spring:message code="StudyPage.return"/></h3>
-        <input type="submit" value="Вернуться"/>
+        <button><spring:message code="button.return"/></button>
     </form>
     </body>
     </html>

@@ -7,6 +7,7 @@ import com.github.hodcko.multy.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,11 @@ public class EntryFromStartPage {
         this.serviceStudent = serviceStudent;
         this.serviceTeacher = serviceTeacher;
         this.serviceGradebook = serviceGradebook;
+    }
+
+    @GetMapping("/enterFromStartPage")
+    public String startPageLogin() {
+        return "LoginFromStartPage";
     }
 
     @PostMapping("/personalStart")

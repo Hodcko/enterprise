@@ -36,12 +36,12 @@ public class PersonalAreaEntry {
 
     @PostMapping("/personal")
     public String enterAfterRegistration(HttpServletRequest req,  HttpSession session) {
-        String email = (String) session.getAttribute("email");
+       // String email = (String) session.getAttribute("email");
         UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
+//        String login = req.getParameter("login");
+//        String password = req.getParameter("password");
 
-        AuthUser authUser;
+      //  AuthUser authUser;
         Curs curs;
         List<GroupDTO> groupDTO;
 
@@ -52,7 +52,7 @@ public class PersonalAreaEntry {
             String langTypePHP = (String) session.getAttribute("langTypePHP");
             String langTypeC = (String) session.getAttribute("langTypeC");
 
-            authUser = saveAuthUser.saveAuthUser(getId.getId(email, userType), login, password, userType);
+          //  authUser = saveAuthUser.saveAuthUser(getId.getId(email, userType), login, password, userType);
 
             if(langTypeJava != null){
                 Curs javaCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypeJava));
@@ -70,7 +70,7 @@ public class PersonalAreaEntry {
                 session.setAttribute("classmatesC", serviceCurs.getClassmates(serviceCurs.getCursId(langTypeC)));
             }
             session.setAttribute("studentOnCurs", serviceGradebook.isExist(((Student) session.getAttribute("student")).getId()));
-            session.setAttribute("authUser", authUser);
+        //    session.setAttribute("authUser", authUser);
             log.info("student with email {} entry his personal after registration", student.getEmail());
 
             return "StudentPersonalArea";
@@ -83,8 +83,8 @@ public class PersonalAreaEntry {
             int noOfRecords = serviceCurs.countOfStudents(cursId);
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / numberOfRecordsOnPage);
 
-            authUser = saveAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
-                    saveAuthUser.passwordGenerate(teacher.getEmail(), userType), userType);
+           // authUser = saveAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
+                 //   saveAuthUser.passwordGenerate(teacher.getEmail(), userType), userType);
             curs = serviceCurs.getCurs(cursId);
             groupDTO = serviceCurs.getMyStudents(cursId, page);
             List<Teacher> teachers = serviceCurs.getColleagues(cursId);
@@ -93,7 +93,7 @@ public class PersonalAreaEntry {
             req.setAttribute("currentPage", page);
             session.setAttribute("students", groupDTO);
             session.setAttribute("teachers", teachers);
-            session.setAttribute("authUser", authUser);
+         //   session.setAttribute("authUser", authUser);
             session.setAttribute("curs", curs);
             log.info("teacher with email {} entry his personal after registration", teacher.getEmail());
 

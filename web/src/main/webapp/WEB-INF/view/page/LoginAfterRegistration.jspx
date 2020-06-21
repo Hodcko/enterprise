@@ -6,14 +6,15 @@
     <body style="background-color: powderblue">
 
     <h2 style="text-align: center"><spring:message code="LoginAfterRegistration.enter"/></h2>
-    <form style="text-align: center" action="${pageContext.request.contextPath}/personal" method="post">
+    <form style="text-align: center" action="${pageContext.request.contextPath}/loginAfterRegistration" method="post">
         <fieldset>
             <legend><spring:message code="LoginAfterRegistration.logIn"/></legend>
             <br/><label  for="login"><spring:message code="LoginAfterRegistration.login"/></label>
             <br/><input  id="login" type="text" name="login"/><br/>
             <br/><label  for="password"><spring:message code="LoginAfterRegistration.password"/></label>
             <br/><input  id="password" type="password" name="password"/><br/>
-            <br/><input  type="submit" value="Войти"/>
+            <br/><input  type="text" value="Войти" hidden="hidden"/>
+            <button><spring:message code="button.enter"/></button>
         </fieldset>
     </form>
     </body>

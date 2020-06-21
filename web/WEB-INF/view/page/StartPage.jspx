@@ -1,0 +1,48 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:s="http://www.springframework.org/tags/form"
+          version="2.0" xmlns:spring="http://www.springframework.org/tags">
+
+<html>
+<head><title>StartPage</title></head>
+<body style="background-color: powderblue">
+
+<h1 style="text-align: center"><spring:message code="page.main"/></h1>
+
+<form action="${pageContext.request.contextPath}/EnterFromStartPage" method="get">
+    <h3><spring:message code="page.entry"/></h3>
+    <input type="submit" value="Войти"/>
+</form>
+<hr/>
+<form action="${pageContext.request.contextPath}/studentReg" method="get">
+    <h3><spring:message code="page.student"/></h3>
+    <input type="submit" value="Зарегистрироваться"/>
+</form>
+
+<hr/>
+<form action="${pageContext.request.contextPath}/teacherReg" method="get">
+    <h3><spring:message code="page.teacher"/></h3>
+    <input type="submit" value="Зарегистрироваться"/>
+</form>
+<hr/>
+    <form action="${pageContext.request.contextPath}/study" method="post">
+        <h3><spring:message code="page.lesson"/></h3>
+        <input type="submit" value="Просмотреть"/>
+    </form>
+</body>
+
+<s:form id="uploadForm" action="upload" enctype="multipart/form-data">
+    <img alt="Person's image" src="images/image?name=1_.jpg" height="200" width="200"/>
+    <table>
+        <tr>
+            <th><label>Person image:</label></th>
+            <td><input name="avatar" type="file"><jsp:text/></input></td>
+            <td><input id="uploadButton" type="submit" value="Upload image"><jsp:text/></input></td>
+        </tr>
+    </table>
+</s:form>
+
+
+</html>
+</jsp:root>

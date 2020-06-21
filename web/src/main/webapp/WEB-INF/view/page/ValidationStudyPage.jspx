@@ -10,12 +10,14 @@
     <h2 style="text-align: center"><spring:message code="ValidationStudyPage.access"/></h2>
     </body>
     </html>
-    <form style="text-align: center" action="${pageContext.request.contextPath}/EnterFromStartPage" method="get">
+    <form style="text-align: center" action="${pageContext.request.contextPath}/EnterFromStartPage">
         <h3><spring:message code="ValidationStudyPage.login"/></h3>
-        <input type="submit" value="Войти"/>
+<!--        <input type="submit" value="Войти"/>-->
+        <button><spring:message code="button.enter"/></button>
     </form>
-    <form style="text-align: center" action="${pageContext.request.contextPath}/" method="get">
+    <form style="text-align: center" action="${pageContext.request.contextPath}/">
         <h3><spring:message code="ValidationStudyPage.return"/></h3>
-        <input type="submit" value="Вернуться"/>
+<!--        <input type="submit" value="Вернуться"/>-->
+        <button><spring:message code="button.return"/></button>
     </form>
 </jsp:root>

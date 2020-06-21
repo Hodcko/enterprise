@@ -1,0 +1,14 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:s="http://www.springframework.org/tags/form" xmlns:spring="http://www.springframework.org/tags">
+    <html>
+    <head><title>Title</title></head>
+    <body>
+
+    <h2><spring:message code="header"/></h2>
+    <s:form>
+        <img alt="Person's image" src="download/image?name=${email}.jpg" height="100" width="100"/>
+    </s:form>
+
+    </body>
+    </html>
+</jsp:root>

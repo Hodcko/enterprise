@@ -27,7 +27,8 @@
                     <br/><input id="startDate" type="date" name="startDate"/><br/>
                     <br/><label for="endDate"><spring:message code="TeacherPersonalArea.end"/></label>
                     <br/><input id="endDate" type="date" name="endDate"/><br/>
-                    <br/><input type="submit" value="Объявить"/>
+                    <br/><input type="text" value="Объявить" hidden="hidden"/>
+                    <button><spring:message code="button.announce"/></button>
                 </fieldset>
             </form>
         </c:if>
@@ -112,26 +113,30 @@
             <fieldset>
                 <br/><label  for="newPasswords"><spring:message code="TeacherPersonalArea.changePassword"/></label>
                 <br/><input  id="newPasswords" type="text" name="newPasswords"/><br/>
-                <br/><input  type="submit" value="Изменить"/>
+                <br/><input  type="text" value="Изменить" hidden="hidden"/>
+                <button><spring:message code="button.change"/></button>
             </fieldset>
         </form>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">
+        <form style="text-align: center" action="${pageContext.request.contextPath}/customLogout">
             <fieldset>
                 <legend><spring:message code="TeacherPersonalArea.logout"/></legend>
-                <br/><input type="submit" name="logout" value="logout"/>
+                <br/><input type="text" name="logout" value="logout" hidden="hidden"/>
+                <button><spring:message code="button.logout"/></button>
             </fieldset>
         </form>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/escape" method="get">
+        <form style="text-align: center" action="${pageContext.request.contextPath}/escape">
             <fieldset>
                 <legend><spring:message code="TeacherPersonalArea.finish"/></legend>
-                <br/><input type="submit" name="escape" value="escape"/>
+                <br/><input type="text" name="escape" value="escape" hidden="hidden"/>
+                <button><spring:message code="button.leave"/></button>
             </fieldset>
         </form>
     </c:if>
     <hr/>
-    <form action="${pageContext.request.contextPath}/" method="get">
+    <form action="${pageContext.request.contextPath}/">
         <h3><spring:message code="TeacherPersonalArea.manePage"/></h3>
-        <input type="submit" value="Перейти"/>
+        <button><spring:message code="button.return"/></button>
+<!--        <input type="submit" value="Перейти"/>-->
     </form>
 
     </body>

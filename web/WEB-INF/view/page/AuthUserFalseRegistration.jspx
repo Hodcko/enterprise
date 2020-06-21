@@ -1,0 +1,27 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:spring="http://www.springframework.org/tags">
+    <head>
+        <title>Personal area</title>
+    </head>
+    <body style="background-color: powderblue">
+    <h2 style="text-align: center"><spring:message code="AuthUserFalseRegistration.alreadyRegistration"/></h2>
+    <p style="align-content: center"/>
+    <form style="text-align: center">
+        <fieldset>
+            <legend><spring:message code="AuthUserFalseRegistration.enter"/></legend>
+            <h3><spring:message code="AuthUserFalseRegistration.login"/></h3>
+            <h2><c:out value="${login}"/></h2>
+            <br/><h3><spring:message code="AuthUserFalseRegistration.password"/></h3>
+            <h2><c:out value="${password}"/></h2>
+        </fieldset>
+    </form>
+
+
+    <form style="text-align: center" action="${pageContext.request.contextPath}/personalStart" method="post">
+        <h3><spring:message code="AuthUserFalseRegistration.account"/></h3>
+        <input type="submit" value="Войти"/>
+    </form>
+    </body>
+</jsp:root>

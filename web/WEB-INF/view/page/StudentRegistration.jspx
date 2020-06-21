@@ -1,0 +1,39 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:spring="http://www.springframework.org/tags">
+    <html>
+    <head><title>StudentRegistration</title></head>
+    <body style="background-color: powderblue">
+    <h2 style="text-align: center"><spring:message code="StudentRegistration.reg"/></h2>
+
+    <form style="text-align: center" action="${pageContext.request.contextPath}/validation" method="post">
+        <fieldset>
+            <legend><spring:message code="StudentRegistration.data"/></legend>
+            <br/><label for="name"><spring:message code="StudentRegistration.name"/></label>
+            <br/><input id="name" type="text" name="name"/><br/>
+            <br/><label for="secondName"><spring:message code="StudentRegistration.secondName"/></label>
+            <br/><input id="secondName" type="text" name="secondName"/><br/>
+            <br/><label for="email"><spring:message code="StudentRegistration.email"/></label>
+            <br/><input id="email" type="text" name="email"/><br/>
+            <br/><label for="age"><spring:message code="StudentRegistration.age"/></label>
+            <br/><input id="age" type="text" name="age"/><br/>
+
+            <h2 style="text-align: center"><spring:message code="StudentRegistration.lang"/></h2>
+            <label>
+                <input type="checkbox" name="langTypeJava" value="java"/>
+            </label> Java
+            <label>
+                <input type="checkbox" name="langTypePHP" value="php"/>
+            </label> PHP
+            <label>
+                <input type="checkbox" name="langTypeC" value="c++"/>
+            </label> C++
+
+            <br/><input type="submit" name="userType" value="student"/>
+        </fieldset>
+
+    </form>
+    </body>
+    </html>
+</jsp:root>

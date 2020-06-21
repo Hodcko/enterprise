@@ -1,6 +1,7 @@
 package com.github.hodcko.multy.web.controller;
 
 import com.github.hodcko.multy.model.AuthUser;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,11 +15,10 @@ public class Cleaner {
     @PostMapping("/clean")
     public String cleanSession(HttpServletRequest req, HttpSession session) {
         AuthUser authUser = (AuthUser)session.getAttribute("authUser");
-        session.invalidate();
+        SecurityContextHolder.clearContext();
         req.setAttribute("login", authUser.getLogin());
         req.setAttribute("password", authUser.getPassword());
-        return "forward:/personalStart";
-
+        return "forward:/loginFromStartPage";
     }
 
 

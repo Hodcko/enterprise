@@ -79,7 +79,8 @@
                     <label>
                         <input type="checkbox" name="cReg" value="c++"/>
                     </label> C++
-                    <br/><input type="submit" name="userType" value="Записаться"/>
+                    <br/><input type="text" name="userType" value="Записаться" hidden="hidden"/>
+                    <button><spring:message code="button.chooseCourse"/></button>
                 </fieldset>
             </form>
         </c:if>
@@ -153,32 +154,37 @@
             <fieldset>
                 <br/><label for="newPassword"><spring:message code="StudentPersonalArea.changePassword"/></label>
                 <br/><input id="newPassword" type="text" name="newPassword"/><br/>
-                <br/><input type="submit" value="Изменить"/>
+                <br/><input type="text" value="Изменить" hidden="hidden"/>
+                <button><spring:message code="button.change"/></button>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
             <fieldset>
                 <legend><spring:message code="StudentPersonalArea.lessonPlan"/></legend>
-                <br/><input type="submit" name="logout" value="Посмотреть"/>
+                <br/><input type="text" name="logout" value="Посмотреть" hidden="hidden"/>
+                <button><spring:message code="button.view"/></button>
             </fieldset>
         </form>
-        <form style="text-align: center" action="${pageContext.request.contextPath}/logout" method="get">
+        <form style="text-align: center" action="${pageContext.request.contextPath}/customLogout" method="get">
             <fieldset>
                 <legend><spring:message code="StudentPersonalArea.logout"/></legend>
-                <br/><input type="submit" name="logout" value="logout"/>
+                <br/><input type="text" name="logout" value="logout" hidden="hidden"/>
+                <button><spring:message code="button.logout"/></button>
             </fieldset>
         </form>
         <form style="text-align: center" action="${pageContext.request.contextPath}/escape" method="get">
             <fieldset>
                 <legend><spring:message code="StudentPersonalArea.finish"/></legend>
-                <br/><input type="submit" name="escape" value="escape"/>
+                <br/><input type="text" name="escape" value="escape" hidden="hidden"/>
+                <button><spring:message code="button.leave"/></button>
             </fieldset>
         </form>
     </c:if>
     <hr/>
-    <form action="${pageContext.request.contextPath}/" method="get">
+    <form action="${pageContext.request.contextPath}/">
         <h3><spring:message code="StudentPersonalArea.manePage"/></h3>
-        <input type="submit" value="Перейти"/>
+        <button><spring:message code="button.return"/></button>
+<!--        <input type="submit" value="Перейти"/>-->
     </form>
 
     </body>

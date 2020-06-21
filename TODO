@@ -2,4 +2,5 @@ return student - jsp
 return redirect student - controller
 
 
-6*. Добавить картинку в header
+LoginAfterRegistration -->> /personal -->> Student/TeacherPErsonaArea
+LoginAFromStartPage -->> /personalStart -->> Student/TeacherPErsonaArea

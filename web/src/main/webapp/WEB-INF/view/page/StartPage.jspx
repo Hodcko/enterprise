@@ -1,6 +1,8 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:s="http://www.springframework.org/tags/form"
+          xmlns:sec="http://www.springframework.org/security/tags"
           version="2.0" xmlns:spring="http://www.springframework.org/tags">
 
 <html>
@@ -9,27 +11,31 @@
 
 <h1 style="text-align: center"><spring:message code="page.main"/></h1>
 
-<form action="${pageContext.request.contextPath}/EnterFromStartPage" method="get">
-    <h3><spring:message code="page.entry"/></h3>
-    <input type="submit" value="Войти"/>
-</form>
-<hr/>
-<form action="${pageContext.request.contextPath}/studentReg" method="get">
-    <h3><spring:message code="page.student"/></h3>
-    <input type="submit" value="Зарегистрироваться"/>
-</form>
 
-<hr/>
-<form action="${pageContext.request.contextPath}/teacherReg" method="get">
-    <h3><spring:message code="page.teacher"/></h3>
-    <input type="submit" value="Зарегистрироваться"/>
+
+<form action="${pageContext.request.contextPath}/enterFromStartPage">
+    <h3><spring:message code="page.entry"/></h3>
+    <button><spring:message code="button.enter"/></button>
 </form>
 <hr/>
+
+<form action="${pageContext.request.contextPath}/studentReg">
+    <h3><spring:message code="page.student"/></h3>
+    <button><spring:message code="button.registration"/></button>
+</form>
+<hr/>
+<form action="${pageContext.request.contextPath}/teacherReg">
+    <h3><spring:message code="page.teacher"/></h3>
+    <button><spring:message code="button.registration"/></button>
+</form>
+<hr/>
+
+<sec:authorize access="hasRole('ROLE_STUDENT')">
     <form action="${pageContext.request.contextPath}/study" method="post">
         <h3><spring:message code="page.lesson"/></h3>
-        <input type="submit" value="Просмотреть"/>
+        <button><spring:message code="button.view"/></button>
     </form>
+</sec:authorize>
 </body>
-
 </html>
 </jsp:root>

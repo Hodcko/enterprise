@@ -7,6 +7,8 @@
     <body style="background-color: powderblue">
     <h2 style="text-align: center"><spring:message code="StudentRegistration.reg"/></h2>
 
+
+
     <form style="text-align: center" action="${pageContext.request.contextPath}/validation" method="post">
         <fieldset>
             <legend><spring:message code="StudentRegistration.data"/></legend>
@@ -30,7 +32,8 @@
                 <input type="checkbox" name="langTypeC" value="c++"/>
             </label> C++
 
-            <br/><input type="submit" name="userType" value="student"/>
+            <br/><input type="text" name="userType" value="student" hidden="hidden"/>
+            <button><spring:message code="button.registration"/></button>
         </fieldset>
 
     </form>

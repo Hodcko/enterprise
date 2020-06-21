@@ -11,19 +11,20 @@
 
 
     <h1 style="text-align: center"><spring:message code="InvalidData.invalid"/></h1>
-
     <h2 style="text-align: center"><spring:message code="InvalidData.incorrect"/></h2>
 
     </body>
     </html>
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/personalStart" method="post">
-        <h3><spring:message code="InvalidData.enter"/></h3>
-        <input type="submit"/>
+        <button><spring:message code="button.enter"/></button>
+<!--        <h3><spring:message code="InvalidData.enter"/></h3>-->
+<!--        <input type="submit"/>-->
     </form>
 
-    <form style="text-align: center" action="${pageContext.request.contextPath}/" method="get">
-        <h3><spring:message code="InvalidData.manePage"/></h3>
-        <input type="submit"/>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/">
+        <button><spring:message code="button.return"/></button>
+<!--        <h3><spring:message code="InvalidData.manePage"/></h3>-->
+<!--        <input type="submit"/>-->
     </form>
 </jsp:root>

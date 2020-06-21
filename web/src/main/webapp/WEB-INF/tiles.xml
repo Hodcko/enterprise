@@ -47,12 +47,14 @@
         <put-attribute name="body" value="/WEB-INF/view/page/ResultOfTest.jspx"/>
     </definition>
     <definition name="StudentPersonalArea" extends="default">
+        <put-attribute name="header" value="/WEB-INF/view/common/personalAreaHeader.jspx"/>
         <put-attribute name="body" value="/WEB-INF/view/page/StudentPersonalArea.jspx"/>
     </definition>
     <definition name="SuccessRegistrationNewUser" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/SuccessRegistrationNewUser.jspx"/>
     </definition>
     <definition name="TeacherPersonalArea" extends="default">
+        <put-attribute name="header" value="/WEB-INF/view/common/personalAreaHeader.jspx"/>
         <put-attribute name="body" value="/WEB-INF/view/page/TeacherPersonalArea.jspx"/>
     </definition>
     <definition name="ValidationStudyPage" extends="default">

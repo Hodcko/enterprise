@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="default" template="/WEB-INF/view/layouts/default.jspx">
+        <put-attribute name="header" value="/WEB-INF/view/common/header.jspx"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/view/common/footer.jspx"/>
+    </definition>
+
+    <definition name="StartPage" extends="default">
+        <put-attribute name="header" value="/WEB-INF/view/common/headerStartPage.jspx"/>
+        <put-attribute name="body" value="/WEB-INF/view/page/StartPage.jspx"/>
+    </definition>
+    <definition name="StudentRegistration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/StudentRegistration.jspx"/>
+    </definition>
+    <definition name="TeacherRegistration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/TeacherRegistration.jspx"/>
+    </definition>
+    <definition name="StudyPage" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/StudyPage.jspx"/>
+    </definition>
+    <definition name="AuthUserFalseRegistration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/AuthUserFalseRegistration.jspx"/>
+    </definition>
+    <definition name="CTestPage" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/CTestPage.jspx"/>
+    </definition>
+    <definition name="InvalidData" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/InvalidData.jspx"/>
+    </definition>
+    <definition name="JavaTestPage" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/JavaTestPage.jspx"/>
+    </definition>
+    <definition name="LoginAfterRegistration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/LoginAfterRegistration.jspx"/>
+    </definition>
+    <definition name="LoginFromStartPage" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/LoginFromStartPage.jspx"/>
+    </definition>
+    <definition name="PHPTestPage" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/PHPTestPage.jspx"/>
+    </definition>
+    <definition name="ResultOfTest" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/ResultOfTest.jspx"/>
+    </definition>
+    <definition name="StudentPersonalArea" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/StudentPersonalArea.jspx"/>
+    </definition>
+    <definition name="SuccessRegistrationNewUser" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/SuccessRegistrationNewUser.jspx"/>
+    </definition>
+    <definition name="TeacherPersonalArea" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/TeacherPersonalArea.jspx"/>
+    </definition>
+    <definition name="ValidationStudyPage" extends="default">
+        <put-attribute name="body" value="/WEB-INF/view/page/ValidationStudyPage.jspx"/>
+    </definition>
+
+
+</tiles-definitions>

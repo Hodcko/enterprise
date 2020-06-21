@@ -1,0 +1,12 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags">
+    <html>
+    <head><title>Title</title></head>
+    <body>
+    <header class="clearfix">
+        <h2><spring:message code="header"/></h2>
+<!--        <img src="${pageContext.request.contextPath}/images/1.jpg" width="100" height="100"/>-->
+    </header>
+    </body>
+    </html>
+</jsp:root>

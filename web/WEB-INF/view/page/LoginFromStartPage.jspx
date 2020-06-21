@@ -1,0 +1,21 @@
+<jsp:root xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          version="2.0" xmlns:spring="http://www.springframework.org/tags">
+    <html>
+    <body style="background-color: powderblue">
+
+    <h2 style="text-align: center"><spring:message code="LoginFromStartPage.enter"/></h2>
+    <form style="text-align: center" action="${pageContext.request.contextPath}/personalStart" method="post">
+        <fieldset>
+            <legend><spring:message code="LoginFromStartPage.logIn"/></legend>
+            <br/><label  for="login"><spring:message code="LoginFromStartPage.login"/></label>
+            <br/><input  id="login" type="text" name="login"/><br/>
+            <br/><label  for="password"><spring:message code="LoginFromStartPage.password"/></label>
+            <br/><input  id="password" type="password" name="password"/><br/>
+            <br/><input  type="submit" value="Войти"/>
+        </fieldset>
+    </form>
+    </body>
+    </html>
+</jsp:root>
