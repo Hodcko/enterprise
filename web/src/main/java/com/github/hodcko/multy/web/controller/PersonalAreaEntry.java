@@ -22,26 +22,18 @@ import java.util.List;
 public class PersonalAreaEntry {
     private static final Logger log = LoggerFactory.getLogger(PersonalAreaEntry.class);
 
-    private final ServiceAuthUser saveAuthUser;
-    private final ServiceGetIdByEmail getId;
     private final ServiceCurs serviceCurs;
     private final ServiceGradebook serviceGradebook;
 
-    public PersonalAreaEntry(ServiceAuthUser saveAuthUser, ServiceGetIdByEmail getId, ServiceCurs serviceCurs, ServiceGradebook serviceGradebook) {
-        this.saveAuthUser = saveAuthUser;
-        this.getId = getId;
+    public PersonalAreaEntry(ServiceCurs serviceCurs, ServiceGradebook serviceGradebook) {
         this.serviceCurs = serviceCurs;
         this.serviceGradebook = serviceGradebook;
     }
 
     @PostMapping("/personal")
     public String enterAfterRegistration(HttpServletRequest req,  HttpSession session) {
-       // String email = (String) session.getAttribute("email");
-        UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
-//        String login = req.getParameter("login");
-//        String password = req.getParameter("password");
 
-      //  AuthUser authUser;
+        UserType userType = UserType.valueOf(session.getAttribute("userType").toString().toUpperCase());
         Curs curs;
         List<GroupDTO> groupDTO;
 
@@ -51,8 +43,6 @@ public class PersonalAreaEntry {
             String langTypeJava = (String) session.getAttribute("langTypeJava");
             String langTypePHP = (String) session.getAttribute("langTypePHP");
             String langTypeC = (String) session.getAttribute("langTypeC");
-
-          //  authUser = saveAuthUser.saveAuthUser(getId.getId(email, userType), login, password, userType);
 
             if(langTypeJava != null){
                 Curs javaCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypeJava));
@@ -70,7 +60,6 @@ public class PersonalAreaEntry {
                 session.setAttribute("classmatesC", serviceCurs.getClassmates(serviceCurs.getCursId(langTypeC)));
             }
             session.setAttribute("studentOnCurs", serviceGradebook.isExist(((Student) session.getAttribute("student")).getId()));
-        //    session.setAttribute("authUser", authUser);
             log.info("student with email {} entry his personal after registration", student.getEmail());
 
             return "StudentPersonalArea";
@@ -82,9 +71,6 @@ public class PersonalAreaEntry {
             int numberOfRecordsOnPage = 3;
             int noOfRecords = serviceCurs.countOfStudents(cursId);
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / numberOfRecordsOnPage);
-
-           // authUser = saveAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
-                 //   saveAuthUser.passwordGenerate(teacher.getEmail(), userType), userType);
             curs = serviceCurs.getCurs(cursId);
             groupDTO = serviceCurs.getMyStudents(cursId, page);
             List<Teacher> teachers = serviceCurs.getColleagues(cursId);
@@ -93,7 +79,6 @@ public class PersonalAreaEntry {
             req.setAttribute("currentPage", page);
             session.setAttribute("students", groupDTO);
             session.setAttribute("teachers", teachers);
-         //   session.setAttribute("authUser", authUser);
             session.setAttribute("curs", curs);
             log.info("teacher with email {} entry his personal after registration", teacher.getEmail());
 

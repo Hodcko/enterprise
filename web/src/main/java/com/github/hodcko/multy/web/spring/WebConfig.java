@@ -42,8 +42,7 @@ public class WebConfig {
 
     @Bean
     public PersonalAreaEntry personalAreaEntry(){
-        return new PersonalAreaEntry(serviceConfig.serviceAuthUser(), serviceConfig.serviceGetIdByEmail(),
-                serviceConfig.serviceCurs(), serviceConfig.serviceGradebook());
+        return new PersonalAreaEntry(serviceConfig.serviceCurs(), serviceConfig.serviceGradebook());
     }
 
     @Bean
@@ -58,7 +57,7 @@ public class WebConfig {
 
     @Bean
     public CursFactory cursFactory(){
-        return new CursFactory(serviceConfig.serviceCurs(),serviceConfig.serviceAuthUser());
+        return new CursFactory(serviceConfig.serviceCurs(),serviceConfig.serviceAuthUser(), serviceConfig.serviceGradebook());
     }
 
     @Bean

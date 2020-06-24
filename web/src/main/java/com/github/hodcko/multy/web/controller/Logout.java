@@ -4,7 +4,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -12,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 public class Logout {
 
     @GetMapping("/customLogout")
-    public String logout() {
+    public String logout(HttpSession session) {
+        session.invalidate();
         SecurityContextHolder.clearContext();
-//        req.getSession().invalidate();
         return "StartPage";
     }
 }

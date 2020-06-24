@@ -13,7 +13,7 @@
             <br/><input  id="login" type="text" name="login"/><br/>
             <br/><label  for="password"><spring:message code="LoginFromStartPage.password"/></label>
             <br/><input  id="password" type="password" name="password"/><br/>
-            <br/><input  type="text" value="Войти" hidden="hidden"/>
+<!--            <br/><input  type="text" value="Войти" hidden="hidden"/>-->
             <button><spring:message code="button.enter"/></button>
         </fieldset>
     </form>

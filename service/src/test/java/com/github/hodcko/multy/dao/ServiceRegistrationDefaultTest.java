@@ -31,20 +31,24 @@ public class ServiceRegistrationDefaultTest {
     @InjectMocks
     private ServiceRegistrationDefault serviceRegistrationDefault;
 
+    private final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 33);
+    private final Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
+    private final String langType = "java";
+    private final int cursId = 1;
+
+
     @Test
-    void registrationTest2(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 33);
+    void registrationTest(){
         when(serviceStudent.saveStudent(student.getName(), student.getSecondName(), student.getEmail(), student.getAge())).thenReturn(student);
-        boolean result = serviceRegistrationDefault.registration(student.getName(), student.getSecondName(), student.getEmail(), student.getAge(), UserType.STUDENT, "java");
+        boolean result = serviceRegistrationDefault.registration(student.getName(), student.getSecondName(), student.getEmail(), student.getAge(), UserType.STUDENT, langType);
         assertTrue(result);
     }
 
     @Test
-    void registrationTest(){
-        Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
-        when(serviceCurs.getCursId("java")).thenReturn(1);
+    void registrationTest2(){
+        when(serviceCurs.getCursId(langType)).thenReturn(cursId);
         when(serviceTeacher.saveTeacher(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId())).thenReturn(teacher);
-        boolean result = serviceRegistrationDefault.registration(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId(), UserType.TEACHER, "java");
+        boolean result = serviceRegistrationDefault.registration(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId(), UserType.TEACHER, langType);
         assertTrue(result);
     }
 

@@ -3,8 +3,6 @@ package com.github.hodcko.multy.service.impl;
 
 import com.github.hodcko.multy.dao.DaoStudent;
 import com.github.hodcko.multy.dao.DaoTeacher;
-import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
-import com.github.hodcko.multy.dao.impl.DaoTeacherDefault;
 import com.github.hodcko.multy.model.UserType;
 import org.springframework.transaction.annotation.Transactional;
 

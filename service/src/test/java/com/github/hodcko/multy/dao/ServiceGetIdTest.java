@@ -25,13 +25,16 @@ public class ServiceGetIdTest {
     @InjectMocks
     ServiceGetIdByEmailDefault serviceGetIdByEmail;
 
+    private final String email = "hodckoq@gmail.com";
+    private final int result = 2;
+
+
 
     @Test
     void getIdTest(){
-        String email = "hodckoq@gmail.com";
-        when(daoStudent.getId(email)).thenReturn(2);
+        when(daoStudent.getId(email)).thenReturn(result);
         int testResult =  serviceGetIdByEmail.getId(email, UserType.STUDENT);
-        assertEquals(2, testResult);
+        assertEquals(result, testResult);
     }
 
     @Test
@@ -39,7 +42,7 @@ public class ServiceGetIdTest {
         String email = "hodckoq@gmail.com";
         when(daoTeacher.getId(email)).thenReturn(2);
         int testResult =  serviceGetIdByEmail.getId(email, UserType.TEACHER);
-        assertEquals(2, testResult);
+        assertEquals(result, testResult);
     }
 
 

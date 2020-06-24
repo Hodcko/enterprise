@@ -15,16 +15,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/studentReg").permitAll()
-                .antMatchers("/teacherReg").permitAll()
-                .antMatchers("/enterFromStartPage").permitAll()
-                .antMatchers("/loginAfterRegistration").permitAll()
-                .antMatchers("/loginFromStartPage").permitAll()
-                .antMatchers("/teacher").permitAll()
-                .antMatchers("/student").permitAll()
-                .antMatchers("/validation").permitAll()
-                .antMatchers("/upload").permitAll()
+                .antMatchers("/", "/studentReg","/teacherReg", "/enterFromStartPage", "/loginAfterRegistration",
+                        "/loginFromStartPage", "/teacher", "/student","/validation", "/upload" ).permitAll()
                 .antMatchers("/study").hasRole("STUDENT")
                 .anyRequest().authenticated();
     }

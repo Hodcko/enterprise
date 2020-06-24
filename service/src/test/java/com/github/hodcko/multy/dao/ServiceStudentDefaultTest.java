@@ -18,30 +18,29 @@ public class ServiceStudentDefaultTest {
     @Mock
     DaoStudent daoStudent;
 
-
     @InjectMocks
     ServiceStudentDefault serviceStudent;
 
+    private final Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
+    private final boolean testResult = true;
+
     @Test
     void saveStudentTest(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
-        when(daoStudent.saveStudent("John", "Snow", "Winter@gmail.com", 30)).thenReturn(student);
-        Student studentTest = serviceStudent.saveStudent("John", "Snow", "Winter@gmail.com", 30);
+        when(daoStudent.saveStudent(student.getName(), student.getSecondName(), student.getEmail(), student.getAge())).thenReturn(student);
+        Student studentTest = serviceStudent.saveStudent(student.getName(), student.getSecondName(), student.getEmail(), student.getAge());
         assertEquals(student, studentTest);
     }
 
     @Test
     void getStudentTest(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
-        when(daoStudent.getStudent(1)).thenReturn(student);
-        Student studentTest = serviceStudent.getStudent( 1);
+        when(daoStudent.getStudent(student.getId())).thenReturn(student);
+        Student studentTest = serviceStudent.getStudent( student.getId());
         assertEquals(student, studentTest);
     }
 
     @Test
     void deleteStudentTest(){
-        Student student = new Student(1, "John", "Snow", "Winter@gmail.com", 30);
-        when(daoStudent.deleteStudent(student.getEmail())).thenReturn(true);
+        when(daoStudent.deleteStudent(student.getEmail())).thenReturn(testResult);
         boolean result = serviceStudent.deleteStudent( student.getEmail());
         assertTrue(result);
     }

@@ -32,8 +32,8 @@
                 <input type="checkbox" name="langTypeC" value="c++"/>
             </label> C++
 
-            <br/><input type="text" name="userType" value="student" hidden="hidden"/>
-            <button><spring:message code="button.registration"/></button>
+<!--            <br/><input type="text" name="userType" value="student" hidden="hidden"/>-->
+            <button name="userType" value="student" ><spring:message code="button.registration"/></button>
         </fieldset>
 
     </form>

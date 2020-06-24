@@ -27,25 +27,29 @@ public class ServiceAuthUserDefaultLoginTest {
     @InjectMocks
     private SecurityServiceDefault securityService;
 
+    private final String userLogin = "mockLogin";
+    private final String userPassword = "password";
+
+
 
 
     @Test
     void loginTest(){
-        when(daoAuthUser.getLoginByPassword("mockLogin")).thenReturn("mockLogin");
-        String login = securityService.login("mockLogin", "mockLogin");
-        assertEquals(login, "mockLogin");
+        when(daoAuthUser.getLoginByPassword(userLogin)).thenReturn(userLogin);
+        String login = securityService.login(userLogin, userLogin);
+        assertEquals(login, userLogin);
     }
 
     @Test
     void findPasswordTest(){
-        String password = securityService.findPassword(null, "password");
-        assertEquals(password, "password");
+        String password = securityService.findPassword(null, userPassword);
+        assertEquals(password, userPassword);
     }
 
     @Test
     void loginTestNull(){
-        when(daoAuthUser.getLoginByPassword("mockLogin")).thenReturn(null);
-        String login = serviceAuthUser.getLoginByPassword("mockLogin");
+        when(daoAuthUser.getLoginByPassword(userLogin)).thenReturn(null);
+        String login = serviceAuthUser.getLoginByPassword(userLogin);
         assertNull(login);
     }
 

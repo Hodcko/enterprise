@@ -1,6 +1,13 @@
 return student - jsp
 return redirect student - controller
 
-
 LoginAfterRegistration -->> /personal -->> Student/TeacherPErsonaArea
 LoginAFromStartPage -->> /personalStart -->> Student/TeacherPErsonaArea
+
+DONE 1. Delete authUser from session (AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();)
+DONE 2. Delete session.invalidation();
+3. Change student and teacher on AuthUserEntiry.getStudent();
+DONE 4. i18n
+DONE 5. TeacherPersonalArea jspx
+
+

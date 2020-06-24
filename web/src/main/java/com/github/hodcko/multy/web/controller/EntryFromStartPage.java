@@ -6,6 +6,7 @@ import com.github.hodcko.multy.model.*;
 import com.github.hodcko.multy.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,19 @@ public class EntryFromStartPage {
 
     @GetMapping("/enterFromStartPage")
     public String startPageLogin() {
+        AuthUser authUser;
+        try {
+            authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        }catch (ClassCastException e){
+            return "LoginFromStartPage";
+        }
+        if(authUser != null){
+            if(authUser.getRole().equals(UserType.STUDENT)){
+                return "StudentPersonalArea";
+            }else {
+                return "TeacherPersonalArea";
+            }
+        }
         return "LoginFromStartPage";
     }
 
@@ -58,7 +72,9 @@ public class EntryFromStartPage {
         String langTypePHP = "php";
         String langTypeC = "c++";
 
-        AuthUser authUser = serviceAuthUser.getAuthUser(login, password);
+        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+      //  AuthUser authUser = serviceAuthUser.getAuthUser(login, password);
         UserType role = authUser.getRole();
 
         Curs curs;
@@ -76,7 +92,7 @@ public class EntryFromStartPage {
                 }
                 session.setAttribute("studentOnCurs", studentOnCurs);
 
-                session.setAttribute("authUser", authUser);
+               // session.setAttribute("authUser", authUser);
                 session.setAttribute("student", student);
 
                 Curs javaCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypeJava));
@@ -119,7 +135,7 @@ public class EntryFromStartPage {
                 session.setAttribute("students", groupDTO);
                 session.setAttribute("teachers", teachers);
                 session.setAttribute("teacher", teacher);
-                session.setAttribute("authUser", authUser);
+                //session.setAttribute("authUser", authUser);
                 session.setAttribute("curs", curs);
                 log.info("teacher with email {} entry his personal area from start page", teacher.getEmail());
                 return "TeacherPersonalArea";

@@ -10,7 +10,7 @@ public interface DaoGradebook {
 
     int getGrade(int studentId, int cursId);
 
-    boolean deleteStudentFromGradebook(int studentId, int cursId);
+    boolean deleteStudentFromGradebook(int studentId);
 
     boolean isExist(int studentId);
 }

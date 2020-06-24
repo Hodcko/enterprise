@@ -20,7 +20,7 @@ public interface ServiceGradebook {
 
     boolean isExist(int studentId);
 
-    boolean deleteStudentFromGradebook(int studentId, int cursId);
+    boolean deleteStudentFromGradebook(int studentId);
 
 
 }

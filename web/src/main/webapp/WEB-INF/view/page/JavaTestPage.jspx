@@ -27,8 +27,8 @@
             <label for="unoinDeductions">What version of JDK is one love?</label>
             <input id="unoinDeductions" type="text" name="fifth"/><br/>
 
-            <input type="text" name="test" value="Java" hidden="hidden"/>
-            <button><spring:message code="button.checkTest"/></button>
+<!--            <input type="text" name="test" value="Java" hidden="hidden"/>-->
+            <button name="test" value="Java" ><spring:message code="button.checkTest"/></button>
         </fieldset>
     </form>
 

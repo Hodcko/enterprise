@@ -27,8 +27,8 @@
             <label for="unoinDeductions">What is «Paamayim Nekudotayim» ?</label>
             <input id="unoinDeductions" type="text" name="fifth"/><br/>
 
-            <input type="text" name="test" value="PHP" hidden="hidden"/>
-            <button><spring:message code="button.checkTest"/></button>
+<!--            <input type="text" name="test" value="PHP" hidden="hidden"/>-->
+            <button name="test" value="PHP" ><spring:message code="button.checkTest"/></button>
         </fieldset>
     </form>
 

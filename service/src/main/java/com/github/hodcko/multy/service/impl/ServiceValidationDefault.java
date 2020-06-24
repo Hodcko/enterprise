@@ -12,7 +12,6 @@ public class ServiceValidationDefault implements com.github.hodcko.multy.service
     @Transactional
     @Override
     public boolean validationStudent(String name, String secondName, String email, int age) {
-
         if(name.matches(namePattern)){
             if(secondName.matches(namePattern)){
                 if(email.matches(mailPattern)){
@@ -24,10 +23,10 @@ public class ServiceValidationDefault implements com.github.hodcko.multy.service
         }
         return false;
     }
+
     @Transactional
     @Override
     public boolean validationTeacher(String name, String secondName, String email) {
-
         if(name.matches(namePattern)){
             if(secondName.matches(namePattern)){
                 if(email.matches(mailPattern)){

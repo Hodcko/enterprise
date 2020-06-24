@@ -25,14 +25,18 @@
             </c:if>
         </fieldset>
     </form>
+    <hr/>
+    <h3 style="text-align: center"><spring:message code="avatar.info"/></h3>
     <form style="text-align: center" method="post" action="${pageContext.request.contextPath}/upload"  enctype="multipart/form-data">
         <input name="avatar" type="file"/>
-        <input type="submit" value="Загрузить"/>
+<!--        <input type="text" value="Загрузить" hidden="hidden"/>-->
+        <button><spring:message code="avatar.upload"/></button>
     </form>
+    <hr/>
 
 
     <form style="text-align: center" action="${pageContext.request.contextPath}/loginAfterRegistration">
-        <h3><spring:message code="SuccessRegistrationNewUser.enter"/></h3>
+        <h2><spring:message code="SuccessRegistrationNewUser.enter"/></h2>
         <button><spring:message code="button.enter"/></button>
 <!--        <input type="submit" value="Войти"/>-->
     </form>

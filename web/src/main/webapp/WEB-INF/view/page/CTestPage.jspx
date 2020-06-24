@@ -27,8 +27,8 @@
             <label for="unoinDeductions">How many special functions does the class have in c++ by default?</label>
             <input id="unoinDeductions" type="text" name="fifth"/><br/>
 
-            <input type="text" name="test" value="c++" hidden="hidden"/>
-            <button><spring:message code="button.checkTest"/></button>
+<!--            <input type="text" name="test" value="c++" hidden="hidden"/>-->
+            <button name="test" value="c++" ><spring:message code="button.checkTest"/></button>
         </fieldset>
     </form>
 

@@ -36,7 +36,7 @@ public class FileManager {
             try {
                 content = FileUtils.readFileToByteArray(file);
             } catch (IOException e) {
-                //Exception handling
+                e.fillInStackTrace();
             }
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_JPEG);
@@ -49,7 +49,7 @@ public class FileManager {
             try {
                 content = FileUtils.readFileToByteArray(file);
             } catch (IOException e) {
-                //Exception handling
+                e.fillInStackTrace();
             }
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.IMAGE_JPEG);
@@ -65,7 +65,7 @@ public class FileManager {
                 saveImage(fileName, image);
             }
         } catch (IOException e) {
-            //Error handling
+            e.fillInStackTrace();
         }
     }
 

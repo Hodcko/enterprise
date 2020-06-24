@@ -19,32 +19,30 @@ public class ServiceTeacherTest {
     @Mock
     private DaoTeacher daoTeacher;
 
-
     @InjectMocks
     private ServiceTeacherDefault serviceTeacher;
 
+    private final  Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
+    private final boolean testResult = true;
 
 
     @Test
     void saveTeacherTest(){
-        Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
-        when(daoTeacher.saveTeacher("John", "Snow", "Winter@gmail.com", 1)).thenReturn(teacher);
-        Teacher teacherTest = serviceTeacher.saveTeacher("John", "Snow", "Winter@gmail.com",  1);
+        when(daoTeacher.saveTeacher(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId())).thenReturn(teacher);
+        Teacher teacherTest = serviceTeacher.saveTeacher(teacher.getName(), teacher.getSecondName(), teacher.getEmail(), teacher.getCursId());
         assertEquals(teacher, teacherTest);
     }
 
     @Test
     void getTeacherTest(){
-        Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
-        when(daoTeacher.getTeacher(1)).thenReturn(teacher);
-        Teacher teacherTest = serviceTeacher.getTeacher( 1);
+        when(daoTeacher.getTeacher(teacher.getId())).thenReturn(teacher);
+        Teacher teacherTest = serviceTeacher.getTeacher( teacher.getId());
         assertEquals(teacher, teacherTest);
     }
 
     @Test
     void deleteTeacherTest(){
-        Teacher teacher = new Teacher(1, "John", "Snow", "Winter@gmail.com",  1);
-        when(daoTeacher.deleteTeacher(teacher.getEmail())).thenReturn(true);
+        when(daoTeacher.deleteTeacher(teacher.getEmail())).thenReturn(testResult);
         boolean result = serviceTeacher.deleteTeacher( teacher.getEmail());
         assertTrue(result);
     }

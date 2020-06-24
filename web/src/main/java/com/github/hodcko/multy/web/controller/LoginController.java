@@ -52,6 +52,7 @@ public class LoginController {
         Authentication auth = new UsernamePasswordAuthenticationToken(authUser, null, getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
 
+
         return "forward:/personalStart";
     }
 
@@ -66,7 +67,7 @@ public class LoginController {
                     (password.equalsIgnoreCase(student.getSecondName()+student.getId()))){
                 authUser = serviceAuthUser.saveAuthUser(student.getId(), student.getName(),
                         student.getSecondName()+student.getId(), UserType.STUDENT);
-                session.setAttribute("authUser", authUser);
+               // session.setAttribute("authUser", authUser);
                 log.info("user {} logged", authUser.getLogin());
                 Authentication auth = new UsernamePasswordAuthenticationToken(authUser, null, getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -81,7 +82,7 @@ public class LoginController {
                     (password.equalsIgnoreCase(teacher.getSecondName() + teacher.getId()))) {
                 authUser = serviceAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
                         teacher.getSecondName()+teacher.getId(), UserType.TEACHER);
-                session.setAttribute("authUser", authUser);
+               // session.setAttribute("authUser", authUser);
                 log.info("user {} logged", authUser.getLogin());
                 Authentication auth = new UsernamePasswordAuthenticationToken(authUser, null, getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -105,9 +106,4 @@ public class LoginController {
             return Arrays.asList((GrantedAuthority) () -> "ROLE_TEACHER");
         }
     }
-
-
-
-
-
 }

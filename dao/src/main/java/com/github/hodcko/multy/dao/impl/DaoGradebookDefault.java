@@ -30,7 +30,7 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
     public int addGrade(int studentId, int cursId) {
         try {
             Session session =  factory.getCurrentSession();
-            GradebookEntity gradebook = session.createQuery("select g from GradebookEntity g where studentId = :id and cursId = :cursId",
+            GradebookEntity gradebook = session.createQuery("select g from GradebookEntity g where g.studentId = :id and g.cursId = :cursId",
                     GradebookEntity.class).setParameter("id", studentId).setParameter("cursId", cursId).getSingleResult();
             gradebook.setGrade(gradebook.getGrade() + 1);
             log.info("increment grade by student with id {} and cursId {}", studentId, cursId);
@@ -72,16 +72,15 @@ public class DaoGradebookDefault implements com.github.hodcko.multy.dao.DaoGrade
     }
 
     @Override
-    public boolean deleteStudentFromGradebook(int studentId, int cursId){
+    public boolean deleteStudentFromGradebook(int studentId){
         try {
             Session session =  factory.getCurrentSession();
-            GradebookEntity gradebook = session.createQuery("select g from GradebookEntity g where studentId = :id and cursId = :cursId",
-                    GradebookEntity.class).setParameter("id", studentId).setParameter("cursId", cursId).getSingleResult();
-            session.delete(gradebook);
-            log.info("Student with id {} and cursId {} deleted from GradeBook", studentId, cursId);
+            session.createQuery("delete from GradebookEntity g where g.studentId = :id")
+                    .setParameter("id", studentId).executeUpdate();
+            log.info("Student with id {}  deleted from GradeBook", studentId);
             return true;
         }catch (HibernateError e){
-            log.error(" fail to delete Student with id {} and cursId {} from GradeBook", studentId, cursId, e);
+            log.error(" fail to delete Student with id {} from GradeBook", studentId, e);
         }
         return false;
     }

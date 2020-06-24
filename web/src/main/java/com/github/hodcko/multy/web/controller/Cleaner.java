@@ -14,13 +14,12 @@ public class Cleaner {
 
     @PostMapping("/clean")
     public String cleanSession(HttpServletRequest req, HttpSession session) {
-        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
+        AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        AuthUser authUser = (AuthUser)session.getAttribute("authUser");
         SecurityContextHolder.clearContext();
+        session.invalidate();
         req.setAttribute("login", authUser.getLogin());
         req.setAttribute("password", authUser.getPassword());
         return "forward:/loginFromStartPage";
     }
-
-
-
 }

@@ -31,53 +31,55 @@ public class ServiceAuthUserDefaultTest {
     @InjectMocks
     private SecurityServiceDefault securityService;
 
+    private final AuthUser aUS = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
+    private final Student student = new Student(1, "John", "Snow", "Snow@gmail.com", 31);
+    private final String newPassword = "qwerty";
+    private final String userPassword = "qwerty";
+
+
+
 
     @Test
     void saveAuthUserTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
-        when(daoAuthUser.saveAuthUser(1, "mockLogin", "mockPassword", UserType.STUDENT)).thenReturn(authUserStudent);
-        AuthUser authUser = serviceAuthUser.saveAuthUser(1,"mockLogin", "mockPassword", UserType.STUDENT);
-        Assertions.assertEquals(authUserStudent, authUser);
+        when(daoAuthUser.saveAuthUser(1, aUS.getLogin(), aUS.getPassword(), UserType.STUDENT)).thenReturn(aUS);
+        AuthUser authUser = serviceAuthUser.saveAuthUser(1,aUS.getLogin(), aUS.getPassword(), UserType.STUDENT);
+        Assertions.assertEquals(aUS, authUser);
 
     }
 
     @Test
     void getRoleTest() {
-        when(daoAuthUser.getRole("mockLogin", "mockPassword")).thenReturn(UserType.STUDENT);
-        UserType role = serviceAuthUser.getRole("mockLogin", "mockPassword");
+        when(daoAuthUser.getRole(aUS.getLogin(), aUS.getPassword())).thenReturn(UserType.STUDENT);
+        UserType role = serviceAuthUser.getRole(aUS.getLogin(), aUS.getPassword());
         Assertions.assertEquals(role, UserType.STUDENT);
 
     }
 
     @Test
     void getAuthUserTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
-        when(daoAuthUser.getAuthUser("mockLogin", "mockPassword")).thenReturn(authUserStudent);
-        AuthUser authUserTest = serviceAuthUser.getAuthUser("mockLogin", "mockPassword");
-        Assertions.assertEquals(authUserStudent, authUserTest);
+        when(daoAuthUser.getAuthUser(aUS.getLogin(), aUS.getPassword())).thenReturn(aUS);
+        AuthUser authUserTest = serviceAuthUser.getAuthUser(aUS.getLogin(), aUS.getPassword());
+        Assertions.assertEquals(aUS, authUserTest);
     }
 
     @Test
     void changePasswordTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
-        when(daoAuthUser.changePassword("mockLogin","mockPassword", "qwerty" )).thenReturn(true);
-        Boolean result = securityService.changePassword(authUserStudent.getLogin(), authUserStudent.getPassword(), "qwerty");
+        when(daoAuthUser.changePassword(aUS.getLogin(), aUS.getPassword(), newPassword )).thenReturn(true);
+        Boolean result = securityService.changePassword(aUS.getLogin(), aUS.getPassword(), newPassword);
         Assertions.assertEquals(true, result);
     }
 
     @Test
     void passwordGenerateTest() {
-        Student student = new Student(1, "John", "Snow", "Snow@gmail.com", 31);
-        when(serviceAuthUser.passwordGenerate("Snow@gmail.com", UserType.STUDENT )).thenReturn("Snow1");
+        when(serviceAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT )).thenReturn(userPassword);
         String password = serviceAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT);
-        Assertions.assertEquals("Snow1", password);
+        Assertions.assertEquals(userPassword, password);
     }
 
     @Test
     void deleteAuthUserTest() {
-        AuthUser authUserStudent = new AuthUser("mockLogin", "mockPassword", UserType.STUDENT, 1);
-        when(serviceAuthUser.deleteAuthUser(authUserStudent.getUserId(), authUserStudent.getRole())).thenReturn(true);
-        boolean result = serviceAuthUser.deleteAuthUser(authUserStudent.getUserId(), authUserStudent.getRole());
+        when(serviceAuthUser.deleteAuthUser(aUS.getUserId(), aUS.getRole())).thenReturn(true);
+        boolean result = serviceAuthUser.deleteAuthUser(aUS.getUserId(), aUS.getRole());
         Assertions.assertTrue(result);
     }
 }

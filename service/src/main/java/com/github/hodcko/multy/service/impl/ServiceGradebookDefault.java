@@ -37,8 +37,8 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
 
     @Transactional
     @Override
-    public boolean deleteStudentFromGradebook(int studentId, int cursId) {
-        return daoGradebook.deleteStudentFromGradebook(studentId, cursId);
+    public boolean deleteStudentFromGradebook(int studentId) {
+        return daoGradebook.deleteStudentFromGradebook(studentId);
     }
 
     @Transactional

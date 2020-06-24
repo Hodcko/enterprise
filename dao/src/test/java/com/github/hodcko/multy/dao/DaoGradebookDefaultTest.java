@@ -62,7 +62,7 @@ public class DaoGradebookDefaultTest {
     void deleteStudentFromGradebookTest(){
         Student student =  daoStudent.saveStudent("John", "Snow", "Winter@mail.ru", 31);
         daoGradebook.addStudentToGradebook(student.getId(), cursId);
-        daoGradebook.deleteStudentFromGradebook(student.getId(), cursId);
+        daoGradebook.deleteStudentFromGradebook(student.getId());
         assertFalse(daoGradebook.isExist(student.getId()));
     }
 

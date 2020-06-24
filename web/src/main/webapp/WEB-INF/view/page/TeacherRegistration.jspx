@@ -26,8 +26,8 @@
             <label>
                 <input type="radio" name="langType" value="c++"/>
             </label> C++
-            <br/><input type="text" name="userType" value="teacher" hidden="hidden"/>
-            <button><spring:message code="button.registration"/></button>
+<!--            <br/><input type="text" name="userType" value="teacher" hidden="hidden"/>-->
+            <button name="userType" value="teacher" ><spring:message code="button.registration"/></button>
         </fieldset>
 
     </form>

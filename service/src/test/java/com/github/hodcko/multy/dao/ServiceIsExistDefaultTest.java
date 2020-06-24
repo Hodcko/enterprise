@@ -25,20 +25,21 @@ public class ServiceIsExistDefaultTest {
     @InjectMocks
     private ServiceIsExistDefault serviceIsExist;
 
+    private final String email = "hodckoq@gmail.com";
+    private final boolean testResult = true;
+
 
 
     @Test
      void isExistTest(){
-        String email = "hodckoq@gmail.com";
-        when(daoStudent.isExist(email)).thenReturn(true);
+        when(daoStudent.isExist(email)).thenReturn(testResult);
         boolean result = serviceIsExist.isExist(email, UserType.STUDENT);
         assertTrue(result);
     }
 
     @Test
     void isExistTest2(){
-        String email = "hodckoq@gmail.com";
-        when(daoTeacher.isExist(email)).thenReturn(true);
+        when(daoTeacher.isExist(email)).thenReturn(testResult);
         boolean result = serviceIsExist.isExist(email, UserType.TEACHER);
         assertTrue(result);
     }

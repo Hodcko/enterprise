@@ -15,8 +15,8 @@ public class ServiceStudentDefault implements ServiceStudent {
 
     @Transactional
     @Override
-    public Student saveStudent(String name, String second_name, String email, int age){
-       return daoStudent.saveStudent(name, second_name, email, age);
+    public Student saveStudent(String name, String secondName, String email, int age){
+       return daoStudent.saveStudent(name, secondName, email, age);
     }
 
     @Transactional
