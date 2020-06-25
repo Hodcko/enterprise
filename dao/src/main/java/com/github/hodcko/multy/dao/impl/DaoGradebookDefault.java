@@ -3,7 +3,6 @@ package com.github.hodcko.multy.dao.impl;
 
 
 import com.github.hodcko.multy.dao.entity.GradebookEntity;
-import com.github.hodcko.multy.model.Gradebook;
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

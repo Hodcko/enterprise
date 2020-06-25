@@ -3,9 +3,7 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.dao.config.DaoConfig;
 import com.github.hodcko.multy.dao.converter.StudentConverter;
 import com.github.hodcko.multy.dao.entity.StudentEntity;
-import com.github.hodcko.multy.dao.impl.DaoStudentDefault;
 import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.model.UserType;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,23 +24,29 @@ public class DaoStudentTest {
     @Autowired
     SessionFactory sessionFactory;
 
+    private Student student;
+    private final StudentEntity studentEntity = new StudentEntity(1, "John", "Snow", "winter@gmail.com", 30);
+
+
+    @BeforeEach
+    void saver(){
+        student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
+    }
+
 
     @Test
     void saveStudentTest() {
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Student studentTest = daoStudent.getStudent(student.getId());
         Assertions.assertEquals(student, studentTest);
     }
 
     @Test
     void getStudentTest(){
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Assertions.assertEquals(student, daoStudent.getStudent(student.getId()));
     }
 
     @Test
     void deleteStudentTest(){
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         Student student1 = daoStudent.getStudent(student.getId());
         daoStudent.deleteStudent(student1.getEmail());
         Assertions.assertNull(daoStudent.getStudent(student1.getId()));
@@ -50,34 +54,29 @@ public class DaoStudentTest {
 
     @Test
     void isExistTest() {
-        daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30);
-        boolean studentResult = daoStudent.isExist("hodckoq@mail.com");
+        boolean studentResult = daoStudent.isExist(student.getEmail());
         assertTrue(studentResult);
     }
 
     @Test
     void DaoGetIdByEmailTest() {
-        Student student = daoStudent.saveStudent("test", "test", "hodckoq@mail.com", 30);
-        int studentId = daoStudent.getId("hodckoq@mail.com");
+        int studentId = daoStudent.getId(student.getEmail());
         assertEquals(student.getId(), studentId);
     }
 
     @Test
     void passwordGenerateTest(){
-        Student student = daoStudent.saveStudent("Jonh", "Snow", "snow@gmail.com", 31);
         Assertions.assertEquals(daoStudent.passwordGenerate(student.getEmail()), student.getSecondName()+student.getId());
     }
 
     @Test
     void studentConvertorToEntityTest(){
-        Student student = daoStudent.saveStudent("John", "Snow", "winter@gmail.com", 30);
         StudentEntity studentEntity = StudentConverter.toEntity(student);
         assertNotNull(studentEntity);
     }
 
     @Test
     void studentConvertorFromEntityTest(){
-        StudentEntity studentEntity = new StudentEntity(1, "John", "Snow", "winter@gmail.com", 30);
         Student student1 = StudentConverter.fromEntity(studentEntity);
         assertNotNull(student1);
     }

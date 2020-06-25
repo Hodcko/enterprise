@@ -36,7 +36,7 @@ public class StudentRegistration {
         String name =  req.getParameter("name");
         String secondName =  req.getParameter("secondName");
         String email = req.getParameter("email");
-        Integer age = Integer.parseInt(req.getParameter("age"));
+        int age = Integer.parseInt(req.getParameter("age"));
         UserType userType = UserType.valueOf(req.getParameter("userType").toUpperCase()) ;
 
         Student student =  serviceStudent.saveStudent(name, secondName, email, age);
@@ -50,10 +50,5 @@ public class StudentRegistration {
         log.info("created student with email {} ", student.getEmail());
 
         return "SuccessRegistrationNewUser";
-
     }
-
-
-
-
 }

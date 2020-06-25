@@ -26,8 +26,8 @@ public class WebConfig {
     }
 
     @Bean
-    public LoginAndValidation registration(){
-        return new LoginAndValidation(serviceConfig.serviceIsExist(), serviceConfig.serviceValidation(), serviceConfig.serviceAuthUser());
+    public Validation validation(){
+        return new Validation(serviceConfig.serviceIsExist(), serviceConfig.serviceValidation(), serviceConfig.serviceAuthUser());
     }
 
     @Bean
@@ -62,7 +62,7 @@ public class WebConfig {
 
     @Bean
     public EntryFromStartPage entryFromStartPage(){
-        return new EntryFromStartPage(serviceConfig.securityService(), serviceConfig.serviceAuthUser(), serviceConfig.serviceCurs(),
+        return new EntryFromStartPage(serviceConfig.securityService(), serviceConfig.serviceCurs(),
                 serviceConfig.serviceStudent(), serviceConfig.serviceTeacher(), serviceConfig.serviceGradebook());
     }
 
@@ -92,8 +92,8 @@ public class WebConfig {
     }
 
     @Bean
-    public LoginController loginController(){
-        return new LoginController(serviceConfig.serviceAuthUser());
+    public Login loginController(){
+        return new Login(serviceConfig.serviceAuthUser());
     }
 
     @Bean

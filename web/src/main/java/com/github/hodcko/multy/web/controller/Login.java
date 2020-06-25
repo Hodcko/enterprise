@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
@@ -21,14 +22,19 @@ import java.util.List;
 
 @Controller
 @RequestMapping
-public class LoginController {
-    private static final Logger log = LoggerFactory.getLogger(LoginController.class);
+public class Login {
+    private static final Logger log = LoggerFactory.getLogger(Login.class);
     private final ServiceAuthUser serviceAuthUser;
     private AuthUser authUser;
 
 
-    public LoginController(ServiceAuthUser serviceAuthUser) {
+    public Login(ServiceAuthUser serviceAuthUser) {
         this.serviceAuthUser = serviceAuthUser;
+    }
+
+    @GetMapping("/loginAfterRegistration")
+    public String loginAfterRegistration() {
+        return "LoginAfterRegistration";
     }
 
     @PostMapping("/loginFromStartPage")
@@ -51,8 +57,6 @@ public class LoginController {
         log.info("user {} logged", authUser.getLogin());
         Authentication auth = new UsernamePasswordAuthenticationToken(authUser, null, getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
-
-
         return "forward:/personalStart";
     }
 
@@ -64,10 +68,9 @@ public class LoginController {
         if(userType.equals(UserType.STUDENT)){
             Student student = (Student) session.getAttribute("student");
             if(student.getName().equalsIgnoreCase(login)&&
-                    (password.equalsIgnoreCase(student.getSecondName()+student.getId()))){
+                    (password.equalsIgnoreCase(serviceAuthUser.passwordGenerate(student.getEmail(), UserType.STUDENT)))){
                 authUser = serviceAuthUser.saveAuthUser(student.getId(), student.getName(),
                         student.getSecondName()+student.getId(), UserType.STUDENT);
-               // session.setAttribute("authUser", authUser);
                 log.info("user {} logged", authUser.getLogin());
                 Authentication auth = new UsernamePasswordAuthenticationToken(authUser, null, getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
@@ -79,10 +82,9 @@ public class LoginController {
         }else if(userType.equals(UserType.TEACHER)) {
             Teacher teacher = (Teacher) session.getAttribute("teacher");
             if (teacher.getName().equalsIgnoreCase(login) &&
-                    (password.equalsIgnoreCase(teacher.getSecondName() + teacher.getId()))) {
+                    (password.equalsIgnoreCase(serviceAuthUser.passwordGenerate(teacher.getEmail(), UserType.TEACHER)))) {
                 authUser = serviceAuthUser.saveAuthUser(teacher.getId(), teacher.getName(),
                         teacher.getSecondName()+teacher.getId(), UserType.TEACHER);
-               // session.setAttribute("authUser", authUser);
                 log.info("user {} logged", authUser.getLogin());
                 Authentication auth = new UsernamePasswordAuthenticationToken(authUser, null, getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);

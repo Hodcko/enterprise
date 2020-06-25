@@ -13,21 +13,20 @@
         <fieldset>
             <legend><spring:message code="CTestPage.answer"/></legend>
             <label for="salary">What programming language does c++ inherit from ?</label>
-            <input id="salary" type="text" name="first"/><br/>
+            <input id="salary" name="first"/><br/>
 
             <label for="fszn">What is the logical data type called in c++ ?</label>
-            <input id="fszn" type="text" name="second"/><br/>
+            <input id="fszn"  name="second"/><br/>
 
             <label for="insurance">Does c++ support multiple inheritance?</label>
-            <input id="insurance" type="text" name="third"/><br/>
+            <input id="insurance" name="third"/><br/>
 
             <label for="incomeTax">C++ supports dynamic polymorphism and ... polymorphism</label>
-            <input id="incomeTax" type="text" name="fourth"/><br/>
+            <input id="incomeTax" name="fourth"/><br/>
 
             <label for="unoinDeductions">How many special functions does the class have in c++ by default?</label>
-            <input id="unoinDeductions" type="text" name="fifth"/><br/>
+            <input id="unoinDeductions" name="fifth"/><br/>
 
-<!--            <input type="text" name="test" value="c++" hidden="hidden"/>-->
             <button name="test" value="c++" ><spring:message code="button.checkTest"/></button>
         </fieldset>
     </form>

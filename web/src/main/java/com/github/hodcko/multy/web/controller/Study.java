@@ -28,36 +28,33 @@ public class Study {
 
     @PostMapping("/study")
     public String studyPageMaker(HttpServletRequest req, HttpSession session) {
-        if (session.getAttribute("student") == null) {
-            return "ValidationStudyPage";
-        } else {
-            String javaReg = (req.getParameter("javaReg"));
-            String phpReg = (req.getParameter("phpReg"));
-            String cReg = (req.getParameter("cReg"));
+        String javaReg = (req.getParameter("javaReg"));
+        String phpReg = (req.getParameter("phpReg"));
+        String cReg = (req.getParameter("cReg"));
 
-            Student student = (Student) session.getAttribute("student");
+        Student student = (Student) session.getAttribute("student");
 
-            session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));
-            if (javaReg != null) {
-                serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(javaReg));
-                serviceGradebook.addStudentToGradebook(student.getId(), serviceCurs.getCursId(javaReg));
-                session.setAttribute("java", "java");
-                log.info("student with email {} go on java ", student.getEmail());
-            }
-            if (phpReg != null) {
-                serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(phpReg));
-                serviceGradebook.addStudentToGradebook(student.getId(), serviceCurs.getCursId(phpReg));
-                session.setAttribute("php", "php");
-                log.info("student with email {} go on php ", student.getEmail());
-
-            }
-            if (cReg != null) {
-                serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(cReg));
-                serviceGradebook.addStudentToGradebook(student.getId(), serviceCurs.getCursId(cReg));
-                session.setAttribute("cPlusPlus", "cPlusPlus");
-                log.info("student with email {} go on c++ ", student.getEmail());
-            }
-            return "StudyPage";
+        session.setAttribute("studentOnCurs", serviceGradebook.isExist(student.getId()));
+        if (javaReg != null) {
+            serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(javaReg));
+            serviceGradebook.addStudentToGradebook(student.getId(), serviceCurs.getCursId(javaReg));
+            session.setAttribute("java", "java");
+            log.info("student with email {} go on java ", student.getEmail());
         }
+        if (phpReg != null) {
+            serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(phpReg));
+            serviceGradebook.addStudentToGradebook(student.getId(), serviceCurs.getCursId(phpReg));
+            session.setAttribute("php", "php");
+            log.info("student with email {} go on php ", student.getEmail());
+
+        }
+        if (cReg != null) {
+            serviceCurs.inviteStudentOnCurs(student.getId(), serviceCurs.getCursId(cReg));
+            serviceGradebook.addStudentToGradebook(student.getId(), serviceCurs.getCursId(cReg));
+            session.setAttribute("cPlusPlus", "cPlusPlus");
+            log.info("student with email {} go on c++ ", student.getEmail());
+        }
+        return "StudyPage";
+
     }
 }

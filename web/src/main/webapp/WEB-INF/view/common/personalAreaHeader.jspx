@@ -9,6 +9,7 @@
         <img alt="Person's image" src="download/image?name=${email}.jpg" height="100" width="100"/>
     </s:form>
 
+
     </body>
     </html>
 </jsp:root>

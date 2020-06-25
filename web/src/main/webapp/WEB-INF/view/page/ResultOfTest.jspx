@@ -18,7 +18,6 @@
     <hr/>
     <form action="${pageContext.request.contextPath}/">
         <h3><spring:message code="ResultOfTest.manePage"/></h3>
-<!--        <input type="submit" value="Перейти"/>-->
         <button><spring:message code="button.return"/></button>
     </form>
     </body>

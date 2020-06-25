@@ -1,7 +1,5 @@
 package com.github.hodcko.multy.dao.entity;
 
-import com.github.hodcko.multy.model.User;
-
 import javax.persistence.*;
 import java.util.Objects;
 

@@ -4,7 +4,6 @@ import com.github.hodcko.multy.dao.DaoTeacher;
 import com.github.hodcko.multy.dao.converter.TeacherConverter;
 import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.Teacher;
-import com.github.hodcko.multy.model.UserType;
 import org.hibernate.HibernateError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

@@ -60,6 +60,4 @@
     <definition name="ValidationStudyPage" extends="default">
         <put-attribute name="body" value="/WEB-INF/view/page/ValidationStudyPage.jspx"/>
     </definition>
-
-
 </tiles-definitions>

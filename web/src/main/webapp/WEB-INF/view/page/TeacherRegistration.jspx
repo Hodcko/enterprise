@@ -1,6 +1,5 @@
 <jsp:root xmlns="http://www.w3.org/1999/xhtml"
           xmlns:jsp="http://java.sun.com/JSP/Page"
-          xmlns:c="http://java.sun.com/jsp/jstl/core"
           version="2.0" xmlns:spring="http://www.springframework.org/tags">
     <html>
     <body style="background-color: powderblue">
@@ -10,11 +9,11 @@
         <fieldset>
             <legend><spring:message code="TeacherRegistration.data"/></legend>
             <br/><label for="name"><spring:message code="TeacherRegistration.name"/></label>
-            <br/><input id="name" type="text" name="name"/><br/>
+            <br/><input id="name" name="name"/><br/>
             <br/><label for="secondName"><spring:message code="TeacherRegistration.secondName"/></label>
-            <br/><input id="secondName" type="text" name="secondName"/><br/>
+            <br/><input id="secondName" name="secondName"/><br/>
             <br/><label for="email"><spring:message code="TeacherRegistration.email"/></label>
-            <br/><input id="email" type="text" name="email"/><br/>
+            <br/><input id="email" name="email"/><br/>
 
             <h2 style="text-align: center"><spring:message code="TeacherRegistration.lang"/></h2>
             <label>
@@ -26,8 +25,7 @@
             <label>
                 <input type="radio" name="langType" value="c++"/>
             </label> C++
-<!--            <br/><input type="text" name="userType" value="teacher" hidden="hidden"/>-->
-            <button name="userType" value="teacher" ><spring:message code="button.registration"/></button>
+            <br/><button name="userType" value="teacher" ><spring:message code="button.registration"/></button>
         </fieldset>
 
     </form>

@@ -20,8 +20,6 @@
             <fieldset>
                 <legend><spring:message code="StudyPage.javaTest"/></legend>
                 <button><spring:message code="button.test"/></button>
-<!--                <br/><input type="submit" name="test" value="Пройти"/>-->
-
             </fieldset>
         </form>
     </c:if>
@@ -44,7 +42,6 @@
             <fieldset>
                 <legend><spring:message code="StudyPage.phpTest"/></legend>
                 <button><spring:message code="button.test"/></button>
-<!--                <br/><input type="submit" name="test" value="Пройти"/>-->
             </fieldset>
         </form>
     </c:if>

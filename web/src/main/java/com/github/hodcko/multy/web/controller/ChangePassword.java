@@ -25,7 +25,6 @@ public class ChangePassword {
     public String doPost(HttpServletRequest req) {
 
         AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        AuthUser authUser = (AuthUser) session.getAttribute("authUser");
         String newPassword = req.getParameter("newPassword");
         String newPasswords = req.getParameter("newPasswords");
         String rightPassword = securityService.findPassword(newPassword, newPasswords);

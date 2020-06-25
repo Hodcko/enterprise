@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping
-public class LoginAndValidation {
-    private static final Logger log = LoggerFactory.getLogger(LoginAndValidation.class);
+public class Validation {
+    private static final Logger log = LoggerFactory.getLogger(Validation.class);
 
     AuthUser authUser;
 
@@ -24,7 +24,7 @@ public class LoginAndValidation {
     private final ServiceValidation serviceValidation;
     private final ServiceAuthUser serviceAuthUser;
 
-    public LoginAndValidation(ServiceIsExist serviceIsExist, ServiceValidation serviceValidation, ServiceAuthUser serviceAuthUser) {
+    public Validation(ServiceIsExist serviceIsExist, ServiceValidation serviceValidation, ServiceAuthUser serviceAuthUser) {
         this.serviceIsExist = serviceIsExist;
         this.serviceValidation = serviceValidation;
         this.serviceAuthUser = serviceAuthUser;
@@ -37,10 +37,7 @@ public class LoginAndValidation {
     }
 
 
-    @GetMapping("/loginAfterRegistration")
-    public String loginAfterRegistration() {
-        return "LoginAfterRegistration";
-    }
+
 
     @PostMapping("/validation")
     public String validation(HttpServletRequest req, HttpSession session) {

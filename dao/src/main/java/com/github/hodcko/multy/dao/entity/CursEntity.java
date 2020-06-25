@@ -1,8 +1,5 @@
 package com.github.hodcko.multy.dao.entity;
 
-import com.github.hodcko.multy.model.Curs;
-import com.github.hodcko.multy.model.Student;
-import com.github.hodcko.multy.model.Teacher;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;

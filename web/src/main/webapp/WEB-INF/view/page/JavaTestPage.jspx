@@ -13,21 +13,20 @@
         <fieldset>
             <legend><spring:message code="JavaTestPage.answer"/></legend>
             <label for="salary">What programming language are you learning ?</label>
-            <input id="salary" type="text" name="first"/><br/>
+            <input id="salary" name="first"/><br/>
 
             <label for="fszn">Object oriented ...</label>
-            <input id="fszn" type="text" name="second"/><br/>
+            <input id="fszn" name="second"/><br/>
 
             <label for="insurance">What we are implementing?</label>
-            <input id="insurance" type="text" name="third"/><br/>
+            <input id="insurance" name="third"/><br/>
 
             <label for="incomeTax">How many access modifiers in Java?</label>
-            <input id="incomeTax" type="text" name="fourth"/><br/>
+            <input id="incomeTax" name="fourth"/><br/>
 
             <label for="unoinDeductions">What version of JDK is one love?</label>
-            <input id="unoinDeductions" type="text" name="fifth"/><br/>
+            <input id="unoinDeductions" name="fifth"/><br/>
 
-<!--            <input type="text" name="test" value="Java" hidden="hidden"/>-->
             <button name="test" value="Java" ><spring:message code="button.checkTest"/></button>
         </fieldset>
     </form>
