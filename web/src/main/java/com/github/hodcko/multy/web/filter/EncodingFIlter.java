@@ -6,6 +6,9 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class EncodingFIlter implements Filter {
+
+    private final String encoding = "UTF-8";
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -13,11 +16,11 @@ public class EncodingFIlter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        servletRequest.setCharacterEncoding("UTF-8");
-        servletResponse.setCharacterEncoding("UTF-8");
+        servletRequest.setCharacterEncoding(encoding);
+        servletResponse.setCharacterEncoding(encoding);
         filterChain.doFilter(servletRequest, servletResponse);
-        servletRequest.setCharacterEncoding("UTF-8");
-        servletResponse.setCharacterEncoding("UTF-8");
+        servletRequest.setCharacterEncoding(encoding);
+        servletResponse.setCharacterEncoding(encoding);
     }
 
     @Override

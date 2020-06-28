@@ -1,7 +1,6 @@
 package com.github.hodcko.multy.service.impl;
 
 
-import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceValidationDefault implements com.github.hodcko.multy.service.ServiceValidation {
     private String mailPattern = ("[a-zA-Z0-9]+@[a-zA-Z0-9.]+");
@@ -9,7 +8,7 @@ public class ServiceValidationDefault implements com.github.hodcko.multy.service
     private String agePattern = ("[0-9]{2}");
 
 
-    @Transactional
+
     @Override
     public boolean validationStudent(String name, String secondName, String email, int age) {
         if(name.matches(namePattern)){
@@ -24,7 +23,7 @@ public class ServiceValidationDefault implements com.github.hodcko.multy.service
         return false;
     }
 
-    @Transactional
+
     @Override
     public boolean validationTeacher(String name, String secondName, String email) {
         if(name.matches(namePattern)){

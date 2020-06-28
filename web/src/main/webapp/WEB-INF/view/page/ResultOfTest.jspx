@@ -11,9 +11,11 @@
     <h2 style="text-align: center"><c:out value="${result}/5"/></h2>
     <c:if test="${result eq 5}">
         <h2 style="text-align: center"><spring:message code="ResultOfTest.certificate"/></h2>
+        <a style="text-align: center" href="download/image?name=certificate.jpg" download="download"><spring:message code="download.certificate"/></a>
     </c:if>
     <c:if test="${result lt 5}">
         <h2 style="text-align: center"><spring:message code="ResultOfTest.stateCertificate"/></h2>
+        <a style="text-align: center" href="download/image?name=reference.jpg" download="download"><spring:message code="download.reference"/></a>
     </c:if>
     <hr/>
     <form action="${pageContext.request.contextPath}/">

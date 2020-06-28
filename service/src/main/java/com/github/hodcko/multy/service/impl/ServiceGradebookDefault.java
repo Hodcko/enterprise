@@ -4,6 +4,7 @@ package com.github.hodcko.multy.service.impl;
 import com.github.hodcko.multy.dao.DaoGradebook;
 import org.springframework.transaction.annotation.Transactional;
 
+
 public class ServiceGradebookDefault implements com.github.hodcko.multy.service.ServiceGradebook {
     private final DaoGradebook daoGradebook;
 
@@ -41,6 +42,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         return daoGradebook.deleteStudentFromGradebook(studentId);
     }
 
+
     @Transactional
     @Override
     public int checkTest(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
@@ -55,6 +57,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         }
         return 0;
     }
+
 
     @Transactional
     @Override
@@ -77,6 +80,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         return getGrade(studentId, cursId);
     }
 
+
     @Transactional
     @Override
     public int checkTestCPlusPlus(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
@@ -98,6 +102,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         return getGrade(studentId, cursId);
     }
 
+
     @Transactional
     @Override
     public int checkTestPHP(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
@@ -118,8 +123,4 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
         }
         return getGrade(studentId, cursId);
     }
-
-
-
-
 }

@@ -1,0 +1,20 @@
+
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" xmlns="http://www.w3.org/1999/xhtml" version="2.0"
+          xmlns:spring="http://www.springframework.org/tags">
+    <html>
+    <head><title>Title</title></head>
+    <body style="background-color: powderblue">
+    <h1 style="text-align: center"><spring:message code="exception.wrong"/></h1>
+
+    <form style="text-align: center" action="${pageContext.request.contextPath}/customLogout">
+
+        <fieldset>
+            <legend><spring:message code="StudentPersonalArea.manePage"/></legend>
+
+            <button name="logout" value="logout"><spring:message code="button.return"/></button>
+        </fieldset>
+    </form>
+
+    </body>
+    </html>
+</jsp:root>

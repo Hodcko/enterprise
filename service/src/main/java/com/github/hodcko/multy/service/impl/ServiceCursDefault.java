@@ -23,6 +23,7 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
         return daoCurs.createCurs(name, start, end);
     }
 
+
     @Transactional
     @Override
     public int getCursId(String langType) {

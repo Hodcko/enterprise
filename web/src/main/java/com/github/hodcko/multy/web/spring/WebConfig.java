@@ -97,6 +97,11 @@ public class WebConfig {
     }
 
     @Bean
+    public ExceptionHandler exceptionHandler(){
+        return new ExceptionHandler();
+    }
+
+    @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(100000);

@@ -34,6 +34,7 @@ public class CursFactory {
         this.serviceGradebook = serviceGradebook;
     }
 
+
     @PostMapping("/curs")
     public String createCurs(HttpServletRequest req) {
         String cursName = req.getParameter("name");
@@ -41,7 +42,7 @@ public class CursFactory {
         LocalDate endDate = Date.valueOf(req.getParameter("endDate")).toLocalDate();
         serviceCurs.createCurs(cursName, startDate, endDate);
         log.info("created curs {} with start date {} and end date {}", cursName, startDate, endDate);
-        return "redirect:/personal";
+        return "forward:/clean";
     }
 
     @GetMapping("/escape")

@@ -31,6 +31,7 @@ public class SecurityServiceDefault implements SecurityService {
         return daoAuthUser.changePassword(login, password , newPassword);
     }
 
+
     @Transactional
     @Override
     public String findPassword(String password, String anotherPassword){
