@@ -24,7 +24,7 @@ public class ServiceCursDefault implements com.github.hodcko.multy.service.Servi
     }
 
 
-    @Transactional
+
     @Override
     public int getCursId(String langType) {
         if (langType.equalsIgnoreCase("java")){

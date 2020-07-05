@@ -37,8 +37,6 @@ public class Validation {
     }
 
 
-
-
     @PostMapping("/validation")
     public String validation(HttpServletRequest req, HttpSession session) {
         String name = req.getParameter("name");

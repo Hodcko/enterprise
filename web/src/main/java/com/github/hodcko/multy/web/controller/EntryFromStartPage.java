@@ -91,6 +91,8 @@ public class EntryFromStartPage {
                 session.setAttribute("studentOnCurs", studentOnCurs);
 
                 session.setAttribute("student", student);
+                session.setAttribute("email", student.getEmail());
+
 
                 Curs javaCurs = serviceCurs.getCurs(serviceCurs.getCursId(langTypeJava));
                 session.setAttribute("javaCurs", javaCurs);
@@ -133,12 +135,14 @@ public class EntryFromStartPage {
                 session.setAttribute("teachers", teachers);
                 session.setAttribute("teacher", teacher);
                 session.setAttribute("curs", curs);
+                session.setAttribute("email", teacher.getEmail());
+
                 log.info("teacher with email {} entry his personal area from start page", teacher.getEmail());
                 return "TeacherPersonalArea";
             }
         }else{
             return "InvalidData";
         }
-        return "StartPage";
+        return "InvalidData";
     }
 }

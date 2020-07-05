@@ -16,6 +16,4 @@ public interface ServiceAuthUser {
     UserType getRole(String login, String password);
 
     AuthUser getAuthUser(String login, String password);
-
-
 }

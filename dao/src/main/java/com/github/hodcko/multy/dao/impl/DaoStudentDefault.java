@@ -35,7 +35,7 @@ public class DaoStudentDefault implements DaoStudent {
     public Student getStudent(int id){
         try {
             StudentEntity studentEntity = studentRepository.getOne(id);
-            log.info("geted student with id {}", id);
+            log.info("get student with id {}", id);
             return StudentConverter.fromEntity(studentEntity);
         }catch (JpaObjectRetrievalFailureException e){
             return null;

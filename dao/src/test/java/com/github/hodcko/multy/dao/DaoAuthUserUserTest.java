@@ -4,7 +4,9 @@ package com.github.hodcko.multy.dao;
 import com.github.hodcko.multy.dao.config.DaoConfig;
 import com.github.hodcko.multy.dao.converter.AuthUserConverter;
 import com.github.hodcko.multy.dao.entity.AuthUserEntity;
+import com.github.hodcko.multy.dao.entity.TeacherEntity;
 import com.github.hodcko.multy.model.AuthUser;
+import com.github.hodcko.multy.model.Teacher;
 import com.github.hodcko.multy.model.UserType;
 import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.*;
@@ -31,9 +33,9 @@ public class DaoAuthUserUserTest {
 
 
     @BeforeEach
-      void saver(){
-        studentTest = daoAuthUser.saveAuthUser(3,"John", "Snow", UserType.STUDENT);
-        teacherTest = daoAuthUser.saveAuthUser(4,"Jim", "Bill", UserType.TEACHER);
+    void saver() {
+        studentTest = daoAuthUser.saveAuthUser(3, "John", "Snow", UserType.STUDENT);
+        teacherTest = daoAuthUser.saveAuthUser(4, "Jim", "Bill", UserType.TEACHER);
     }
 
 
@@ -41,7 +43,7 @@ public class DaoAuthUserUserTest {
     void saveAuthUserTest() {
         AuthUser student = daoAuthUser.saveAuthUser(studentTest.getUserId(), studentTest.getLogin(),
                 studentTest.getPassword(), UserType.STUDENT);
-        AuthUser teacher = daoAuthUser.saveAuthUser(teacherTest.getUserId(),teacherTest.getLogin(),
+        AuthUser teacher = daoAuthUser.saveAuthUser(teacherTest.getUserId(), teacherTest.getLogin(),
                 teacherTest.getPassword(), UserType.TEACHER);
         Assertions.assertEquals(student, studentTest);
         Assertions.assertEquals(teacher, teacherTest);
@@ -66,7 +68,7 @@ public class DaoAuthUserUserTest {
     }
 
     @Test
-    void deleteAuthUserTest(){
+    void deleteAuthUserTest() {
         daoAuthUser.saveAuthUser(studentTest.getUserId(), studentTest.getLogin(), studentTest.getPassword(),
                 studentTest.getRole());
         daoAuthUser.deleteAuthUser(studentTest.getUserId(), studentTest.getRole());
@@ -75,12 +77,12 @@ public class DaoAuthUserUserTest {
     }
 
     @Test
-    void getLoginByPasswordTest(){
+    void getLoginByPasswordTest() {
         Assertions.assertEquals(daoAuthUser.getLoginByPassword(studentTest.getPassword()), studentTest.getLogin());
     }
 
     @Test
-    void authUserConverterTest(){
+    void authUserConverterTest() {
         AuthUserEntity authUserEntity = AuthUserConverter.toEntity(studentTest);
         AuthUser authUser = AuthUserConverter.fromEntity(authUserEntity);
         assertNotNull(authUserEntity);

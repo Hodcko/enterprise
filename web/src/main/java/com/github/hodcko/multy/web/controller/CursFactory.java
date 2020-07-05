@@ -9,6 +9,7 @@ import com.github.hodcko.multy.service.ServiceCurs;
 import com.github.hodcko.multy.service.ServiceGradebook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +37,7 @@ public class CursFactory {
 
 
     @PostMapping("/curs")
+    @Secured("ROLE_TEACHER")
     public String createCurs(HttpServletRequest req) {
         String cursName = req.getParameter("name");
         LocalDate startDate = Date.valueOf(req.getParameter("startDate")).toLocalDate();

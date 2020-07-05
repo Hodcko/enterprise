@@ -39,7 +39,6 @@ public class ServiceGetIdTest {
 
     @Test
     void getIdTest2(){
-        String email = "hodckoq@gmail.com";
         when(daoTeacher.getId(email)).thenReturn(2);
         int testResult =  serviceGetIdByEmail.getId(email, UserType.TEACHER);
         assertEquals(result, testResult);

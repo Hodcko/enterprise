@@ -4,12 +4,5 @@ return redirect student - controller
 LoginAfterRegistration -->> /personal -->> Student/TeacherPErsonaArea
 LoginAFromStartPage -->> /personalStart -->> Student/TeacherPErsonaArea
 
-DONE 1. Delete authUser from session (AuthUser authUser = (AuthUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();)
-DONE 2. Delete session.invalidation();
-DONE 4. i18n
-DONE 5. TeacherPersonalArea jspx
-6. Download certificate
-7. Clear servlets
-3. Change student and teacher on AuthUserEntiry.getStudent();
 
 

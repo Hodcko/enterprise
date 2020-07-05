@@ -16,7 +16,7 @@
 
     <c:if test="${studentOnCurs == false}">
 
-        <c:if test="${javaCurs.end != null and studentOnCurs == false}">
+        <c:if test="${javaCurs.end != null}">
             <h3 style="text-align: center"><spring:message code="StudentPersonalArea.avJava"/></h3>
             <table style="width: 100%">
                 <tr>
@@ -33,7 +33,7 @@
                 </tr>
             </table>
         </c:if>
-        <c:if test="${phpCurs.end != null and studentOnCurs == false}">
+        <c:if test="${phpCurs.end != null}">
             <h3 style="text-align: center"><spring:message code="StudentPersonalArea.avPHP"/></h3>
             <table style="width: 100%">
                 <tr>
@@ -50,7 +50,7 @@
                 </tr>
             </table>
         </c:if>
-        <c:if test="${cCurs.end != null and studentOnCurs == false}">
+        <c:if test="${cCurs.end != null}">
             <h3 style="text-align: center"><spring:message code="StudentPersonalArea.avC"/></h3>
             <table style="width: 100%">
                 <tr>

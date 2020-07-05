@@ -3,6 +3,7 @@ package com.github.hodcko.multy.web.spring;
 import com.github.hodcko.multy.service.config.ServiceConfig;
 
 import com.github.hodcko.multy.web.controller.*;
+import com.github.hodcko.multy.web.controller.utils.ExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -107,7 +108,6 @@ public class WebConfig {
         multipartResolver.setMaxUploadSize(100000);
         return new CommonsMultipartResolver();
     }
-
 
 
     @Bean

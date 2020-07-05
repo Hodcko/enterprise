@@ -8,6 +8,4 @@ public interface SecurityService {
     boolean changePassword(String login, String password, String newPassword);
 
     String findPassword(String password, String anotherPassword);
-
-
 }
