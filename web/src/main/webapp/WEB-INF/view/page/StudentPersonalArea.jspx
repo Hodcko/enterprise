@@ -70,15 +70,21 @@
         <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
             <fieldset>
                 <h2 style="text-align: center"><spring:message code="StudentPersonalArea.choise"/></h2>
+                <c:if test="${langTypeJava ne null}">
                 <label>
                     <input type="checkbox" name="javaReg" value="java"/>
                 </label> Java
+                </c:if>
+                <c:if test="${langTypePHP ne null}">
                 <label>
                     <input type="checkbox" name="phpReg" value="php"/>
                 </label> PHP
+                </c:if>
+                <c:if test="${langTypeC ne null}">
                 <label>
                     <input type="checkbox" name="cReg" value="c++"/>
                 </label> C++
+                </c:if>
                 <button name="userType" value="Записаться"><spring:message code="button.chooseCourse"/></button>
             </fieldset>
         </form>
@@ -156,13 +162,14 @@
             <button><spring:message code="button.change"/></button>
         </fieldset>
     </form>
+    <c:if test="${studentOnCurs ne false}">
     <form style="text-align: center" action="${pageContext.request.contextPath}/study" method="post">
-
         <fieldset>
             <legend><spring:message code="StudentPersonalArea.lessonPlan"/></legend>
             <button name="view" value="Посмотреть"><spring:message code="button.view"/></button>
         </fieldset>
     </form>
+    </c:if>
     <form style="text-align: center" action="${pageContext.request.contextPath}/customLogout">
 
         <fieldset>

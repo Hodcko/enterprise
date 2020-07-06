@@ -44,6 +44,7 @@ public class ServiceGradebookDefault implements com.github.hodcko.multy.service.
 
 
 
+    @Transactional
     @Override
     public int checkTest(int studentId, int cursId, String first, String second, String third, String fourth, String fifth){
         if(cursId == 1){
