@@ -52,3 +52,4 @@ create table if not exists teacher
 	curs_id int(64) null
 );
 
+
